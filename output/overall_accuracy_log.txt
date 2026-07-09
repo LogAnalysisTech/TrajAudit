@@ -1,0 +1,84 @@
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 0, Total: 102, Success: 25, Avg_Accuracy: 0.2451, Avg_Tokens: 93122.2
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 1, Total: 102, Success: 42, Avg_Accuracy: 0.4118, Avg_Tokens: 76605.78571428571
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 2, Total: 102, Success: 51, Avg_Accuracy: 0.5000, Avg_Tokens: 77798.62745098039
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 3, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 78684.7358490566
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 0, Total: 102, Success: 28, Avg_Accuracy: 0.2745, Avg_Tokens: 92689.75
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 1, Total: 102, Success: 42, Avg_Accuracy: 0.4118, Avg_Tokens: 78489.30952380953
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 2, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 77652.11320754717
+Baseline: all_at_once, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 3, Total: 102, Success: 55, Avg_Accuracy: 0.5392, Avg_Tokens: 78215.96363636364
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 134801.84905660377
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 60, Avg_Accuracy: 0.5882, Avg_Tokens: 128068.78333333334
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 64, Avg_Accuracy: 0.6275, Avg_Tokens: 126143.796875
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 67, Avg_Accuracy: 0.6569, Avg_Tokens: 126118.46268656716
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 50, Avg_Accuracy: 0.4902, Avg_Tokens: 143700.08
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 56, Avg_Accuracy: 0.5490, Avg_Tokens: 133427.73214285713
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 60, Avg_Accuracy: 0.5882, Avg_Tokens: 134168.6
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 63, Avg_Accuracy: 0.6176, Avg_Tokens: 137037.15873015873
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 0, Total: 102, Success: 31, Avg_Accuracy: 0.3039, Avg_Tokens: 70993.3870967742
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 1, Total: 102, Success: 43, Avg_Accuracy: 0.4216, Avg_Tokens: 63356.232558139534
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 2, Total: 102, Success: 50, Avg_Accuracy: 0.4902, Avg_Tokens: 66920.08
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 3, Total: 102, Success: 51, Avg_Accuracy: 0.5000, Avg_Tokens: 66737.58823529411
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 0, Total: 102, Success: 39, Avg_Accuracy: 0.3824, Avg_Tokens: 70454.48717948717
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 1, Total: 102, Success: 52, Avg_Accuracy: 0.5098, Avg_Tokens: 67086.88461538461
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 2, Total: 102, Success: 60, Avg_Accuracy: 0.5882, Avg_Tokens: 69012.06666666667
+Baseline: trail, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 3, Total: 102, Success: 62, Avg_Accuracy: 0.6078, Avg_Tokens: 68577.87096774194
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 131105.35849056602
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 63, Avg_Accuracy: 0.6176, Avg_Tokens: 120041.50793650794
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 67, Avg_Accuracy: 0.6569, Avg_Tokens: 122229.65671641791
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 72, Avg_Accuracy: 0.7059, Avg_Tokens: 123667.05555555556
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 35, Avg_Accuracy: 0.3431, Avg_Tokens: 153340.2
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 48, Avg_Accuracy: 0.4706, Avg_Tokens: 124599.20833333333
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 52, Avg_Accuracy: 0.5098, Avg_Tokens: 123428.80769230769
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL False, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 56, Avg_Accuracy: 0.5490, Avg_Tokens: 125438.80357142857
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 0, Total: 102, Success: 39, Avg_Accuracy: 0.3824, Avg_Tokens: 94478.79487179487
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 1, Total: 102, Success: 50, Avg_Accuracy: 0.4902, Avg_Tokens: 87867.58
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 2, Total: 102, Success: 58, Avg_Accuracy: 0.5686, Avg_Tokens: 89189.41379310345
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 3, Total: 102, Success: 59, Avg_Accuracy: 0.5784, Avg_Tokens: 89555.27118644067
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 0, Total: 102, Success: 41, Avg_Accuracy: 0.4020, Avg_Tokens: 96980.29268292683
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 1, Total: 102, Success: 55, Avg_Accuracy: 0.5392, Avg_Tokens: 89649.92727272728
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 2, Total: 102, Success: 60, Avg_Accuracy: 0.5882, Avg_Tokens: 91093.13333333333
+Baseline: agent_locate, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, WithDiagnosisL True, WithContextAwareTruncation: False, Tolerance: 3, Total: 102, Success: 62, Avg_Accuracy: 0.6078, Avg_Tokens: 91454.98387096774
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 0, Total: 102, Success: 31, Avg_Accuracy: 0.3039, Avg_Tokens: 50429.58064516129
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 1, Total: 102, Success: 45, Avg_Accuracy: 0.4412, Avg_Tokens: 42017.2
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 2, Total: 102, Success: 52, Avg_Accuracy: 0.5098, Avg_Tokens: 43184.653846153844
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 3, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 43194.83018867925
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 0, Total: 102, Success: 26, Avg_Accuracy: 0.2549, Avg_Tokens: 54384.92307692308
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 1, Total: 102, Success: 43, Avg_Accuracy: 0.4216, Avg_Tokens: 45508.232558139534
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 2, Total: 102, Success: 50, Avg_Accuracy: 0.4902, Avg_Tokens: 45107.32
+Baseline: FAMAS, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 3, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 46014.188679245286
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 0, Total: 102, Success: 12, Avg_Accuracy: 0.1176, Avg_Tokens: 177029.58333333334
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 1, Total: 102, Success: 28, Avg_Accuracy: 0.2745, Avg_Tokens: 136036.17857142858
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 2, Total: 102, Success: 35, Avg_Accuracy: 0.3431, Avg_Tokens: 146911.14285714287
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 3, Total: 102, Success: 40, Avg_Accuracy: 0.3922, Avg_Tokens: 151365.775
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 0, Total: 102, Success: 19, Avg_Accuracy: 0.1863, Avg_Tokens: 159048.8947368421
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 1, Total: 102, Success: 34, Avg_Accuracy: 0.3333, Avg_Tokens: 149553.38235294117
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 2, Total: 102, Success: 37, Avg_Accuracy: 0.3627, Avg_Tokens: 159782.5945945946
+Baseline: binary_search, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 3, Total: 102, Success: 37, Avg_Accuracy: 0.3627, Avg_Tokens: 159782.5945945946
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 0, Total: 102, Success: 23, Avg_Accuracy: 0.2255, Avg_Tokens: 384643.04347826086
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 1, Total: 102, Success: 35, Avg_Accuracy: 0.3431, Avg_Tokens: 347895.0857142857
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 2, Total: 102, Success: 42, Avg_Accuracy: 0.4118, Avg_Tokens: 324013.7619047619
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: False, Tolerance: 3, Total: 102, Success: 45, Avg_Accuracy: 0.4412, Avg_Tokens: 318311.1111111111
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 0, Total: 102, Success: 24, Avg_Accuracy: 0.2353, Avg_Tokens: 375357.4166666667
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 1, Total: 102, Success: 38, Avg_Accuracy: 0.3725, Avg_Tokens: 422270.7631578947
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 2, Total: 102, Success: 47, Avg_Accuracy: 0.4608, Avg_Tokens: 419781.91489361704
+Baseline: step_by_step, Model: claude-sonnet-4-5-20250929, WithGroundTruth: True, Tolerance: 3, Total: 102, Success: 53, Avg_Accuracy: 0.5196, Avg_Tokens: 421663.3396226415
+Baseline: agent_locate, Model: deepseek-v4-pro, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 46, Avg_Accuracy: 0.4510, Avg_Tokens: 69443.36956521739
+Baseline: agent_locate, Model: deepseek-v4-pro, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 59, Avg_Accuracy: 0.5784, Avg_Tokens: 63784.42372881356
+Baseline: agent_locate, Model: deepseek-v4-pro, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 63, Avg_Accuracy: 0.6176, Avg_Tokens: 62494.84126984127
+Baseline: agent_locate, Model: deepseek-v4-pro, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 66, Avg_Accuracy: 0.6471, Avg_Tokens: 62600.621212121216
+Baseline: agent_locate, Model: qwen3-235b-a22b, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 36, Avg_Accuracy: 0.3529, Avg_Tokens: 35813.13888888889
+Baseline: agent_locate, Model: qwen3-235b-a22b, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 47, Avg_Accuracy: 0.4608, Avg_Tokens: 31082.744680851065
+Baseline: agent_locate, Model: qwen3-235b-a22b, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 51, Avg_Accuracy: 0.5000, Avg_Tokens: 31423.019607843136
+Baseline: agent_locate, Model: qwen3-235b-a22b, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 54, Avg_Accuracy: 0.5294, Avg_Tokens: 31655.925925925927
+Baseline: agent_locate, Model: qwen3-235b-a22b-instruct-2507, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 41, Avg_Accuracy: 0.4020, Avg_Tokens: 95648.34146341463
+Baseline: agent_locate, Model: qwen3-235b-a22b-instruct-2507, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 54, Avg_Accuracy: 0.5294, Avg_Tokens: 81372.27777777778
+Baseline: agent_locate, Model: qwen3-235b-a22b-instruct-2507, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 60, Avg_Accuracy: 0.5882, Avg_Tokens: 80113.6
+Baseline: agent_locate, Model: qwen3-235b-a22b-instruct-2507, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 63, Avg_Accuracy: 0.6176, Avg_Tokens: 79882.60317460318
+Baseline: agent_locate, Model: gemini-3.1-pro-preview, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 57, Avg_Accuracy: 0.5588, Avg_Tokens: 101608.56140350878
+Baseline: agent_locate, Model: gemini-3.1-pro-preview, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 67, Avg_Accuracy: 0.6569, Avg_Tokens: 98403.04477611941
+Baseline: agent_locate, Model: gemini-3.1-pro-preview, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 69, Avg_Accuracy: 0.6765, Avg_Tokens: 97110.57971014493
+Baseline: agent_locate, Model: gemini-3.1-pro-preview, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 72, Avg_Accuracy: 0.7059, Avg_Tokens: 99330.77777777778
+Baseline: agent_locate, Model: gpt-5.2-2025-12-11, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 0, Total: 102, Success: 46, Avg_Accuracy: 0.4510, Avg_Tokens: 70680.69565217392
+Baseline: agent_locate, Model: gpt-5.2-2025-12-11, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 1, Total: 102, Success: 56, Avg_Accuracy: 0.5490, Avg_Tokens: 62076.91071428572
+Baseline: agent_locate, Model: gpt-5.2-2025-12-11, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 2, Total: 102, Success: 61, Avg_Accuracy: 0.5980, Avg_Tokens: 61878.229508196724
+Baseline: agent_locate, Model: gpt-5.2-2025-12-11, WithGroundTruth: False, WithDiagnosisL True, WithContextAwareTruncation: True, Tolerance: 3, Total: 102, Success: 65, Avg_Accuracy: 0.6373, Avg_Tokens: 61983.553846153845

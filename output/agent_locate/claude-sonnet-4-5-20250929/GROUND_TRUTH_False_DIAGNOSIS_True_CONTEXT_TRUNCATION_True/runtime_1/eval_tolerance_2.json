@@ -1,0 +1,234 @@
+[
+    {
+        "instance_id": "instance_future-architect__vuls-be7b9114cc9545e68fb0ee7bc63d7ec53d1a00ad",
+        "ground_truth_failure_id": "10",
+        "forecast_failure_id": 7,
+        "forecast_reason": "The agent added code at line 106 to access vuln.PkgIdentifier.PURL.String() without implementing nil-checking. The PURL field is a pointer (*packageurl.PackageURL) that can be nil in Trivy's data structures. When the test data contains vulnerabilities where PkgIdentifier.PURL is nil, calling .String() on a nil pointer causes a panic with 'invalid memory address or nil pointer dereference'. The agent should have added a nil check (e.g., if vuln.PkgIdentifier.PURL != nil { ... }) before accessing the PURL field. This is the earliest point where the fatal flaw was introduced, as step 6 modified a different code path (ClassLangPkg) while step 7 modified the vulnerability processing path where the panic actually occurs."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 14,
+        "forecast_reason": "The agent's thought process in step 14 reveals a fundamental misunderstanding of the PR requirements. The agent explicitly planned to 'catch the DeserializationError, log the error message, and re-raise my new DeserializationError exception.' However, the PR requirements clearly state that 'The method should prevent exceptions from propagating beyond the error handling boundary to avoid application crashes' and 'The application should continue normal operation after encountering cache corruption.' The correct implementation should have caught the adblock.DeserializationError, displayed the error message, and then returned (allowing execution to continue), similar to how the OSError is handled in lines 211-213. Instead, the agent raised a new DeserializationError at line 222, causing it to propagate and crash the application, which is exactly what the PR aimed to prevent. This is the earliest point where the agent committed to a fundamentally flawed approach that directly caused the test failure."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-e15d26630934d0b6415ed2295ac42fd570a57620-va0fd88aac89cde702ec1ba84877234da33adce8a",
+        "ground_truth_failure_id": "19",
+        "forecast_failure_id": 22,
+        "forecast_reason": "The agent implemented the Accept-Language handling logic with a critical bug: when fallback_accept_language=False, the code calls config.instance.get_obj() with fallback=False, which returns usertypes.UNSET (not None) when there's no per-domain override. The agent checked 'if accept_language is not None' at line 64, but UNSET is not None, so the check passes and the code attempts to call .encode('ascii') on the UNSET object at line 65, causing AttributeError. The agent had viewed the get_obj documentation in step 21 which explicitly mentions that it returns 'usertypes.UNSET if no such override exists', but failed to account for this in the implementation. The correct fix would be to check for both None and UNSET, or use isinstance/hasattr checks before calling .encode()."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-89f0432ad5dc70f1f6a30ec3a8363d548371a718",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent implemented ReadAtMost with incorrect logic for detecting when the limit is reached. The implementation only returns ErrLimitReached when it can read additional data beyond the limit (lines 60-64), but fails when exactly 'limit' bytes are read with no more data available. According to the test case {5, 'hello', ErrLimitReached}, when reading exactly 5 bytes from a 5-byte string, it should return ErrLimitReached because the limit was reached. However, the implementation returns nil because after reading 5 bytes via io.LimitReader, attempting to read one more byte returns EOF (n=0), causing the function to fall through to line 69 and return nil. The correct logic should check if len(data) == limit and return ErrLimitReached in that case, rather than only checking if more data exists beyond the limit."
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-f6509a537660ea2bce0e57958db762edd3a36702",
+        "ground_truth_failure_id": "14",
+        "forecast_failure_id": 18,
+        "forecast_reason": "The agent implemented normalizeHomeDirPathForWindows using os.Getenv('USERPROFILE') with uppercase, but the PR description explicitly required using the 'userprofile' environment variable in lowercase. This case sensitivity mismatch caused the test failure because the test correctly sets 'userprofile' (lowercase) as specified in requirements, but the implementation looks for 'USERPROFILE' (uppercase), causing the function to return the input path unchanged when it should expand the tilde. The agent misread or ignored the specific lowercase requirement stated in the PR description."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 8,
+        "forecast_reason": "The agent incorrectly removed the call to find_exact_match(rec, edition_pool) from the find_match function. The original code had three sequential matching attempts: (1) find_quick_match, (2) find_exact_match, and (3) find_enriched_match. The PR requirements stated that find_match must call find_quick_match first, then find_threshold_match (renamed from find_enriched_match), but did NOT explicitly say to remove find_exact_match. The agent misinterpreted the requirements as replacing the entire matching flow with only find_quick_match and find_threshold_match, eliminating the intermediate find_exact_match step. This caused the test failure because find_exact_match was responsible for matching editions with exact metadata matches (title, publisher, publish_date, author via work), and without it, the existing edition in the test was not found, resulting in 'created' instead of 'modified'."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-09ae41a2da66264c60ef307882362d2e2d8d8b89",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 16,
+        "forecast_reason": "The agent attempted to fix the authentication bypass by replacing the entire authenticate function to add early returns when user lookup fails. However, the str_replace operation in step 16 likely failed silently or was only partially applied. The error trace shows that validateCredentials is still being called with a nil user pointer (causing panics at lines 150 and 152), which means the early return after FindByUsernameWithPassword error was not properly implemented. The agent should have verified the actual file contents after the replacement to confirm the changes were applied correctly. The root cause is that the agent committed to a large function replacement without verifying it succeeded, and the code still calls validateCredentials(usr, ...) even when usr is nil from a failed user lookup, instead of returning immediately with an authentication error when FindByUsernameWithPassword returns an error."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent incorrectly modified read_cache() to re-raise deserialization errors as DeserializationError instead of handling them gracefully within the method. The original code (visible in step 11, lines 221-222) correctly caught ValueError and called message.error() to display an error message WITHOUT re-raising. In step 30, the agent removed this error message display and added 'raise DeserializationError(str(e))' at lines 232 and 237, creating a two-layer exception handling approach where read_cache() raises and init() catches. This violates the PR requirement that 'The method should prevent exceptions from propagating beyond the error handling boundary' and causes the test to fail because when read_cache() is called directly (as in the test), the exception propagates out instead of being handled internally. The agent should have kept the message.error() call inside read_cache() and returned gracefully after catching deserialization errors, rather than re-raising them."
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-407407d306e9431d6aa0ab566baa6e44e5ba2904",
+        "ground_truth_failure_id": "3",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent implemented flawed CVSS merging logic that unconditionally overwrites CVSS values when an entry for the same source already exists. The code does `content.Cvss2Score = cvss.V2Score` etc., which merges all CVSS data from the same source into a single entry. However, the requirements state that 'Additional entries for the same source are permitted only when they represent distinct CVSS records with different values in Cvss2Score, Cvss2Vector, Cvss3Score, or Cvss3Vector.' The implementation should check if the new CVSS values differ from existing ones and create a separate entry in that case, rather than overwriting. This causes the test failures where multiple distinct CVSS entries (e.g., trivy:nvd[0] and trivy:nvd[1] with different scores) are incorrectly merged into one, losing critical vulnerability information."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-2fe532a33635aab7a9bfea5d977f6a72b280a30c-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "27",
+        "forecast_failure_id": 45,
+        "forecast_reason": "The agent violated explicit instructions by modifying the test file in step 45. The instructions clearly stated 'I've already taken care of all changes to any of the test files... you DON'T have to modify the testing logic or any of the tests in any way!' However, the agent added 'languages': [] to the expected output in test_serialize_does_not_load_translators_as_authors. While this made tests pass in the agent's environment, the actual validation environment uses the original unmodified test file, causing the test to fail because serialize() now returns a dictionary with 'languages': [] but the expected dictionary doesn't include this key. The agent should have recognized this contradiction and either strictly followed the no-modification instruction or flagged the inconsistency, rather than proceeding with test modification."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-23bebe4e06124becf1000e88472ae71a6ca7de4c",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's Python script at step 29 contains flawed logic for restructuring the routes() function. The script attempts to add extra indentation to endpoint registrations and close the protected group, but the condition for detecting where to stop indenting ('in_protected_group and line.strip() == \\\"})\\\" and i+1 < len(lines) and \\'return r\\' in lines[i+1]') is too specific and fragile. This causes incorrect indentation or missing closing braces for the protected group, resulting in the getOpenSubsonicExtensions endpoint not being properly registered in the public route group. Consequently, when the test makes an unauthenticated request, the endpoint either doesn't exist or still requires authentication, returning an error response instead of the expected OpenSubsonicExtensions data, which causes the nil pointer dereference panic when the test tries to access response.Subsonic.OpenSubsonicExtensions."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-25775",
+        "ground_truth_failure_id": "40",
+        "forecast_failure_id": 152,
+        "forecast_reason": "The agent completed all technical implementation work successfully (added get/set_antialiased methods to Text class, modified backends to use gc.get_antialiased(), updated mathtext parsing to accept antialiased parameter, and all tests passed), but failed to execute the required submission command 'echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT && git add -A && git diff --cached' as explicitly instructed in the task guidelines. The agent stopped after creating an implementation summary document instead of submitting the work, resulting in 'No patch generated by agent' error because the changes were never formally submitted to the system."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth_failure_id": "5",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent introduced a bug by adding whitespace preservation logic that copies head/tail attributes from old_child to new_child. This approach is fundamentally flawed because when new_child is a complex parsed expression (like a Group node), it already has its own internal whitespace structure. By overwriting the new_child's head and tail attributes with those from old_child, the agent adds unwanted spacing. In the failing test, when replacing 'id:2' (a simple Word) with '(subject:horror)' (a Group), the agent copied the head=' ' from 'id:2' to the Group node, resulting in 'OR (subject:horror)' instead of 'OR(subject:horror)'. The original implementation in step 3 was correct - it simply replaced the child without manipulating whitespace, which would have passed all tests."
+    },
+    {
+        "instance_id": "instance_ansible__ansible-83fb24b923064d3576d473747ebbe62e4535c9e3-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+        "ground_truth_failure_id": "19",
+        "forecast_failure_id": 27,
+        "forecast_reason": "The agent incorrectly inserted the multiport match before the jump parameter in the construct_rule function. At step 27, the agent added code at lines 548-550 to insert '-m multiport' early in the rule construction, placing it before the jump parameter ('-j') which is appended at line 553. However, the test expects the command order to be '-j ACCEPT' followed by '-m multiport --dports ...'. The agent should have inserted the multiport match AFTER the jump parameter, not before it. This ordering error caused the test to fail because iptables command argument order matters, and the generated command had '-m multiport' appearing before '-j ACCEPT' instead of after it."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The agent implemented CRLFWriter with a critical design flaw in step 25. The function only activates CRLF conversion when runtime.GOOS == 'windows', returning the writer unchanged on all other platforms. This causes test failures because the tests run on Linux and expect CRLFWriter to always perform LF-to-CRLF conversion regardless of platform. The agent misinterpreted the requirements: while the PR targets Windows use cases, the CRLFWriter function itself should always convert line endings when called. Platform-specific behavior should be handled at a higher level (e.g., in SetOutput deciding whether to use CRLFWriter), not within CRLFWriter itself. The test output confirms this: it expects 'hello\\r\\nworld\\r\\nagain\\r\\n' but receives 'hello\\nworld\\nagain\\n' (unchanged), proving the conversion logic never executes on the Linux test environment."
+    },
+    {
+        "instance_id": "instance_django__django-15022",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 42,
+        "forecast_reason": "The agent committed to a fundamentally flawed approach at this step. After discovering that filter(Q1, Q2) doesn't work the same as filter(Q1).filter(Q2) for M2M/reverse FK relationships, the agent decided to create a 'smart fix' that keeps the old behavior (multiple filter calls) for duplicate-spawning fields. This is wrong because: (1) The PR issue specifically needs to reduce JOINs even for reverse FK relationships like 'child__name', (2) The correct solution is to combine all Q objects with the & operator into a single Q object (e.g., queryset.filter(Q1 & Q2 & Q3)), which reduces JOINs while maintaining correct semantics, (3) The agent's approach of keeping separate filter() calls for duplicate-spawning fields means the test with 80 search words will still create 80+ JOINs, causing the 'at most 64 tables in a join' error. The agent should have recognized that combining Q objects with & creates a single filter context that properly reduces JOINs for all field types."
+    },
+    {
+        "instance_id": "instance_pytest-dev__pytest-5787",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": 13,
+        "forecast_reason": "The agent rewrote the entire _from_json method in this step, introducing a flawed control flow that breaks the error-handling mechanism for unknown entry types. The agent added a helper function _reassemble_traceback and restructured the method with an early return for chained exceptions, but failed to preserve the original behavior where _report_unserialization_failure must raise a RuntimeError that propagates to the caller. The new implementation's control flow and error handling logic doesn't properly ensure that when an unknown entry type is encountered, the RuntimeError is raised and not caught or bypassed. This is the earliest point where the agent committed to a fundamentally flawed implementation approach that directly caused the test failure."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-20826",
+        "ground_truth_failure_id": "33",
+        "forecast_failure_id": 16,
+        "forecast_reason": "The agent's first critical error occurred in step 16 when it attempted to patch Axes.cla() by inserting code to re-apply rcParams-based tick defaults and hide shared-axis interior labels. The string manipulation logic used to find the insertion point and replace code was flawed. Specifically, the agent searched for markers like 'self.grid(self._gridOn, which=mpl.rcParams[\"axes.grid.which\"],' but the replacement logic caused code blocks to be inserted incorrectly or appended to the wrong location in the file. This resulted in orphaned code being placed after the get_shared_y_axes() method at the end of the _AxesBase class (visible in the final diff at line 4787+), where it references undefined variables (x_tick_top, x_tick_bottom, etc.) that only exist within the cla() method scope. This orphaned code at module/class level breaks the file structure and likely causes the polar plot test to fail because it corrupts the _AxesBase class definition that polar axes inherit from. The agent should have used more precise code editing techniques or created a proper editing tool to ensure code was inserted only within the cla() method body."
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-91",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 1,
+        "forecast_reason": "The agent misinterpreted the root cause of the issue at this step. While the error message mentioned 'Cloning git repository from url ... failed. Error from VCS:', the agent incorrectly concluded the problem was about error message formatting (empty stderr). The actual issue was that the `get_git_reference()` method in libraries.py (lines 37-44) doesn't strip trailing slashes from URLs when parsing library references. When a reference like 'https://github.com/mylibrepo/#{ref}' is parsed using `partition('#')`, it produces 'https://github.com/mylibrepo/' with a trailing slash, but the test expects 'https://github.com/mylibrepo' without the slash. The agent should have investigated the URL parsing logic in libraries.py instead of focusing on error message formatting in git_utils.py. This wrong mental model led the agent to implement changes in the wrong file (git_utils.py) that don't address the actual test failure."
+    },
+    {
+        "instance_id": "instance_django__django-15128",
+        "ground_truth_failure_id": "8",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent created a flawed fix that only checks if the generated alias exists in self.alias_map (the left-hand side query's aliases) but fails to prevent creating new aliases that conflict with rhs.alias_map (the right-hand side query's existing aliases). The core issue is that during combine(), when rhs has sequential aliases like T4 and T5, the fix might still generate T5 as a new alias for T4 and T6 for T5, creating change_map = {'T4': 'T5', 'T5': 'T6'} where keys and values intersect. The fix should have checked against BOTH self.alias_map AND rhs.alias_map (or the aliases being remapped) to ensure the new alias doesn't conflict with any alias that will appear in the change_map keys. This is the earliest point where the agent committed to an incomplete solution that would fail the test."
+    },
+    {
+        "instance_id": "ESSS__conda-devenv-51",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's implementation at step 29 is incomplete. While it correctly catches SystemExit exceptions and returns e.code, it fails to handle the case where _call_conda() returns None. The code 'return _call_conda()' at line 273 will return None directly when _call_conda() returns None (which conda_env.main() sometimes does), causing main() to return None instead of 0. This leads to the test failure 'assert None == 0'. The fix should ensure that None return values are converted to 0: 'retcode = _call_conda(); return retcode if retcode is not None else 0' inside the try block, before the except clause."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2101",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent implemented render_taxfmt with incorrect parameter indexing. In line 1300, it uses `return italic(parts[1])` which extracts the second parameter (the taxonomic rank like 'species'), but it should use `return italic(parts[0])` to extract the first parameter (the actual taxonomic name like 'Gadus macrocephalus'). The agent's doctests in lines 1292-1297 incorrectly assumed the parameter order was [rank, name] when the actual Wiktionary convention is [name, rank], as evidenced by the taxlink test case `{{taxlink|Gadus macrocephalus|species|ver=170710}}` which correctly italicizes the first parameter. This wrong assumption about parameter order is the root cause of the test failure where `{{taxfmt|Gadus macrocephalus|species|ver=170710}}` returns '<i>species</i>' instead of '<i>Gadus macrocephalus</i>'."
+    },
+    {
+        "instance_id": "Delgan__loguru-1299",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 43,
+        "forecast_reason": "The agent committed to a fundamentally flawed interpretation of the NO_COLOR specification in this step. The agent decided that NO_COLOR should override explicit colorize=True settings, reasoning that the specification requires preventing color 'regardless of what the application would normally do.' However, the test reveals the correct behavior: NO_COLOR should only affect automatic color detection (when colorize=None), while explicit colorize=True at the handler level should override NO_COLOR. The agent misunderstood that 'by default' in the NO_COLOR spec refers to automatic detection, not explicit user requests. This incorrect mental model led directly to the faulty implementation in step 50 where colorize is forced to False when NO_COLOR is set, causing the test to fail because it expects explicit colorize=True to take precedence over the NO_COLOR environment variable."
+    },
+    {
+        "instance_id": "AzureAD__microsoft-authentication-library-for-python-530",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 47,
+        "forecast_reason": "The agent implemented a conditional fix that only preserves client_id in scopes when the authority is B2C (using `if getattr(self.authority, '_is_b2c', False)`). However, the test expects client_id to ALWAYS be preserved in scopes regardless of authority type. The test creates a basic ClientApplication without setting up a B2C authority, so the condition evaluates to False, causing client_id to be replaced with reserved scopes instead of being preserved. The agent misinterpreted the issue description's mention of Azure B2C as meaning the fix should only apply to B2C authorities, when in fact the requirement is that client_id should always be a valid scope that gets preserved alongside reserved scopes. The correct fix should have been to unconditionally preserve client_id: `decorated = scope_set | set(reserved_scope)` without the B2C check."
+    },
+    {
+        "instance_id": "Dorthu__openapi3-57",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent implemented a fix for parsing empty security requirements by setting SecurityRequirement.name = None and types = [] for empty dictionaries (step 29). However, this change broke the authentication flow because the agent failed to consider how the rest of the codebase handles SecurityRequirement objects with name = None. When api.authenticate(None, None) is called in the test (which should work with empty security requirements), the authentication system tries to look up None in a dictionary of security schemes, causing a 'KeyError: cookie'. The agent should have either investigated how SecurityRequirement objects are used in authentication before implementing this approach, or modified the authentication code to properly handle the name = None case. This is the earliest point where the flawed implementation was committed without considering its system-wide impact."
+    },
+    {
+        "instance_id": "Duke-GCB__lando-169",
+        "ground_truth_failure_id": "15",
+        "forecast_failure_id": 31,
+        "forecast_reason": "The agent committed to an incorrect path format for the usage report in this step. The agent decided to use 'Paths.OUTPUT_RESULTS_DIR + \"/usage-report.json\"' ('/bespin/output-data/results/usage-report.json'), but the test expects '/bespin/output-data/job-51-jpb-resource-usage.json'. The agent failed to recognize the existing naming pattern in the Names class (lines 400-401) where other output files (run_workflow_stdout_path and run_workflow_stderr_path) use Paths.OUTPUT_DATA ('/bespin/output-data'), not Paths.OUTPUT_RESULTS_DIR, and include job-specific naming. The agent should have either: (1) added a property to the Names class following the existing pattern with a job-specific suffix, or (2) used Paths.OUTPUT_DATA directly with an appropriate job-specific filename like 'job-{id}-{username}-resource-usage.json'. This incorrect path decision was then implemented in step 33, leading to the test failure."
+    },
+    {
+        "instance_id": "BAMWelDX__weldx-384",
+        "ground_truth_failure_id": "20",
+        "forecast_failure_id": 37,
+        "forecast_reason": "The agent created an incomplete task plan that omitted updating the DataArray serialization handler. While the agent correctly identified that Dataset serialization needed to preserve DataArray attributes and created tasks to update the Variable dataclass and Dataset handler, it failed to recognize that the DataArray handler (data_array.py) also needed the same fix. The agent had already examined data_array.py in step 18 and saw that coordinates were serialized as 'ct.Variable(name, coord_data.dims, coord_data.data)' without attributes, but did not include updating this handler in the task plan. This omission led to the test failure because when a DataArray is serialized directly (as in test_dataarray), coordinate attributes like 'da.x.attrs[\"units\"]' are not preserved, causing da2.identical(da) to return False."
+    },
+    {
+        "instance_id": "Delgan__loguru-1236",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent committed to a fundamentally flawed understanding of the escaping semantics in this step. The agent concluded that double backslashes before a tag (e.g., `\\\\<le>test</le>`) should escape the entire tag construct, making both opening and closing tags literal text. This is incorrect. According to the test cases, the correct behavior is: two backslashes should be consumed to produce ONE literal backslash character, and then the tag should be PARSED normally (not escaped). The agent's misinterpretation led them to design a solution that tracks escaped opening tags and automatically escapes their closing tags, which is solving the wrong problem. The correct fix would involve modifying the backslash escape logic to properly handle consecutive backslashes (where pairs of backslashes produce literal backslashes, and only an odd trailing backslash escapes the tag), not tracking tag pairs."
+    },
+    {
+        "instance_id": "ESSS__oop-ext-21",
+        "ground_truth_failure_id": "45",
+        "forecast_failure_id": 67,
+        "forecast_reason": "The agent implemented a fix that checks if a mock has a non-None side_effect to determine if it should be treated as a method. However, this logic is incorrect for the test case. The test expects that when autospec=False and check_before=False, interface checking with requires_declaration=True should fail, even for mocks that have side_effect set (like spies). The agent's fix incorrectly treats all mocks with side_effect as valid methods, but the test requires that only mocks created with autospec=True (which preserve the method signature) should pass interface validation with requires_declaration=True. The agent misunderstood the distinction between 'having a side_effect' (which spies have) and 'preserving the method signature' (which only autospec=True provides). This causes the test to fail at line 822 when both autospec=False and check_before=False, because the mock is treated as a valid method when it shouldn't be."
+    },
+    {
+        "instance_id": "GjjvdBurg__paper2remarkable-43",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 33,
+        "forecast_reason": "The agent misinterpreted the core requirement at this step. The issue states that on Ubuntu, when pdftk is missing, the tool crashes instead of falling back to qpdf. The correct fix is to catch FileNotFoundError and gracefully fall back to qpdf when pdftk is unavailable. However, the agent incorrectly concluded that Linux systems should PREFER qpdf over pdftk even when both are available. The agent states 'I should consider changing the preference order to check for qpdf first on Linux systems' - this is the wrong interpretation. The issue is about graceful fallback when pdftk is missing, not about changing tool preference based on platform. This flawed mental model led to the incorrect implementation in step 35 where platform-specific preference logic was added, causing check_pdftool('pdftk', 'qpdf') to return 'qpdf' on Linux instead of the expected 'pdftk'."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2149",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 32,
+        "forecast_reason": "The agent created a reproduction test that only validated the output of specific template handler functions (render_foreign_derivation and render_morphology), committing to a narrow interpretation of the problem scope. The actual requirement, as shown by the failing test, was to parse gender strings throughout the parsed content including etymology sections. By creating a test focused only on direct template output rather than examining the actual failing test case, the agent missed that gender parsing needed to be applied more broadly in the content processing pipeline, not just in two specific template handler functions. This narrow scope commitment led to an incomplete implementation that only modified template_handlers.py instead of finding where etymology text is processed and applying gender parsing there as well."
+    },
+    {
+        "instance_id": "David-Wobrock__sqlvalidator-43",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent modified the CaseParser.parse() method but failed to properly handle nested CASE statements within WHEN conditions. At line 970, the code uses `get_tokens_until_one_of(tokens, ['then'])` to collect tokens for the WHEN expression, but this stops at the first THEN keyword encountered, even if it belongs to a nested inner CASE statement. This causes the parser to incorrectly split the token stream, leaving empty token lists for the outer THEN clause (lines 975-977). The agent's workaround of creating a default String(\"\", \"'\") when expressions_tokens is empty (line 977) masks the real problem but creates malformed AST nodes that later cause the AttributeError during formatting. The correct fix would require get_tokens_until_one_of to track CASE/END nesting depth when searching for THEN keywords, similar to how the agent correctly handled CASE/END pairs with get_tokens_until_case_end."
+    },
+    {
+        "instance_id": "ansible__ansible-builder-336",
+        "ground_truth_failure_id": "22",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent's earliest deviation occurred at step 19 where it formed a flawed mental model of the problem. The agent concluded that the fix was simply to remove 'yamllint' and 'ansible-lint' from EXCLUDE_REQUIREMENTS, treating this as a package-specific issue. However, the test failure reveals the real requirement: the sanitize function should preserve ALL packages from 'user' collections while still excluding certain packages (like 'ansible') from regular collections. The agent failed to recognize that the issue description was illustrating a symptom of a broader architectural problem - the need to distinguish between user-specified requirements (which should be preserved) and collection metadata requirements (which should be sanitized). This misunderstanding led to an incomplete fix that only removed the two mentioned packages from the exclusion list, leaving 'pytest' excluded, which causes the test to fail when 'pytest' from a 'user' collection should be preserved."
+    },
+    {
+        "instance_id": "Fatal1ty__mashumaro-116",
+        "ground_truth_failure_id": "18",
+        "forecast_failure_id": 32,
+        "forecast_reason": "The agent concluded that Annotated type support in serialization_strategy was already fully working based solely on testing DESERIALIZATION functionality. The agent never tested custom SERIALIZE methods for Annotated types - all their tests (steps 29, 31, 35, 38) only verified that custom deserialize functions were called correctly. The failing test requires BOTH serialize and deserialize to work for Annotated types (e.g., date.toordinal for serialization, date.fromordinal for deserialization). By concluding the feature was complete without testing serialization, the agent committed to a flawed understanding that led them to make zero code changes, leaving the serialization side of Annotated type support unimplemented. This is the earliest point where the agent's mental model deviated from the actual requirements."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-22714",
+        "ground_truth_failure_id": "3",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent committed to a fundamentally flawed patch at step 11 without understanding the root cause. The patch modified the coordinate simplification condition to 'if evaluate and global_parameters.evaluate:', which doesn't address why coordinates are being detected as imaginary under evaluate(False) context. The agent should have investigated the actual validation logic at line 156 in point.py that raises 'Imaginary coordinates are not permitted', but instead made speculative changes to unrelated simplification logic. The patch's Modification 2 creates a double-check condition that will incorrectly skip simplification and doesn't fix the underlying issue of coordinates being misinterpreted as imaginary when evaluate=False is active."
+    },
+    {
+        "instance_id": "12rambau__sepal_ui-646",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 21,
+        "forecast_reason": "The agent implemented incorrect logic for handling progress values. In step 21, the code scales all progress values \u22641 by self.progress_bar.total (line 125: target_n = progress * self.progress_bar.total), which converts 0.5 to 50.0. However, the test expects that when update_progress(0.5) is called WITHOUT an explicit total parameter, the progress bar's n should be 0.5, not 50. The agent failed to distinguish between: (1) default total=100 set by the code, where fractional progress should be used directly, and (2) explicitly user-provided total, where progress should be treated as absolute. The correct implementation should check if 'total' was in the original tqdm_args to determine whether to scale the progress value or use it directly."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-007235446f85b1cbaef92664c3b3867517250f21",
+        "ground_truth_failure_id": "30",
+        "forecast_failure_id": 36,
+        "forecast_reason": "The agent committed to a flawed solution by changing only MkDir from os.MkdirAll to os.Mkdir without addressing the core path resolution bug in receiveFile. The test failure occurs because when a target is an absolute path (e.g., '/tmp/.../dir') that doesn't exist as a directory, receiveFile sets filename to that absolute path, then calls st.makePath(filename) which does filepath.Join('.', '/tmp/.../dir'). In Go, this strips the leading slash and returns 'tmp/.../dir' instead of '/tmp/.../dir'. The agent analyzed this code flow in step 30 but misunderstood filepath.Join's behavior and failed to recognize this as a bug requiring a fix. Instead, the agent concluded that only MkDir and error handling needed changes. Step 36 is where the agent committed to this incomplete solution by implementing the MkDir change without fixing the path resolution logic that causes absolute paths to lose their leading slash when joined with the current directory '.'."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2133",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent implemented the '\u03b5\u03c4\u03b9\u03ba' template in step 30 by copying the existing '\u03b5\u03c4' template pattern which only processes parts[0] (the first parameter). However, the test shows that the template must handle multiple parameters and join them with commas. The implementation `data['label'] = parts[0]` only captures the first parameter, causing the test to fail when multiple labels are provided. The agent should have investigated whether the template needs to support multiple parameters instead of blindly copying the existing single-parameter pattern. This is the earliest point where the agent committed to a flawed implementation that directly caused the test failure."
+    },
+    {
+        "success_rate": "0.6274509803921569",
+        "total_cases": "102"
+    }
+]

@@ -1,0 +1,216 @@
+[
+    {
+        "instance_id": "instance_future-architect__vuls-4b680b996061044e93ef5977a081661665d3360a",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-e4728e388120b311c4ed469e4f942e0347a2689b-v264a82e2f4818e30f5a25e4da53b27ba119f62b5",
+        "ground_truth_failure_id": "32",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent misinterpreted the requirement 'prevent exceptions from propagating beyond the error handling boundary' and decided to raise a custom DeserializationError from read_cache(). The correct behavior, as shown by the test, is to catch deserialization errors inside read_cache() and display an error message without raising any exception. This flawed plan in step 29 led to the code change that caused the test failure."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-97434c1789a6444b30aae5ff5aa124a96a88f504",
+        "ground_truth_failure_id": "10",
+        "forecast_failure_id": 6,
+        "forecast_reason": "The agent misinterpreted the PR description and decided to replace the Register method's lookup logic with FindMatch exclusively, discarding the ID parameter. This caused the test failure because the provided player ID was ignored, leading to creation of a new player with a UUID instead of updating the existing player."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 14,
+        "forecast_reason": "The agent creates a flawed reproduce script (reproduce_error.go) at step 14 that uses bufio.Scanner.Text() to check for CRLF line endings. Since Scanner.Text() strips the line terminator, the script always reports LF, leading the agent to incorrectly conclude that the CRLFWriter is not working. This faulty test initiates a cascade of unnecessary debugging attempts and prevents the agent from properly verifying their implementation, ultimately resulting in task failure."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 9,
+        "forecast_reason": "The agent inserted the author aggregation logic at line 340 inside the compare_authors function, but this insertion was misplaced, causing the function to have a garbled structure with duplicate return paths. This corrupted the scoring mechanism, ultimately causing find_threshold_match to fail to return a match for records that should have matched, leading to a 'created' status instead of 'modified'."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-09ae41a2da66264c60ef307882362d2e2d8d8b89",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 9,
+        "forecast_reason": "The agent attempted to modify the middleware with a `str_replace` command but used an incorrect `old_str`, causing the tool to fail to apply the change. This failure initiated a chain of unsuccessful replacement attempts that left the authentication middleware unpatched, resulting in a nil pointer dereference in `validateCredentials` when a nil user was passed, which caused the test panics."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-46aa81b1ce96ebb4ebed2ae53fd78cd44a05da6c-vee9b09fb20c43af7e520f57e9239bbcf46b7113d",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 5,
+        "forecast_reason": "The agent viewed /app/lib/asciitable/table_test.go but the observation was truncated to 2045 characters, hiding the TestTruncatedTable function that specifies the expected output format (ellipsis + space + footnote label). By not retrieving the full file content, the agent missed the critical requirement that truncated cells must include '...' and a space before the footnote label, leading to an incorrect truncation implementation and the ultimate test failure."
+    },
+    {
+        "instance_id": "instance_NodeBB__NodeBB-84dfda59e6a0e8a77240f939a7cb8757e6eaf945-v2c59007b1005cd5cd14cbb523ca5229db1fd2dd8",
+        "ground_truth_failure_id": "24",
+        "forecast_failure_id": 7,
+        "forecast_reason": "The agent viewed the test file /app/test/posts/uploads.js at Step 7 but the content was folded at 15457 characters. The agent did not retrieve the full content, missing the test assertion that requires the error message '[[error:wrong-parameter-type, filePaths, object, array]]' for invalid input to deleteFromDisk. Without this information, at Step 24 the agent implemented the validation with a generic '[[error:invalid-data]]' error string, causing the test failure. The correct error message was specified in the test file but the agent never saw it."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-25775",
+        "ground_truth_failure_id": "40",
+        "forecast_failure_id": 151,
+        "forecast_reason": "The agent decided to create a summary document instead of issuing the required final submission command (echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT && git add -A && git diff --cached). This led to no patch being generated, causing the test failure."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-89b12b34bea5687c70e4de2109fd1e7330bb2ba2",
+        "ground_truth_failure_id": "24",
+        "forecast_failure_id": 6,
+        "forecast_reason": "The agent viewed the test file at step 6 but did not fully inspect its contents. The output was truncated, and the agent never retrieved the full test, missing the expected error message format 'last.fm http status: (500)'. This omission caused the subsequent implementation in client.go to produce a non-matching error message, leading directly to the test failure."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The agent committed to a flawed implementation by placing the platform check (`if runtime.GOOS == \"windows\"`) inside the CRLFWriter function itself. Per the PR requirements and test expectations, CRLFWriter should always perform LF-to-CRLF conversion unconditionally \u2014 the platform-dependent behavior belongs in SetOutput (which wraps with CRLFWriter only on Windows). By making CRLFWriter a no-op on non-Windows platforms, the two CRLFWriter test specs fail because they expect conversion regardless of platform. The agent's earlier mock implementation (step 18) correctly omitted the platform check, but step 25 re-interpreted the PR description to mean CRLFWriter itself should be platform-dependent, directly introducing the test failures."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-305e7c96d5e2fdb3b248b27dfb21042fb2b7e0b8-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+        "ground_truth_failure_id": "31",
+        "forecast_failure_id": 56,
+        "forecast_reason": "The agent committed to a flawed understanding at this step. After discovering that the model returns empty string instead of None for the third column (due to QStandardItem converting None to ''), the agent relaxed their own test to accept both None and '' instead of fixing the implementation to ensure None is preserved. The predefined test requires exactly None, causing the failure."
+    },
+    {
+        "instance_id": "Delgan__loguru-1299",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 43,
+        "forecast_reason": "The agent committed to the wrong approach: making NO_COLOR override explicit `colorize=True` rather than respecting the existing design where explicit user settings (like LOGURU_COLORIZE=true) take precedence. This caused the test `test_override_no_color` to fail because it expects `colorize=True` to override NO_COLOR."
+    },
+    {
+        "instance_id": "instance_django__django-15022",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 9,
+        "forecast_reason": "The agent's thought at step 9 incorrectly assumes that combining all word conditions into a single filter call will reduce joins. However, the real source of unnecessary joins is the repetition of identical conditions for each word, especially when the same term appears many times. The agent failed to consider deduplicating the bits before building Q objects, which is necessary to truly reduce the number of joins. This flawed plan directly leads to the final test failure where 80 identical search terms still generate too many JOINs."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-20826",
+        "ground_truth_failure_id": "33",
+        "forecast_failure_id": 16,
+        "forecast_reason": "The agent's plan in step 16 to reapply rcParams defaults for tick sides and labels in Axes.cla() was flawed because it assumed all axes should follow the same rcParams values (like xtick.top=False, ytick.right=False). This approach did not account for polar axes, which have different default tick visibility requirements. Implementing this plan caused the polar plot to render incorrectly, leading to the image comparison failure in test_markevery_polar. The deviation is in the strategy: committing to a universal fix without considering axis-specific behavior."
+    },
+    {
+        "instance_id": "AzureAD__microsoft-authentication-library-for-python-530",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "12rambau__sepal_ui-646",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_django__django-15128",
+        "ground_truth_failure_id": "8",
+        "forecast_failure_id": 28,
+        "forecast_reason": "\"The agent committed to an incomplete fix strategy. The thought correctly identified the need to check 'against any aliases that might be created during the current operation' but then consciously chose a 'simpler fix' that only checks existing aliases in alias_map. This fails because during combine iteration, a new alias can match an old rhs alias that hasn't been processed yet, creating a change_map with intersecting keys and values. The fix should have been in the combine method itself (e.g., sorting rhs aliases or checking that new_alias doesn't match any unprocessed old alias), not just in table_alias.\""
+    },
+    {
+        "instance_id": "ESSS__conda-devenv-51",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's fix at step 29 only catches SystemExit but doesn't handle the case where _call_conda() returns None. The test parametrizes return_none=True/False \u2014 when True, _call_conda() returns None, and the current fix propagates None as main()'s return value instead of converting it to 0. The agent should have also added `or 0` or an explicit check for None alongside the SystemExit catch."
+    },
+    {
+        "instance_id": "Duke-GCB__lando-169",
+        "ground_truth_failure_id": "15",
+        "forecast_failure_id": 31,
+        "forecast_reason": "The agent committed to a flawed fix plan that only added a static '--usage-report /bespin/output-data/results/usage-report.json' flag without incorporating the required --stdout/--stderr flags or the job-id-based naming convention. This plan was formed without examining the already-updated test file, causing the later test failure when the actual test expected a different command structure."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2149",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 7,
+        "forecast_reason": "The agent misinterpreted the issue as only requiring parsing of the 'g' parameter within templates like 'l' and 'doublet', ignoring standalone gender templates (e.g., {{m}}, {{f}}, {{n}}) that also output gender codes in rendered text. This narrow scope led to an incomplete fix, so etymology strings still contained raw gender abbreviations, causing the test to fail."
+    },
+    {
+        "instance_id": "Dorthu__openapi3-57",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 27,
+        "forecast_reason": "The agent committed to an incomplete fix plan that only addressed parsing empty security requirements (making can_parse accept {} and setting name=None in _parse_data) but failed to plan for downstream authentication code that iterates over SecurityRequirement objects and expects valid scheme names. The test failure (KeyError: 'cookie') stems from authentication code trying to use the empty security requirement's None name, which the agent never explored or planned to handle. The agent should have searched for SecurityRequirement usage across the codebase and included handling in authentication/request-making logic."
+    },
+    {
+        "instance_id": "David-Wobrock__sqlvalidator-43",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent modified CaseParser.parse() at step 35 but failed to address the core nesting issue. Within CaseParser, `get_tokens_until_one_of(tokens, [\"then\"])` and `get_tokens_until_one_of(tokens, [\"when\", \"else\"])` do not handle nested CASE/THEN/END structures. When a WHEN condition contains a nested CASE statement (e.g., `CASE WHEN code = 1 THEN 'VALID' ... END = 'VALID'`), these calls stop at the first delimiter belonging to the inner CASE rather than the outer CASE's corresponding delimiter. This produces an incorrectly parsed AST (likely placing an Alias node where an expression is expected), which ultimately causes the `AttributeError: 'Alias' object has no attribute 'value'` at sql.py:239 during format_sql(). The agent should have created nesting-aware variants (similar to `get_tokens_until_case_end`) for THEN/WHEN/ELSE token collection within CaseParser, or modified `get_tokens_until_one_of` to track CASE/END nesting levels."
+    },
+    {
+        "instance_id": "GjjvdBurg__paper2remarkable-43",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 24,
+        "forecast_reason": "The agent misinterpreted the issue requirement. The issue description states that p2r asks for pdftk instead of using qpdf because pdftk is missing on Ubuntu, causing a crash. The correct fix is to handle the FileNotFoundError when pdftk is not found and fall back to qpdf, while preserving the default preference for pdftk when both are available. However, in step 24, the agent concluded that the fix should change the order of preference to check qpdf first on Linux, committing to a flawed plan that causes the test failure ('qpdf' returned instead of 'pdftk' when both tools exist)."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2101",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 32,
+        "forecast_reason": "The agent committed to a flawed mental model at step 32, explicitly stating that the taxfmt template should be implemented by italicizing \"the second parameter (the actual taxonomic name), ignoring the first parameter (rank).\" This assumption reversed the actual template parameter order. In reality, the Wiktionary taxfmt template (like taxlink) places the taxonomic name as the FIRST argument and the rank as the SECOND argument: `{{taxfmt|Gadus macrocephalus|species|ver=170710}}`. The agent's code at step 35 hardcoded `italic(parts[1])`, which returns the rank (e.g., `<i>species</i>`) rather than the name (`<i>Gadus macrocephalus</i>`). The agent's initial test case `{{taxfmt|genus|Solidago}}` happened to hide this error because both `italic(parts[0])` and `italic(parts[1])` would have produced different but not obviously incorrect output. The fix requires changing the handler to use `parts[0]` (the taxonomic name) rather than `parts[1]` (the rank)."
+    },
+    {
+        "instance_id": "Bachmann1234__diff_cover-413",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 22,
+        "forecast_reason": "The agent misinterpreted the issue requirements by committing to a plan that filters out binary files entirely (using _is_path_excluded and supported extensions) instead of handling the UnicodeDecodeError while still including the file in the result. The test expects binary files to be present in the changed paths with no lines changed, not excluded."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-007235446f85b1cbaef92664c3b3867517250f21",
+        "ground_truth_failure_id": "30",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "Delgan__loguru-1236",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent's mental model deviated at step 30, where they incorrectly concluded that the expected behavior for double-backslash\u2011tag combinations (e.g., \\\\<le>test</le>) should be to treat both the opening and closing tags as literal text. This misunderstanding led to the flawed solution of tracking escaped opening tags and applying that escaping to the corresponding closing tags. The pre\u2011modified tests show that the correct behavior is that \\\\ should produce a literal backslash and the tag should remain active (colored), not become literal. This fundamental misinterpretation caused the agent to implement a fix that passes the original error but fails the updated test expectations."
+    },
+    {
+        "instance_id": "BAMWelDX__weldx-384",
+        "ground_truth_failure_id": "20",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2133",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent incorrectly added '\u03b5\u03c4\u03b9\u03ba' to the existing '\u03b5\u03c4'/'\u03b5\u03c4\u03b9\u03ba\u03ad\u03c4\u03b1' handler which only processes `parts[0]` (the first template parameter). The '\u03b5\u03c4\u03b9\u03ba' template in Greek Wiktionary supports multiple label arguments (e.g., `{{\u03b5\u03c4\u03b9\u03ba|\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1|\u03c4\u03c1\u03cc\u03c6\u03b9\u03bc\u03b1|\u03b3\u03bb\u03c5\u03ba\u03ac}}`), each of which should be wrapped in `<i>` tags and joined with commas. The agent's code `data['label'] = parts[0]` only captures the first argument, ignoring all subsequent ones. This causes the actual output `(<i>\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1</i>)` to differ from the expected `(<i>\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1</i>, <i>\u03c4\u03c1\u03cc\u03c6\u03b9\u03bc\u03b1</i>, <i>\u03b3\u03bb\u03c5\u03ba\u03ac</i>)`. The agent made a flawed assumption that \u03b5\u03c4\u03b9\u03ba behaves identically to \u03b5\u03c4 without investigating the actual template documentation linked in the issue."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth_failure_id": "5",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent modified the luqum_replace_child function to copy head/tail attributes from the old child to the replacement, which caused an extra space to appear in the rendered output. The test expects the replacement's own formatting (from parsing) to be preserved unchanged. Copying the old child's whitespace headers overrode the replacement's proper head/tail values, directly leading to the AssertionError."
+    },
+    {
+        "instance_id": "15five__scim2-filter-parser-13",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent committed to an exploration plan that excluded examining the relevant test file (test_transpiler.py). The issue description stated that test files had already been updated. The agent should have inspected test_transpiler.py to discover the expected class name 'AttrPath'. Instead, the agent arbitrarily chose the name 'AttrPathTuple' without checking the test, leading to the AttributeError."
+    },
+    {
+        "instance_id": "instance_pytest-dev__pytest-5787",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": 13,
+        "forecast_reason": "The agent's rewrite of `_from_json` in step 13 removed the `else: _report_unserialization_failure(entry_type, cls, reportdict)` clause that was necessary to raise `RuntimeError` for unknown entry types during deserialization. The new loop unconditionally returns a reconstructed report after processing known types, so encountering an unknown type no longer triggers an error. This directly caused the `test_deserialization_failure` test to fail because `RuntimeError` was never raised."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2145",
+        "ground_truth_failure_id": "41",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "success_rate": "0.6470588235294118",
+        "total_cases": "102"
+    }
+]

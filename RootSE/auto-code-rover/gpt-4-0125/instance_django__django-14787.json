@@ -1,0 +1,90 @@
+{
+  "repo": "django/django",
+  "instance_id": "instance_django__django-14787",
+  "base_commit": "004b4620f6f4ad87261e149898940f2dcd5757ef",
+  "gold_patch": "diff --git a/django/utils/decorators.py b/django/utils/decorators.py\n--- a/django/utils/decorators.py\n+++ b/django/utils/decorators.py\n@@ -37,7 +37,7 @@ def _wrapper(self, *args, **kwargs):\n         # 'self' argument, but it's a closure over self so it can call\n         # 'func'. Also, wrap method.__get__() in a function because new\n         # attributes can't be set on bound method objects, only on functions.\n-        bound_method = partial(method.__get__(self, type(self)))\n+        bound_method = wraps(method)(partial(method.__get__(self, type(self))))\n         for dec in decorators:\n             bound_method = dec(bound_method)\n         return bound_method(*args, **kwargs)\n",
+  "test_patch": "diff --git a/tests/decorators/tests.py b/tests/decorators/tests.py\n--- a/tests/decorators/tests.py\n+++ b/tests/decorators/tests.py\n@@ -425,6 +425,29 @@ class Test:\n                 def __module__(cls):\n                     return \"tests\"\n \n+    def test_wrapper_assignments(self):\n+        \"\"\"@method_decorator preserves wrapper assignments.\"\"\"\n+        func_name = None\n+        func_module = None\n+\n+        def decorator(func):\n+            @wraps(func)\n+            def inner(*args, **kwargs):\n+                nonlocal func_name, func_module\n+                func_name = getattr(func, '__name__', None)\n+                func_module = getattr(func, '__module__', None)\n+                return func(*args, **kwargs)\n+            return inner\n+\n+        class Test:\n+            @method_decorator(decorator)\n+            def method(self):\n+                return 'tests'\n+\n+        Test().method()\n+        self.assertEqual(func_name, 'method')\n+        self.assertIsNotNone(func_module)\n+\n \n class XFrameOptionsDecoratorsTests(TestCase):\n     \"\"\"\n",
+  "repo_language": "python",
+  "original_traj": [
+    {
+      "index": "0",
+      "thought": "",
+      "response": "To address the issue effectively, I need to gather more context about the `method_decorator` function and how it's implemented in the project. Additionally, understanding the `logger` decorator and the `Test` class might provide insights into how decorators are generally used within this codebase. Here are the API calls I would make:\n\n1. `search_method(\"method_decorator\")`: This will help understand how `method_decorator` is implemented and might give clues on why it doesn't preserve wrapper assignments like `__name__`, `__module__`, etc.\n\n2. `search_method(\"logger\")`: Since the issue arises when using the `logger` decorator, understanding its implementation might reveal why it's not compatible with `method_decorator` or partial objects.\n\n3. `search_class(\"Test\")`: To see how the `Test` class is defined and how methods within it are being decorated. This could provide context on the usage pattern and potential areas of conflict with the `method_decorator`.\n\nThese searches should provide a comprehensive overview of the components involved in the issue and how they interact with each other.",
+      "action": [
+        {
+          "func_name": "search_method",
+          "arguments": {
+            "method_name": "method_decorator"
+          },
+          "call_ok": true
+        },
+        {
+          "func_name": "search_method",
+          "arguments": {
+            "method_name": "logger"
+          },
+          "call_ok": false
+        },
+        {
+          "func_name": "search_class",
+          "arguments": {
+            "class_name": "Test"
+          },
+          "call_ok": true
+        }
+      ],
+      "observation": "Result of search_method(\"method_decorator\"):\nFound 1 methods with name method_decorator in the codebase.\nSearch result 1: <file>django/utils/decorators.py</file> <func>method_decorator</func> <code>def method_decorator(decorator, name=''):\n    \"\"\"\n    Convert a function decorator into a method decorator\n    \"\"\"\n    # 'obj' can be a class or a function. If 'obj' is a function at the time it\n    # is passed to _dec,  it will eventually be a method of the class it is\n    # defined on. If 'obj' is a class, the 'name' is required to be the name\n    # of the method that will be decorated.\n    def _dec(obj):\n        if not isinstance(obj, type):\n            return _multi_decorate(decorator, obj)\n        if not (name and hasattr(obj, name)):\n            raise ValueError(\n                \"The keyword argument `name` must be the name of a method \"\n                \"of the decorated class: %s. Got '%s' instead.\" % (obj, name)\n            )\n        method = getattr(obj, name)\n        if not callable(method):\n            raise TypeError(\n                \"Cannot decorate '%s' as it isn't a callable attribute of \"\n                \"%s (%s).\" % (name, obj, method)\n            )\n        _wrapper = _multi_decorate(decorator, method)\n        setattr(obj, name, _wrapper)\n        return obj\n\n    # Don't worry about making _dec look similar to a list/tuple as it's rather\n    # meaningless.\n    if not hasattr(decorator, '__iter__'):\n        update_wrapper(_dec, decorator)\n    # Change the name to aid debugging.\n    obj = decorator if hasattr(decorator, '__name__') else decorator.__class__\n    _dec.__name__ = 'method_decorator(%s)' % obj.__name__\n    return _dec\n</code>\n\n\n\nResult of search_method(\"logger\"):\nCould not find method logger in the codebase.\n\nResult of search_class(\"Test\"):\nFound 11 classes with name Test in the codebase.\nThey appeared in the following files:\n<file>tests/decorators/tests.py</file> (7 matches)\n<file>tests/utils_tests/test_encoding.py</file> (2 matches)\n<file>tests/test_runner_apps/sample/pattern_tests.py</file> (1 matches)\n<file>tests/test_runner_apps/sample/tests/tests.py</file> (1 matches)\n\n\n",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    },
+    {
+      "index": "1",
+      "thought": "- **do we need more context**:\n    - Given the issue description and the search results, it seems we do need more context regarding the `logger` function or decorator. Since the `logger` method was not found in the codebase, it's challenging to understand exactly how it interacts with `method_decorator` and why it leads to the AttributeError. A more detailed understanding of how `logger` is supposed to work or its implementation details could be crucial. However, without a direct reference to it in the codebase, it's difficult to construct a specific API call without additional information. If `logger` is defined within a specific test file or is part of external libraries or dynamically generated, we might need direct access to those parts of the code or further descriptions.\n    \n- **where are bug locations**:\n    - **Buggy File**: `django/utils/decorators.py`\n    - **Buggy Method**: `method_decorator`\n\nThe analysis points to the `method_decorator` function in `django/utils/decorators.py` as the location where the issue arises. The problem seems to be related to how `method_decorator` handles objects that do not have the typical attributes of a function, such as `__name__` and `__module__`, which are missing in partial objects. The solution would likely involve modifying `method_decorator` to either correctly handle partial objects or ensure that the necessary attributes are preserved or appropriately emulated.",
+      "response": "Based on the search results, we have some valuable context to analyze the issue:\n\n1. **`method_decorator` Implementation**:\n   - Located in `django/utils/decorators.py`.\n   - Designed to convert a function decorator into a method decorator.\n   - It checks if the object passed is a class or a function. If it's a class, it requires a `name` argument to identify the method to be decorated.\n   - It uses `_multi_decorate` for the actual decoration process and `update_wrapper` to update wrapper attributes.\n   - The decorator's name is modified for debugging purposes.\n\n2. **`logger` Method**:\n   - The search did not find a method named `logger` in the codebase. This suggests that the `logger` function might be defined locally within a file or dynamically generated, making it harder to locate without more specific context.\n\n3. **`Test` Class**:\n   - There are multiple classes named `Test` across different test files in the codebase. Without more specific information, it's challenging to pinpoint which `Test` class the issue refers to. However, the presence of multiple `Test` classes in `tests/decorators/tests.py` and other test-related files suggests that the issue might be related to testing decorators or similar functionalities.\n\nGiven this context, the core of the issue seems to revolve around the `method_decorator` function's inability to handle partial objects correctly, which do not have function attributes like `__name__`, `__module__`, etc. The absence of the `logger` method in the search results indicates that we might need to focus on how `method_decorator` is designed to work with function decorators and how it could be enhanced to handle partial objects or ensure that wrapper assignments are preserved.\n\nA potential approach to solving this issue could involve modifying the `method_decorator` function to better handle partial objects, possibly by checking if the object is a partial and then appropriately handling its attributes. However, without specific details on how `logger` is implemented or how it's supposed to interact with `method_decorator`, any solution would need to be general enough to handle similar cases where function attributes are missing from the object being decorated.",
+      "action": [
+        {
+          "func_name": "search_method_in_file",
+          "arguments": {
+            "method_name": "method_decorator",
+            "file_name": "django/utils/decorators.py"
+          },
+          "call_ok": true
+        }
+      ],
+      "observation": "Here are the code in buggy locations:\nFound 1 methods with name `method_decorator` in file django/utils/decorators.py.\nSearch result 1: <file>django/utils/decorators.py</file> <func>method_decorator</func> <code>def method_decorator(decorator, name=''):\n    \"\"\"\n    Convert a function decorator into a method decorator\n    \"\"\"\n    # 'obj' can be a class or a function. If 'obj' is a function at the time it\n    # is passed to _dec,  it will eventually be a method of the class it is\n    # defined on. If 'obj' is a class, the 'name' is required to be the name\n    # of the method that will be decorated.\n    def _dec(obj):\n        if not isinstance(obj, type):\n            return _multi_decorate(decorator, obj)\n        if not (name and hasattr(obj, name)):\n            raise ValueError(\n                \"The keyword argument `name` must be the name of a method \"\n                \"of the decorated class: %s. Got '%s' instead.\" % (obj, name)\n            )\n        method = getattr(obj, name)\n        if not callable(method):\n            raise TypeError(\n                \"Cannot decorate '%s' as it isn't a callable attribute of \"\n                \"%s (%s).\" % (name, obj, method)\n            )\n        _wrapper = _multi_decorate(decorator, method)\n        setattr(obj, name, _wrapper)\n        return obj\n\n    # Don't worry about making _dec look similar to a list/tuple as it's rather\n    # meaningless.\n    if not hasattr(decorator, '__iter__'):\n        update_wrapper(_dec, decorator)\n    # Change the name to aid debugging.\n    obj = decorator if hasattr(decorator, '__name__') else decorator.__class__\n    _dec.__name__ = 'method_decorator(%s)' % obj.__name__\n    return _dec\n</code>\n\n\n",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    },
+    {
+      "index": "2",
+      "thought": "",
+      "response": "# modification 1\n```python\n<file>django/utils/decorators.py</file>\n<original>if not hasattr(decorator, '__iter__'):\n    update_wrapper(_dec, decorator)</original>\n<patched>from functools import partial, update_wrapper\n\nif not hasattr(decorator, '__iter__'):\n    if isinstance(decorator, partial):\n        # For partial objects, update_wrapper should use the underlying function\n        # to ensure attributes like __name__ and __module__ are correctly copied.\n        update_wrapper(_dec, decorator.func)\n    else:\n        update_wrapper(_dec, decorator)</patched>\n```\n\nThis patch addresses the issue where `method_decorator` fails to preserve wrapper assignments when the function passed to the decorator is a `partial` object. By checking if the `decorator` is an instance of `functools.partial`, we can correctly use `update_wrapper` to copy the necessary attributes from the underlying function (`decorator.func`) instead of the partial object itself. This ensures that attributes like `__name__` and `__module__` are preserved, preventing the `AttributeError` described in the issue.",
+      "action": [
+        {
+          "func_name": "write_patch",
+          "arguments": {},
+          "call_ok": true
+        }
+      ],
+      "observation": "",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    }
+  ],
+  "original_mission_prompt": "method_decorator() should preserve wrapper assignments\nDescription\n\t\nthe function that is passed to the decorator is a partial object and does not have any of the attributes expected from a function i.e. __name__, __module__ etc...\nconsider the following case\ndef logger(func):\n\t@wraps(func)\n\tdef inner(*args, **kwargs):\n\t\ttry:\n\t\t\tresult = func(*args, **kwargs)\n\t\texcept Exception as e:\n\t\t\tresult = str(e)\n\t\tfinally:\n\t\t\tlogger.debug(f\"{func.__name__} called with args: {args} and kwargs: {kwargs} resulting: {result}\")\n\treturn inner\nclass Test:\n\t@method_decorator(logger)\n\tdef hello_world(self):\n\t\treturn \"hello\"\nTest().test_method()\nThis results in the following exception\nAttributeError: 'functools.partial' object has no attribute '__name__'\n",
+  "failed_tests": {
+    "test_wrapper_assignments (decorators.tests.MethodDecoratorTests)": {
+      "error_description": "======================================================================\nFAIL: test_wrapper_assignments (decorators.tests.MethodDecoratorTests)\n@method_decorator preserves wrapper assignments.\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/haifeng/miniconda3/envs/django__django__4.1/lib/python3.9/unittest/case.py\", line 59, in testPartExecutor\n    yield\n  File \"/home/haifeng/miniconda3/envs/django__django__4.1/lib/python3.9/unittest/case.py\", line 592, in run\n    self._callTestMethod(testMethod)\n  File \"/home/haifeng/miniconda3/envs/django__django__4.1/lib/python3.9/unittest/case.py\", line 550, in _callTestMethod\n    method()\n  File \"/home/haifeng/projects/reverse-prompt/SWE-bench/temp_eval_testbed/gpt-4-0125-preview/django__django/4.1/tmp2ku6ekfu/django__django__4.1/tests/decorators/tests.py\", line 448, in test_wrapper_assignments\n    self.assertEqual(func_name, 'method')\n  File \"/home/haifeng/miniconda3/envs/django__django__4.1/lib/python3.9/unittest/case.py\", line 837, in assertEqual\n    assertion_func(first, second, msg=msg)\n  File \"/home/haifeng/miniconda3/envs/django__django__4.1/lib/python3.9/unittest/case.py\", line 830, in _baseAssertEqual\n    raise self.failureException(msg)\nAssertionError: None != 'method'\n",
+      "code": "def test_wrapper_assignments(self):\n        \"\"\"@method_decorator preserves wrapper assignments.\"\"\"\n        func_name = None\n        func_module = None\n\n        def decorator(func):\n            @wraps(func)\n            def inner(*args, **kwargs):\n                nonlocal func_name, func_module\n                func_name = getattr(func, \"__name__\", None)\n                func_module = getattr(func, \"__module__\", None)\n                return func(*args, **kwargs)\n\n            return inner\n\n        class Test:\n            @method_decorator(decorator)\n            def method(self):\n                return \"tests\"\n\n        Test().method()\n        self.assertEqual(func_name, \"method\")\n        self.assertIsNotNone(func_module)",
+      "status": "FAILED",
+      "expected": "fail_to_pass"
+    }
+  },
+  "failure_reason": "The agent correctly identified that partial objects lack function attributes like `__name__` and `__module__`, but misdiagnosed the location where this causes the failure. The agent focused on the `update_wrapper(_dec, decorator)` line in `_make_decorator`, believing the issue occurs when updating the decorator wrapper with attributes from a partial object. However, the actual problem occurs earlier in the execution flow, within `_multi_decorate`. When `method.__get__(self, type(self))` creates a bound method and `partial()` wraps it, the resulting partial object lacks the original method's attributes. The gold patch addresses this by applying `wraps(method)` to the partial object immediately after its creation, preserving the method's attributes. The agent's proposed fix attempts to handle partial objects in `update_wrapper`, which is too late in the process - by that point, the attribute loss has already occurred and propagated through the decorator chain.",
+  "failure_id": "1",
+  "agent": "auto-code-rover",
+  "model": "gpt-4-0125"
+}

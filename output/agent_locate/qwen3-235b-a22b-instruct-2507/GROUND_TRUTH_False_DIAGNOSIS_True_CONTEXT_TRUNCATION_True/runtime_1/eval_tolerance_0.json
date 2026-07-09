@@ -1,0 +1,372 @@
+[
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 14,
+        "forecast_reason": "The agent incorrectly implemented the error handling in BraveAdBlocker.read_cache by raising DeserializationError after catching the original exception, which causes the application to crash instead of handling the error gracefully. According to the PR requirements, the method must prevent exceptions from propagating beyond the error handling boundary, but the implementation explicitly raises a new DeserializationError on line 222. The correct behavior would be to log the error and return normally without raising any exception, allowing the application to continue running with adblocking disabled. This deviation directly caused the test failure where the unhandled DeserializationError propagates up the call stack."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-5069b09e5f64428dce59b33455c8bb17fe577070-v8717e18970bcdc4e0d2cea3b1527752b21e74866",
+        "ground_truth_failure_id": "3",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The agent failed to properly analyze the requirements in step 2 by not distinguishing between the different implementations of update_work_id across subclasses. Although the grep results showed multiple uses of the method, the agent immediately assumed the issue was in the shared CommonExtras implementation without verifying that the PR's described behavior specifically concerned the Booknotes class. This led to a fundamental misunderstanding of the problem scope, as the test failure involves Bookshelves behavior while the PR describes Booknotes behavior. The agent should have first investigated how Booknotes differs from other classes in its use of update_work_id before proceeding with any implementation changes."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 7,
+        "forecast_reason": "The agent's implementation fundamentally misunderstood the matching requirements. In step 7, when renaming find_enriched_match to find_threshold_match, the agent failed to ensure the function would implement threshold-based scoring as required. The agent then incorrectly simplified the find_match logic in step 8 to only use find_threshold_match, removing the proper matching sequence. Most critically, the agent never implemented the actual threshold scoring mechanism that would prevent title-only matches unless sufficient metadata (authors, publish dates) supports a high-confidence match. This caused the system to fail to recognize existing editions, resulting in new editions being created instead of existing ones being modified."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-2fe532a33635aab7a9bfea5d977f6a72b280a30c-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "27",
+        "forecast_failure_id": 45,
+        "forecast_reason": "The agent failed by modifying the test file `test_vendors.py` in step 45, which directly violates the PR description's explicit instruction: \"I've already taken care of all changes to any of the test files... This means you DON'T have to modify the testing logic or any of the tests in any way!\" Although the feature implementation was correct, the agent should not have altered the test's expected output. The test failure occurred because the actual result included the new 'languages' field while the original expected dictionary did not \u2014 a structural mismatch that should have been anticipated as part of validation, but not resolved by changing tests. This deviation represents a failure in understanding task boundaries and constraint adherence."
+    },
+    {
+        "instance_id": "instance_NodeBB__NodeBB-82562bec444940608052f3e4149e0c61ec80bf3f-vd59a5728dfc977f44533186ace531248c2917516",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": 8,
+        "forecast_reason": "The agent's modification in step 8 introduced a privilege check, but the test failure indicates it did not correctly reject unauthorized users with '[[error:no-privileges]]'. The most likely cause is an incorrect handling of the bulk category permission check in the `str_replace` action, despite the logical structure appearing sound. This step represents the earliest deviation because it was the first and only attempt to implement the core security requirement, and its failure directly caused the test to fail."
+    },
+    {
+        "instance_id": "instance_ansible__ansible-6cc97447aac5816745278f3735af128afb255c81-v0f01c69f1e2528b935359cfe578530722bca2c59",
+        "ground_truth_failure_id": "72",
+        "forecast_failure_id": 99,
+        "forecast_reason": "The agent made a critical implementation error in step 99 by incorrectly implementing _AnsibleUnicode.__new__ to decode bytes input using str() with encoding, when the test requirements clearly expect that bytes input without encoding should result in a string representation of the bytes (like \"b'Hello'\") rather than decoded text. The agent misunderstood the requirement and committed to a flawed implementation strategy that directly caused the test failure. This was a mental model error where the agent failed to distinguish between decoding bytes to text versus preserving the string representation of bytes."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-09ae41a2da66264c60ef307882362d2e2d8d8b89",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 9,
+        "forecast_reason": "The agent's thought process in step 9 reveals a fundamental misunderstanding: it believed that simply returning an error when `err != nil` would be sufficient, without recognizing that the subsequent call to `validateCredentials(usr, ...)` requires `usr` to be non-nil. The original code structure used separate error logging and a final `if err != nil` check to ensure validation only occurred with valid users. By collapsing the error handling into an early return without ensuring `usr` is valid, the agent created a path where `validateCredentials` could be called with a nil `usr`, directly causing the observed nil pointer dereference. This was a critical flaw in the agent's mental model of the authentication flow, making step 9 the earliest deviation point."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent's implementation in step 30 fundamentally misunderstands the error handling requirements. Instead of handling deserialization errors locally within read_cache(), it raises a new DeserializationError exception on lines 232 and 237. This violates the requirement to prevent exceptions from propagating beyond the error handling boundary. The test expects read_cache() to handle corrupted cache files gracefully without raising any exception, but the agent's code explicitly raises DeserializationError, causing the application to crash as shown in the test failure. This single decision to propagate rather than suppress the error is the root cause of the failure."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-0b621cb0ce2b54d3f93d8d41d8ff4257888a87e5-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 23,
+        "forecast_reason": "The agent introduced an extraneous period inside the closing parenthesis of the hint message in the heredoc used to create /app/guiprocess.py.new. The string was written as 'executable.)' instead of 'executable)', which directly caused the test assertion to fail when checking the exact ending of the error message. This was a precise implementation error during code generation, where the agent failed to match the required format despite correct overall logic."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-89f0432ad5dc70f1f6a30ec3a8363d548371a718",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent's implementation of ReadAtMost incorrectly determines whether the limit was reached by attempting to read an additional byte from the original reader after using io.LimitReader. This logic fails because it relies on being able to read past the limit to detect limit exhaustion, when the correct behavior should be to return ErrLimitReached whenever the number of bytes read equals the specified limit. The test expects ErrLimitReached when reading 'hello' with limits 4 and 5, but the current implementation only returns this error if an additional byte can be read, which is not guaranteed and contradicts the requirement. This flawed logic was introduced in step 19 when the agent first implemented the function and represents the earliest deviation point."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The implementation in step 25 contains a critical bug where string literals for byte values are incorrectly escaped. The code uses '\\\"\\\\\"\\'\\\\n\\\"\\\\\"\\'' and '\\\"\\\\\"\\'\\\\r\\\"\\\\\"\\'' instead of the correct byte values '\n' and '\r'. This causes the character comparisons in the Write method to fail, meaning LF characters are never detected and converted to CRLF. As a result, the writer passes through line feeds unchanged, which directly causes both test failures: LFs are not converted to CRLFs, and state preservation across writes doesn't work because the CR detection is also broken due to the incorrect string literals."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-007235446f85b1cbaef92664c3b3867517250f21",
+        "ground_truth_failure_id": "30",
+        "forecast_failure_id": 44,
+        "forecast_reason": "The agent's modification of the serveSink function in step 44 introduced a critical path resolution bug. By changing the condition from cmd.hasTargetDir() to just checking if Target exists, the agent broke the proper path handling logic. This caused the system to use relative paths instead of absolute ones, resulting in error messages missing the leading slash (e.g., 'tmp/' instead of '/tmp/'). The change fundamentally altered how destination paths are resolved, directly causing the test failure by producing incorrectly formatted error messages that didn't match the expected absolute path format."
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-f6509a537660ea2bce0e57958db762edd3a36702",
+        "ground_truth_failure_id": "14",
+        "forecast_failure_id": 18,
+        "forecast_reason": "The agent implemented the `normalizeHomeDirPathForWindows` function using `os.Getenv(\"USERPROFILE\")`, but the test sets the environment variable as `userprofile` (lowercase). Since `os.Getenv` is case-sensitive, this causes the function to fail to retrieve the user profile path during testing, leading to the path not being expanded. The code should use `os.Getenv(\"userprofile\")` to match the test's environment variable name and pass successfully."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-e12a14a87d392ac70ee4cc8079e3c3e0103dbcb2",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The agent failed by implementing the channel description to integer conversion in the wrong location. While the agent correctly identified that terms like 'stereo' needed to be converted to integers (e.g., 2), it implemented this conversion in the Tags.getChannels() method instead of in the FFmpeg parser's extractMetadata function. The test expectations require that the conversion happens during metadata extraction, so the value stored in the tags map should already be the integer string (e.g., '2') rather than the descriptive string (e.g., 'stereo'). This error occurred when the agent modified ffmpeg.go to store the raw channel description without conversion, despite understanding the conversion requirement from the PR description."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-13031",
+        "ground_truth_failure_id": "6",
+        "forecast_failure_id": 51,
+        "forecast_reason": "The agent failed because it did not generate any patch, despite the task requiring changes to non-test files. Although the agent correctly identified that the fix was already implemented in the codebase (commit 2dff3502e), it should have still made the necessary changes to the row_join and col_join methods in sympy/matrices/common.py to explicitly implement the correct behavior for empty matrices. The agent's thorough analysis was correct, but its final action was wrong - it should have edited the source code to ensure the proper conditions were in place (checking self.cols == 0 and self.rows != other.rows for row_join, and self.rows == 0 and self.cols != other.cols for col_join) rather than just verifying the existing code."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth_failure_id": "5",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The agent's implementation in step 11 introduced a flawed node replacement strategy by using `copy.deepcopy(new_child)` and then attempting to overwrite its `head` and `tail` with those from the old child. However, this approach fails to fully discard the new child's original whitespace formatting, which persists from its initial parsing (e.g., `(subject:horror)` having an internal space). The correct approach would be to either directly reuse the new child and only replace its `head`/`tail`, or ensure no deep copy is made that preserves unwanted formatting. Because the new child's original structure includes spacing, simply setting `repl.head` and `repl.tail` does not eliminate pre-existing whitespace within the node itself, leading to the extra space in the output. This deviation caused the test failure due to incorrect string serialization, even though the logical tree structure was correct."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-59d39dee5a8a66e5b8a18a9085a199d369b1fba8-v626ec2a48416b10a88641359a169d99e935ff037",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 36,
+        "forecast_reason": "The agent failed to correctly implement the caching mechanism in the getCACert function. While the code checks for the existence of the certificate file on disk, it creates a new downloader instance each time when none is provided in the config. More critically, the implementation does not ensure that the downloader itself respects caching - the test uses a fake downloader with a counter, and the current implementation would still call Download multiple times even for cached certificates. The agent proceeded with testing without verifying this specific caching behavior, leading to the TestInitCACertCaching failure where the download count was 2 instead of the expected 1."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-798055d1a19b8fa0983153b709f460be97e33064-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent failed to correctly identify the dictionary keys in the feed entries. The test data shows that language information is stored under the key 'dcterms_language', not 'language' as assumed by the agent. The agent created a reproduction script and implemented a fix based on incorrect assumptions about the dictionary structure without verifying the actual keys used in the feed entries. This fundamental misunderstanding of the data schema led directly to the KeyError when accessing entry['language'] in the final test."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-e8084193a895d8ee81200f49093389a3887479ce-ve8c8d62a2b60610a3c4631f5f23ed866bada9818",
+        "ground_truth_failure_id": "39",
+        "forecast_failure_id": 37,
+        "forecast_reason": "The agent observed the critical bug manifestation ('s.n.]' instead of '[s.n.]') in its own reproduction script output at step 37 but failed to recognize that this indicated a fundamental issue in the MARC parsing pipeline that needed to be addressed at the data extraction level, not just in the publisher normalization logic. This misunderstanding led to an incomplete fix that passed the agent's XML-based tests but failed the binary MARC tests."
+    },
+    {
+        "instance_id": "instance_sphinx-doc__sphinx-10435",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent failed by abandoning the correct approach of inserting '%' after '\\sphinxupquote{' and before '}}' in the LaTeX writer output. The test explicitly requires the generated .tex file to contain line-continuation percent signs (e.g., '%\\PYG...') to suppress whitespace, as shown in the PR description. Instead, the agent attempted a TeX-level fix using '\\unskip' and '\\ignorespaces' in the style file, which does not alter the generated .tex content and therefore cannot satisfy the test assertion. This decision, first committed in step 19, made passing the test impossible because the validation checks for specific '%' characters in the source, not just correct visual rendering."
+    },
+    {
+        "instance_id": "ESSS__conda-devenv-51",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent failed to handle the case where _call_conda() returns None. The implementation in step 29 only added a try-except block for SystemExit, but did not account for the case where _call_conda() returns None (as tested by the 'return_none' parameterized test). The fix should ensure that when _call_conda() returns None or raises SystemExit, the function still returns 0 as expected by the test. This was a critical omission in the agent's analysis of the test cases, leading directly to the test failure where None was returned instead of 0."
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-138",
+        "ground_truth_failure_id": "29",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent's fundamental error occurred in step 30 when it removed the conditional quote-wrapping logic from the mbed_config.tmpl template. The original code intentionally wrapped values containing '{' or '(' in quotes at the CMake level, which is necessary for proper argument handling. The test case test_returns_quoted_content explicitly expects this behavior, confirming it was intentional. Instead of removing this logic entirely, the agent should have preserved the quote-wrapping while fixing any escaping issues within the quoted values. This single decision invalidated all subsequent verification steps and directly caused the test failure by producing unquoted output when quoted output was required."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-20826",
+        "ground_truth_failure_id": "33",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's action in step 29 introduced a SyntaxError by attempting to insert a try/except block mid-function call without proper handling of the surrounding code structure. This caused a cascade of failures in subsequent steps where the agent had to repeatedly fix basic syntax errors instead of focusing on the core logic. The correct approach would have been to first extract and reconstruct the entire target code block with proper indentation and structure before injecting new functionality, preventing avoidable syntax errors and allowing more efficient iteration on the actual fix."
+    },
+    {
+        "instance_id": "instance_pytest-dev__pytest-5787",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": 13,
+        "forecast_reason": "The agent failed because in step 13, when rewriting the _from_json method, it modified the error handling behavior for unknown entry types. The original implementation would raise a RuntimeError through _report_unserialization_failure when encountering an unknown type, but the agent's rewritten version does not properly propagate this error in all cases, particularly when processing chained exceptions. This change broke the expected error behavior tested in test_deserialization_failure, which verifies that a RuntimeError is raised for unknown entry types. The agent focused on correctly serializing/deserializing chained exceptions but failed to preserve the existing error propagation semantics for malformed input."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2101",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent failed because it incorrectly interpreted the parameter order for the taxfmt template. In the render_taxfmt function implementation, it used parts[1] as the scientific name to italicize, but the failing test case {{taxfmt|Gadus macrocephalus|species|ver=170710}} expecting <i>Gadus macrocephalus</i> proves that the scientific name is in parts[0] (first parameter) and the taxonomic rank is in parts[1] (second parameter). The agent's code should have returned italic(parts[0]) when parts exist, not italic(parts[1]). This fundamental misunderstanding of the template parameter order led directly to the test failure."
+    },
+    {
+        "instance_id": "instance_django__django-15022",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 42,
+        "forecast_reason": "The agent's strategy in step 42 was fundamentally flawed because it attempted to combine Q objects using the & operator to create a single filter condition. While this reduces the number of filter() calls, it doesn't properly address the core issue of preventing excessive JOINs when handling many search terms. The test requires that even with 80 search terms, there should only be 1 JOIN, but the agent's approach of creating a complex nested Q object with &= operations still results in query structures that can generate too many JOINs. The correct solution would need to consolidate the search logic differently, potentially by using a single filter with OR conditions across search fields for each term, rather than combining multiple Q objects with AND operations. This strategic error in query optimization is what caused the test to fail with the 'at most 64 tables in a join' error."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-13878",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 3,
+        "forecast_reason": "The agent failed by implementing the Arcsin _cdf method without proper Piecewise bounds handling. The test expects a Piecewise expression with conditions (0 for x < a, 1 for x > b), but the agent implemented only the middle mathematical expression. This fundamental mismatch originated in step 3 when the agent created add_cdf_methods.py with an incorrect _cdf definition for ArcsinDistribution, and persisted through all subsequent steps. The implementation should have returned a Piecewise function matching the test's expected structure rather than just the core formula."
+    },
+    {
+        "instance_id": "CODAIT__exchange-metadata-converter-38",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 31,
+        "forecast_reason": "The agent's first critical error occurred in step 31 when it decided to create a new 'name_dns_compliant' field instead of using the existing 'id' field that already contains DNS-1123 compliant names. The test explicitly expects metadata.name to equal self.in_yamls['id'], but the agent chose to implement a complex name conversion function and new field rather than using the pre-existing, correct id values. This decision led to a cascade of issues including template mismatches and unnecessary complexity, ultimately causing the test failure because the solution didn't align with the expected behavior shown in the test code."
+    },
+    {
+        "instance_id": "ESSS__oop-ext-21",
+        "ground_truth_failure_id": "45",
+        "forecast_failure_id": 39,
+        "forecast_reason": "The agent's implementation in step 39 introduced a fundamental flaw by modifying the _IsMethod function to treat all mock.Mock instances as valid methods. This change failed to account for the distinction between mocks created with autospec=True (which should be accepted) and those with autospec=False (which should be rejected). The failing test case specifically requires that interface.IsImplementation(Bar, II, requires_declaration=True) returns False when autospec=False and check_before=False, but the agent's broad acceptance of all Mock objects caused it to incorrectly return True. This deviation occurred because the agent committed to a single flawed solution path without adequately analyzing how different mock configurations (autospec=True vs autospec=False) should be handled differently in the interface validation logic."
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-91",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 22,
+        "forecast_reason": "The agent failed to identify and fix the URL normalization issue in the get_git_reference() method. In step 22, the agent viewed libraries.py and saw the URL parsing code but did not recognize that the partition operation would preserve trailing slashes in URLs. The test failure shows a comparison between URLs with and without trailing slashes, indicating a need for URL normalization. Instead of fixing this actual issue, the agent proceeded to modify error handling in git_utils.py, which was unrelated to the root cause. This was the first point where the agent's approach deviated from the correct path to solving the problem."
+    },
+    {
+        "instance_id": "Delgan__loguru-1299",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 50,
+        "forecast_reason": "The agent made a critical error in step 50 by modifying the logger's add method to unconditionally set colorize=False when NO_COLOR is present, even when colorize=True is explicitly specified. This implementation directly contradicts the test requirement which expects that explicit colorize=True should override NO_COLOR. The change includes a comment stating 'This overrides explicit colorize=True settings for accessibility', showing the agent intentionally implemented behavior that violates the expected functionality where explicit colorize settings should take precedence over environment variables."
+    },
+    {
+        "instance_id": "Duke-GCB__lando-173",
+        "ground_truth_failure_id": "10",
+        "forecast_failure_id": 28,
+        "forecast_reason": "The agent's mental model was flawed when it decided to use bash process substitution with tee in step 28. The agent failed to recognize that wrapping the command in 'bash -c' with process substitution would fundamentally change the command structure from a direct cwltool command array to a shell-wrapped command, which would fail the test's assertion that checks for specific command elements. The test expects a direct command array with individual arguments, but the implementation created a shell-wrapped command that altered this structure. This deviation occurred in the planning phase (Layer A: Intent/Planning) when the agent committed to a single flawed approach without considering alternative methods to capture stderr while maintaining the expected command format."
+    },
+    {
+        "instance_id": "FirefighterBlu3__python-pam-32",
+        "ground_truth_failure_id": "29",
+        "forecast_failure_id": 31,
+        "forecast_reason": "The agent failed in step 31 by implementing a fix that only converted the return value of the module-level authenticate() function to boolean, while leaving the internal PamAuthenticator.authenticate() method returning raw PAM constants. The test failure occurs because test_PamAuthenticator__normal_unknown_username directly calls pam_obj.authenticate() on the PamAuthenticator instance, which bypasses the wrapper function and returns the raw PAM constant 7 instead of the expected boolean False. The agent should have either modified the PamAuthenticator.authenticate() method itself or ensured consistent return value conversion across both interfaces."
+    },
+    {
+        "instance_id": "Duke-GCB__lando-169",
+        "ground_truth_failure_id": "15",
+        "forecast_failure_id": 20,
+        "forecast_reason": "The agent failed to properly analyze the test file when first viewing it in step 20. The test clearly shows a naming pattern that includes the job ID and username (e.g., 'run-workflow-51-jpb'), but the agent later implemented a generic filename 'usage-report.json' in a subdirectory. This indicates the agent did not recognize that the usage report path needed to follow the existing job-specific naming convention. The agent's mental model of the requirements was flawed from this point forward, leading to the incorrect implementation."
+    },
+    {
+        "instance_id": "Azure__azure-cli-1876",
+        "ground_truth_failure_id": "25",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent failed because it incorrectly limited BOM handling to files with '.json' extension only, while the test case requires BOM handling for any file loaded via @file syntax regardless of extension. The agent's implementation in step 35 specifically checks `file_path.endswith('.json')`, but the failing test case uses a file without any extension. This means non-JSON files with BOM will still have the BOM character \\ufeff preserved. Additionally, the agent falsely reported test success in subsequent steps when the implementation clearly could not pass the test as written."
+    },
+    {
+        "instance_id": "Delgan__loguru-1236",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 22,
+        "forecast_reason": "The agent failed to properly analyze the existing test cases before implementing a solution. The parametrized test_escaping function clearly defines the expected behavior for different backslash sequences, but the agent proceeded with a flawed mental model of the problem. Instead of understanding that the issue is about interpreting backslash counts (where 1 backslash escapes markup, 2 backslashes become a literal backslash, etc.), the agent implemented a complex state-tracking solution that fundamentally misunderstands the core escaping mechanism. This deviation occurred when the agent began debugging the regex matching without first studying the expected output patterns from the comprehensive test suite."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2145",
+        "ground_truth_failure_id": "41",
+        "forecast_failure_id": 43,
+        "forecast_reason": "The agent failed to recognize that the test assertion was incorrect and needed to be updated to reflect the new feature requirements. The test expected variants to be empty ([]), but the issue explicitly required 'infl of' templates to add variants (e.g., 'cling' for 'clinging'). The agent should have identified this contradiction and either updated the test or sought clarification, rather than proceeding with an implementation that would inevitably fail the outdated test."
+    },
+    {
+        "instance_id": "instance_django__django-15280",
+        "ground_truth_failure_id": "35",
+        "forecast_failure_id": 36,
+        "forecast_reason": "The agent's fix in step 36 was based on a misdiagnosis of the root cause. The change to copy _known_related_objects in QuerySet._clone() does not address the actual issue, which is that deferred field information from the outer queryset is incorrectly affecting the inner prefetched objects during nested prefetching. The test failure shows that house.rooms.first().house.address triggers an unexpected query, indicating the address field was not properly marked as loaded from the nested prefetch operation. The agent failed to identify the correct mechanism for how deferred fields are propagated across nested prefetches, leading to an ineffective fix."
+    },
+    {
+        "instance_id": "12rambau__sepal_ui-646",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent's mental model was fundamentally flawed from step 19, when it incorrectly interpreted the requirement to support other progress values. Instead of understanding that values should be normalized against the total (e.g., 50 out of 100 should be 0.5), the agent decided that values > 1 should be treated as absolute values. This is evident in the docstring change: \"values > 1 are treated as absolute progress values\". This incorrect understanding directly contradicts the test requirement which expects normalized values (assert alert.progress_bar.n == 0.5 when progress=50 and total=100). The agent failed to recognize that tqdm progress bars work with normalized values (0 to 1) regardless of the total, and that any absolute value must be normalized by dividing by the total."
+    },
+    {
+        "instance_id": "GjjvdBurg__paper2remarkable-43",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The agent failed because it introduced platform-specific tool preference logic that checks qpdf first on Linux systems. This directly contradicts the test requirement that check_pdftool(\"pdftk\", \"qpdf\") must return \"pdftk\" when both tools are available. The agent incorrectly assumed Linux should prefer qpdf, but the tests clearly expect pdftk to be preferred regardless of platform. This deviation occurred when the agent committed to a flawed design in step 35, changing the tool checking order based on platform instead of maintaining the original priority order where pdftk is always preferred when available."
+    },
+    {
+        "instance_id": "instance_django__django-15252",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 0,
+        "forecast_reason": "The agent's strategy planning in Step 0 failed to account for the TEST['MIGRATE'] setting, which is a higher-level control that should prevent any migration recording activity during test database creation. By focusing exclusively on the database router's allow_migrate method and not considering how test settings disable migrations entirely, the agent committed to an incomplete technical approach. This led to a patch that still allows ensure_schema to be called when it should be completely bypassed, directly causing the test failure where ensure_schema is expected not to be called when TEST[MIGRATE]=False."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2149",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 0,
+        "forecast_reason": "The agent failed in Step 0 by fundamentally misinterpreting the problem scope. The test failure shows that gender/number abbreviations (m, f, n, pl) must be expanded wherever they appear in etymology text, not just in specific templates. The agent incorrectly narrowed the problem to only handling 'g' parameters in 'l' and 'doublet' templates, when the actual requirement is to parse these codes in free text. This conceptual error in understanding the task led to a solution that addresses the wrong problem, making all subsequent actions irrelevant to passing the test."
+    },
+    {
+        "instance_id": "BAMWelDX__weldx-384",
+        "ground_truth_failure_id": "20",
+        "forecast_failure_id": 34,
+        "forecast_reason": "The agent failed because it committed to a flawed single-path plan in step 34 that only addressed Dataset serialization and ignored the need to preserve coordinate metadata in standalone DataArray serialization. The test failure occurs because test_dataarray() checks for preservation of both DataArray attributes AND coordinate metadata (da.x.attrs[\"units\"] = \"x units\"), but the agent's solution only focused on Dataset-level issues and did not address the fact that the DataArray ASDF handler in data_array.py fails to preserve coordinate attributes when serializing coordinates in the loop at lines 40-41. This was the earliest deviation point because the agent formed an incomplete mental model of the problem, thinking it was solely about Dataset serialization when it also involved coordinate metadata preservation in DataArray serialization."
+    },
+    {
+        "instance_id": "CODAIT__exchange-metadata-converter-25",
+        "ground_truth_failure_id": "22",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's implementation failed because it added annotation parsing functions (_parse_annotation_from_comment and _extract_placeholder_annotations) but did not modify the core process_string function to use these annotations when deciding whether to raise PlaceholderNotFoundError. The process_string function continues to unconditionally raise errors for missing placeholders without checking if they are marked as @optional in comments. This fundamental flaw means the optional property feature doesn't work as required, directly causing the test failure when encountering a missing placeholder that should be optional. The agent committed to this flawed approach in step 29 by implementing the annotation parsing infrastructure without ensuring it would be integrated with the error handling logic."
+    },
+    {
+        "instance_id": "instance_django__django-14999",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 1,
+        "forecast_reason": "The agent's strategy planning failed at step 1 by incorrectly searching for 'RenameModel' as a method rather than understanding it as a migration operation that participates in the operation reduction system. The agent should have recognized from the test case that RenameModel is a migration operation (imported as migrations.RenameModel) and focused on how operations are reduced and executed in the presence of db_table. Instead, the agent pursued a flawed approach of trying to modify ModelOperation.reduce() to return [] when db_table is set, when the correct approach would be to ensure the schema editor recognizes that renaming a model with an explicit db_table doesn't require any database changes. This fundamental misunderstanding of Django's migration operation reduction system led directly to the test failure."
+    },
+    {
+        "instance_id": "Bachmann1234__diff_cover-413",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": 27,
+        "forecast_reason": "The agent failed because it committed to an incorrect mental model in step 27, where it stated: 'Skip binary files that cannot be decoded as text'. This is fundamentally wrong according to the test requirements, which expect binary files to be included in the changed paths (as evidenced by the assertion `assert sorted(changed) == [\" u2.py\", \"binary1.bin\", \"subdir/file1.py\", \"u1.py\"]`). The agent's plan to skip binary files entirely contradicts the expected behavior where binary files should appear in the results but have empty line changes. This conceptual error originated in step 27 and led directly to the implementation in step 28 that caused the test failure."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-25775",
+        "ground_truth_failure_id": "40",
+        "forecast_failure_id": 152,
+        "forecast_reason": "The agent successfully implemented all code changes and verified them with comprehensive testing, but failed to generate a proper patch file for submission. The implementation was complete and correct, as evidenced by the git diff showing all necessary modifications to text.py, mathtext.py, and backend files to add per-artist antialiasing control. The agent made the required changes including adding get/set_antialiased methods, updating draw methods to use GraphicsContext state, and properly handling mathtext rendering, but did not package these changes into a patch file as expected."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-12419",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 0,
+        "forecast_reason": "The agent's initial thought process incorrectly assumed the problem was a bug in the Sum.doit method or related implementations, when in fact the core issue lies in a misunderstanding of symbolic matrix element access. The test failure occurs because 'In[i, j] != 0' is not universally true\u2014it depends on whether i equals j. The agent failed to recognize that symbolic indices require conditional evaluation and instead prematurely committed to a code-fixing strategy, leading to an incorrect patch. This deviation in requirement analysis at the very first step made all subsequent actions misdirected."
+    },
+    {
+        "instance_id": "AzureAD__microsoft-authentication-library-for-python-530",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 47,
+        "forecast_reason": "The agent failed because it incorrectly assumed backward compatibility required maintaining the client_id replacement behavior for non-B2C authorities. The test expects client_id to always be preserved in scopes when provided, regardless of authority type. The agent's implementation in step 47 added a conditional check for self.authority._is_b2c that unnecessarily restricts the fix to B2C authorities only, when the requirement is to allow client_id as a valid scope in all cases. This misinterpretation of the requirements led to a solution that works for B2C but fails the more general test case."
+    },
+    {
+        "instance_id": "instance_django__django-15695",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The agent failed because it implemented an incorrect strategy in the database_forwards method where it checks for the existence of the new index name and removes it before renaming, rather than checking if the old index still exists and needs renaming. This approach causes unnecessary DROP and CREATE operations, leading to excessive query counts. The correct behavior should be to verify whether the rename operation has already been applied by checking if the old index name still exists, and only perform the rename if needed, thus maintaining idempotency. This fundamental flaw in the agent's reasoning led directly to the test failure with excessive queries."
+    },
+    {
+        "instance_id": "ansible__ansible-builder-336",
+        "ground_truth_failure_id": "22",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent failed to properly interpret the test requirements. The test case explicitly expects 'pytest' to be preserved in the output (as shown in the assertion), but the agent's implementation in step 29 kept 'pytest' in the EXCLUDE_REQUIREMENTS set. This indicates the agent misunderstood the core requirement - it wasn't just about 'yamllint' and 'ansible-lint' but about re-evaluating which test-related packages should be excluded during sanitization. The agent committed to an incomplete fix by only removing two packages while ignoring that 'pytest' and potentially other test packages should also be reconsidered for exclusion, leading directly to the test failure where 'pytest' was incorrectly filtered out."
+    },
+    {
+        "instance_id": "instance_django__django-15128",
+        "ground_truth_failure_id": "8",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's fundamental error occurred at step 29 when it decided to fix the table_alias method by incrementing until a unique alias is found. This was a flawed strategy because the problem isn't about generating unique aliases in isolation, but about preventing alias conflicts during query combination. The real issue is in the combine method where change_map keys and values intersect because the remapping process doesn't account for cascading alias changes. The fix should have modified how change_map is constructed in the combine method to ensure no key-value intersection, rather than changing alias generation in table_alias. This strategic error in understanding the root cause led to an ineffective solution that passed custom tests but failed the actual Django test suite."
+    },
+    {
+        "instance_id": "instance_astropy__astropy-14182",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The agent failed because it only implemented support for `header_rows` in the RST writer (`write` method) but completely ignored the need to modify the reader (e.g., `SimpleRSTHeader`) to parse `header_rows` such as 'unit' and 'dtype' during table input. The test failure occurs when reading the table, as the unit information is lost, but the agent never investigated or modified any parsing logic. This indicates a critical gap in the agent's solution strategy, where it treated `header_rows` as a write-only feature despite the test clearly requiring bidirectional support."
+    },
+    {
+        "instance_id": "David-Wobrock__sqlvalidator-43",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 53,
+        "forecast_reason": "The agent failed to properly interpret the test feedback at step 53. When encountering the AttributeError related to the 'Alias' object and formatting test failures, the agent incorrectly dismissed these as 'secondary issues' rather than recognizing them as critical implementation errors. The formatting functionality is a core requirement of sqlvalidator, and the AttributeError indicates a fundamental problem in the AST node handling that needed to be addressed. By proceeding with the solution despite these test failures, the agent committed to an incomplete and broken implementation. The agent should have investigated and fixed the Alias object issue before declaring the task complete."
+    },
+    {
+        "instance_id": "Dorthu__openapi3-57",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent's first deviation occurred in step 29 when it began modifying the SecurityRequirement class. While the agent correctly identified the parsing issue with empty security requirements, it failed to consider how its changes would impact the authentication system. The agent focused solely on making the OpenAPI specification parse successfully but didn't ensure that the authentication mechanisms (particularly for cookieAuth) would continue to work correctly. This led to the test failure where the 'cookie' key was missing from the requests structure. The agent should have first investigated how the authentication system works and how different security schemes are handled before implementing changes."
+    },
+    {
+        "instance_id": "instance_django__django-13551",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 1,
+        "forecast_reason": "The agent's strategy planning in step 1 contained a critical flaw: while it recognized that not all user models are required to have an email field (as per AbstractBaseUser), it failed to properly address this in its solution design. The proposed patch uses getattr(user, 'email', '') which makes two incorrect assumptions: (1) that the email field is always named 'email', failing to handle custom email field names like in CustomEmailField; and (2) that using an empty string as default for missing email fields would maintain proper token invalidation, when in fact this causes users with no email (None) and empty email ('') to generate identical hash values. This flaw directly caused the test failures in test_token_with_different_email, particularly in the cases involving CustomEmailField and None email values, as the token generation does not properly reflect changes in email state."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-22714",
+        "ground_truth_failure_id": "3",
+        "forecast_failure_id": 0,
+        "forecast_reason": "The agent's initial analysis incorrectly framed the problem as a general evaluation control issue between `evaluate`, `sympify`, and `Point2D`, when the root cause is actually context leakage during string parsing in `sympify`. The agent failed to recognize that `S('Point2D(...)')` uses `eval()` internally, which breaks the `evaluate(False)` context scope, causing `Point.__new__` to execute under default evaluation rules. This fundamental misunderstanding of the execution environment led to all subsequent incorrect investigations and ultimately the wrong patch."
+    },
+    {
+        "instance_id": "Fatal1ty__mashumaro-116",
+        "ground_truth_failure_id": "18",
+        "forecast_failure_id": 29,
+        "forecast_reason": "The agent failed to correctly interpret the test results in step 29. While the deserialization functions were being called, the error messages showed both fields as 'type int' instead of their distinct annotated types (Annotated[int, \"POSITIVE\"] and Annotated[int, \"NEGATIVE\"]). This indicates that while the strategy lookup was finding the correct functions, the type distinction was not being properly maintained in the error reporting system. The agent incorrectly concluded the functionality was working when it had actually failed to properly distinguish between annotated types in the error context, which is a critical part of the required functionality. The agent should have recognized that both fields being reported as 'int' meant the type distinction was lost, indicating a fundamental flaw in the implementation."
+    },
+    {
+        "instance_id": "instance_django__django-14787",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The agent's patch incorrectly assumes that the issue lies in the decorator being a `functools.partial` object and attempts to extract `decorator.func` for `update_wrapper`. However, the real issue is that `method_decorator` must ensure the *wrapped method's* attributes (like `__name__`) are preserved, not the decorator's. The test failure occurs because `func_name` is `None`, indicating that the method's `__name__` was not properly propagated through the wrapper chain. The agent misdiagnosed the problem in Step 2 by focusing on the decorator object rather than the method being decorated, leading to a patch that does not address the actual causal mechanism of the failure."
+    },
+    {
+        "instance_id": "CS-SI__eodag-634",
+        "ground_truth_failure_id": "26",
+        "forecast_failure_id": 19,
+        "forecast_reason": "The agent failed because it fundamentally misunderstood how os.path.commonpath() works. In step 19, it incorrectly stated that 'os.path.commonpath(subpaths_list) will return the path to that file itself, not a directory', when in reality os.path.commonpath() always returns a directory path. This flawed mental model led to a solution that simply returns early when processing single files (step 26), completely breaking the intended functionality of flattening nested directory structures even when they contain only one file. The test expects the function to flatten the directory structure a/b/c1/foo into just foo at the root level, but the agent's fix prevents any flattening from occurring, resulting in the directory structure remaining unchanged and causing the assertion failure."
+    },
+    {
+        "instance_id": "Fatal1ty__mashumaro-130",
+        "ground_truth_failure_id": "36",
+        "forecast_failure_id": 49,
+        "forecast_reason": "The agent failed because it incorrectly modified the OpenAPI 3.1 test to expect '#/$defs/A' instead of preserving the correct OpenAPI behavior. Despite correctly identifying in step 48 that OpenAPI 3.1 should use '#/components/schemas/' for reusable components, the agent chose to change the test expectations rather than maintaining proper dialect-specific behavior in the implementation. This fundamental misunderstanding of how different JSON Schema dialects should be handled led directly to the test failure, as OpenAPI 3.1 schemas must use '#/components/schemas/' not '#/$defs/'. The agent should have preserved the OpenAPI 3.1 dialect's 'definitions_root_pointer' while only fixing the JSON Schema Draft 2020-12 dialect."
+    },
+    {
+        "success_rate": "0.4019607843137255",
+        "total_cases": "102"
+    }
+]

@@ -1,0 +1,2 @@
+agent,model,instance_id,failure_id,failure_reason,tokens
+swe-agent,gemini2,swe-agent_gemini2_instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4,11,"The agent inserted author aggregation logic but did not ensure it was correctly integrated into the `compare_authors` function. This led to incomplete or incorrect author comparisons, causing the system to fail matching existing editions and resulting in new editions being created instead of modified.",25968

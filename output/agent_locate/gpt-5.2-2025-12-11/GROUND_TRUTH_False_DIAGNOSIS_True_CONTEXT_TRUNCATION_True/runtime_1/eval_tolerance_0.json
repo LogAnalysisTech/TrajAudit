@@ -1,0 +1,336 @@
+[
+    {
+        "instance_id": "instance_future-architect__vuls-f6509a537660ea2bce0e57958db762edd3a36702",
+        "ground_truth_failure_id": "14",
+        "forecast_failure_id": 18,
+        "forecast_reason": "Step 18 introduced normalizeHomeDirPathForWindows but it reads os.Getenv(\"USERPROFILE\") instead of the required \"userprofile\" env var. In the tests, only \"userprofile\" is set (lowercase), and on non-Windows systems env vars are case-sensitive, so USERPROFILE is empty and the helper returns the original path (~/.ssh/known_hosts). This directly causes TestNormalizedForWindows to fail."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-89f0432ad5dc70f1f6a30ec3a8363d548371a718",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 19,
+        "forecast_reason": "Step 19 is the earliest deviation: the agent implemented ReadAtMost to return nil when it reads exactly `limit` bytes and the subsequent probe read returns io.EOF. However, the repository\u2019s tests define the contract that hitting the limit boundary (including limit==len(content)) must return ErrLimitReached because the function cannot know whether more data exists without reading past the limit. The implementation\u2019s post-read probe (`n, err := r.Read(1)`) returns EOF for strings.NewReader(\"hello\") after consuming 5 bytes, so it incorrectly returns nil instead of ErrLimitReached, directly causing the observed test failure."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "Step 30 is the earliest causal deviation: it modified BraveAdBlocker.read_cache to convert adblock deserialization failures into a new DeserializationError and re-raise it (lines 232/237). The requirements/tests expect read_cache itself to catch deserialization errors, emit message.error(\"Reading adblock filter data failed... Please run :adblock-update.\"), and return without propagating any exception. By raising DeserializationError from read_cache, the exception escapes (as shown in the failure stack trace), so the test fails before it can assert the user-facing error message."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 8,
+        "forecast_reason": "Step 8 changed find_match to only try find_quick_match then find_threshold_match, removing the existing find_exact_match fallback. This over-tightened/altered matching so records without identifiers but with strong exact metadata (title+author+publisher+publish_date) no longer match existing editions, leading to creating a new edition instead of modifying the existing one. That directly causes test_covers_are_added_to_edition to see reply['edition']['status']=='created' rather than 'modified'."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-09ae41a2da66264c60ef307882362d2e2d8d8b89",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 9,
+        "forecast_reason": "Step 9 is the earliest causal deviation: the agent attempted to patch authenticate via a brittle str_replace of a small error-handling block, but it did not add the required guard/early-return when FindByUsernameWithPassword returns ErrNotFound (usr remains nil). As a result, authenticate still proceeds to call validateCredentials(usr, ...) with usr==nil for invalid users / token auth, causing the nil pointer dereference seen in tests instead of returning Subsonic error code 40 and stopping the handler."
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-e15d26630934d0b6415ed2295ac42fd570a57620-va0fd88aac89cde702ec1ba84877234da33adce8a",
+        "ground_truth_failure_id": "19",
+        "forecast_failure_id": 22,
+        "forecast_reason": "The earliest causal deviation is in step 22 where custom_headers was rewritten to gate Accept-Language with `if accept_language is not None:` (and similarly for the per-domain branch). In qutebrowser config, missing values can be represented by the `usertypes.Unset` sentinel, which is not `None`. When the test calls `custom_headers(url=QUrl(...), fallback_accept_language=False)` with no per-domain override, `config.instance.get_obj(..., fallback=False)` returns `Unset`, the `is not None` check passes, and the code executes `accept_language.encode('ascii')`, raising `AttributeError: 'Unset' object has no attribute 'encode'`. The correct check must treat `Unset` like \u201cnot set\u201d (e.g., compare against `usertypes.UNSET`/`usertypes.Unset` or use config APIs that return `None`), so Accept-Language is omitted as required."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-798055d1a19b8fa0983153b709f460be97e33064-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 19,
+        "forecast_reason": "At step 19 the agent committed to an incorrect dictionary schema for Standard Ebooks entries, changing map_data to read entry['language'] and entry['dc_issued'] (and previously publisher). The real dictionary-based feed used by tests provides language under 'dcterms_language' and publish timestamp under 'published' (publisher under 'dcterms_publisher'). Because of this mismatch, map_data raises KeyError('language') when called with SAMPLE_1, causing the test failure. The fix should instead read entry['dcterms_language'] (validate startswith 'en-') and derive publish_date from entry['published'][0:4], while publishers remains ['Standard Ebooks']."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "4",
+        "forecast_failure_id": 5,
+        "forecast_reason": "Step 5 inserted `import \"io\"` as a separate import statement after the existing parenthesized import block in log/formatters.go (line 8 in the snippet). Go forbids having an `import` declaration in the middle of a file after another import block; this makes the package fail to compile, so the test suite cannot run. The correct change would have been to add `io` inside the existing import (...) block (or merge imports), not create a second import section."
+    },
+    {
+        "instance_id": "instance_NodeBB__NodeBB-82562bec444940608052f3e4149e0c61ec80bf3f-vd59a5728dfc977f44533186ace531248c2917516",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": 8,
+        "forecast_reason": "Step 8 is the earliest deviation: the agent attempted to patch /app/src/socket.io/posts/votes.js to add the required topics:read privilege enforcement, admin bypass, UID deduplication, and cutoff response. However, the observation shows the command did not apply the edit at all (it printed repeated repository directory listings instead of a successful replacement diff/confirmation). As a result, SocketPosts.getUpvoters remained in its original insecure form and continued returning upvoter data even when guests lacked topics:read, causing the test to fail with 'Missing expected rejection' for [[error:no-privileges]]."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-e12a14a87d392ac70ee4cc8079e3c3e0103dbcb2",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The ffmpeg parser\u2019s parseInfo/extractMetadata logic stores the raw channel descriptor (e.g., \"stereo\") into tags[\"channels\"] (step 25 lines 162-166). The PR/tests require converting descriptors like mono/stereo/5.1 into the corresponding channel count and storing that numeric value in the metadata map (tests expect []string{\"2\"}). Because ffmpeg_test asserts directly on extractMetadata output (not via Tags.Channels()), returning \"stereo\" causes the 4 failing specs. The fix should convert match[1] to an integer count (e.g., via a small mapping or shared helper) and store it as a numeric string in tags[\"channels\"]."
+    },
+    {
+        "instance_id": "instance_ansible__ansible-83fb24b923064d3576d473747ebbe62e4535c9e3-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+        "ground_truth_failure_id": "19",
+        "forecast_failure_id": 27,
+        "forecast_reason": "Step 27 is the first causal deviation: it modifies construct_rule() to append the multiport match early (lines 548-551) before append_param(rule, params['jump'], '-j', False). This causes generated iptables commands to place '-m multiport' before '-j ACCEPT'. The unit test TestIptables.test_destination_ports asserts the opposite ordering ('-j', 'ACCEPT' must precede '-m', 'multiport', '--dports ...'), so this early insertion directly leads to the observed argument-order mismatch and test failure."
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-59d39dee5a8a66e5b8a18a9085a199d369b1fba8-v626ec2a48416b10a88641359a169d99e935ff037",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 36,
+        "forecast_reason": "Step 36 introduced the faulty caching logic in getCACert: it always looks for a per-instance cache file named \"<server name>-ca.pem\" and only writes that file for CloudSQL. But RDS/Redshift downloads are cached under the URL basename (e.g. rds-ca-2019-root.pem) via ensureCACertFile. Therefore after rds.SetCA(nil), initCACert calls getCACert, which fails to find \"rds-ca.pem\" and triggers downloader.Download again, making fakeDownloader.count go from 1 to 2 and failing TestInitCACertCaching. The fix is to have getCACert check/read the correct cached filename per DB type (RDS/Redshift: URL-basename file; CloudSQL: instance-name file) before downloading."
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth_failure_id": "16",
+        "forecast_failure_id": 25,
+        "forecast_reason": "The earliest causal deviation is in step 25 where CRLFWriter was implemented to only wrap/convert when runtime.GOOS == \"windows\" and otherwise return the original writer unchanged. The new tests expect CRLFWriter to perform LF\u2192CRLF normalization in the test environment (linux CI), so returning the raw buffer leaves \"\\n\" unchanged, producing the observed failures (\"hello\\nworld...\" instead of \"hello\\r\\nworld...\"). This also breaks the cross-write case because the wrapper isn\u2019t applied at all, so the second write\u2019s leading \"\\n\" is not converted. If CRLFWriter had been implemented without the GOOS gate (or with a testable/forced Windows mode), the tests would pass."
+    },
+    {
+        "instance_id": "instance_django__django-15280",
+        "ground_truth_failure_id": "35",
+        "forecast_failure_id": 36,
+        "forecast_reason": "The agent prematurely committed to fixing the issue by changing QuerySet._clone() to copy _known_related_objects, assuming shared dict state caused deferred-field leakage. This was a wrong mental model for the reported nested-prefetch overwrite bug (parent instance from outer queryset overwriting inner-prefetched parent with different deferred fields). Additionally, the validation command failed because pytest wasn\u2019t available, so the agent never verified behavior. As a result, the real prefetch caching logic remained unchanged and the nested prefetch still triggered an extra SELECT, causing the test failure."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-0a90f9f0256e4f933523e9842799e39f95ae29ce-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth_failure_id": "32",
+        "forecast_failure_id": 34,
+        "forecast_reason": "Step 34 introduced the core bug: in get_location_and_publisher, when parsing colon segments it does `locations.extend(_remove_brackets(l) for l in all_locs)` without dropping entries that become empty after bracket removal. For loc_pub='[Place of publication not identified] : Pearson', the phrase removal leaves '[] : Pearson'; get_colon_only_loc_pub returns loc='[]', and _remove_brackets turns this into '' which is then appended, producing ([''], ['Pearson']) instead of ([], ['Pearson']). Filtering out empty strings after removing brackets (or removing the unidentified-place phrase including brackets) would prevent the failing test."
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth_failure_id": "5",
+        "forecast_failure_id": 11,
+        "forecast_reason": "The earliest causal deviation is at step 11, where luqum_replace_child was changed to always copy the old child\u2019s formatting whitespace (head/tail) onto the replacement node. In the failing test, the old child `id:2` appears as the right operand of `OR` inside a group and carries a leading space in its `head` (rendering as `OR id:2`). The replacement expression is itself a Group-like node that, per expected output, must render immediately after the operator with no intervening space: `OR(subject:horror)`. By copying `head=' '` from `id:2` onto the replacement, the function forces `OR (subject:horror)`, introducing the extra space seen in the failure. The correct behavior is to rebuild children without blindly inheriting head/tail (or to apply different whitespace rules depending on node type), so this unconditional whitespace preservation is the direct ancestor of the formatting mismatch."
+    },
+    {
+        "instance_id": "instance_sphinx-doc__sphinx-10435",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 20,
+        "forecast_reason": "Step 20 is the earliest deviation: it explicitly checks out (reverts) sphinx/writers/latex.py (removing the earlier % insertion in the generated LaTeX source) and applies a macro-level fix in sphinxlatexstyletext.sty (\\sphinxcode uses \\unskip...\\ignorespaces). This cannot satisfy the requirement/tests that inspect python.tex and expect literal '%' comment markers immediately after \\sphinxupquote{ and before the closing braces (\\sphinxupquote{%\\n...%\\n}}). By abandoning the writer-level change, the produced .tex lacks those '%' markers, leading to the assertion failure."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-25775",
+        "ground_truth_failure_id": "40",
+        "forecast_failure_id": 148,
+        "forecast_reason": "The repository had valid code changes (confirmed by git diff --stat at step 150), but the agent never executed the required final submission command (`echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT && git add -A && git diff --cached`). Instead, starting at step 148 it continued creating/running extra scripts and only viewed `git diff` (unstaged). Because nothing was staged and no cached diff was produced, the harness reported 'No patch generated by agent'. The earliest deviation is step 148 where the agent should have transitioned to the mandated submission step after tests passed (step 147) but did not."
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-20826",
+        "ground_truth_failure_id": "33",
+        "forecast_failure_id": 24,
+        "forecast_reason": "At step 24 the agent committed to a globally-scoped fix by inserting rcParams-based tick_params calls into _AxesBase.cla() for all axes. This changes tick/label configuration every time any axes is cleared (including polar axes created by plt.subplot(..., polar=True) in test_markevery_polar), altering rendered output and breaking image-comparison baselines. The original bug was about shared-axis label hiding after clear; the fix should have been narrowly targeted to preserving shared-axis label_outer state, not reapplying global tick_params defaults inside cla() for all projections. This broad styling reset is the earliest change that can explain the unrelated polar plot image mismatch."
+    },
+    {
+        "instance_id": "instance_django__django-15022",
+        "ground_truth_failure_id": "38",
+        "forecast_failure_id": 54,
+        "forecast_reason": "The earliest causal deviation is step 54 where the agent implemented the 'smart fix' that falls back to the original per-term queryset.filter(or_queries) loop whenever any search lookup spawns duplicates (reverse FK/M2M). In the failing test_many_search_terms, the admin search includes a reverse FK (Parent searched via child__name), so lookup_spawns_duplicates() returns True and the code takes the fallback path. With 80 repeated terms, this executes 80 separate filter() calls, each adding another JOIN alias, eventually exceeding SQLite's 64-table join limit ('at most 64 tables in a join'). The correct fix must still avoid per-term filter() chaining for reverse-FK/M2M searches (e.g., by combining conditions in a way that reuses joins or uses EXISTS/subqueries) while preserving semantics, so this conditional fallback directly reintroduced the JOIN explosion the PR aimed to eliminate."
+    },
+    {
+        "instance_id": "ESSS__conda-devenv-51",
+        "ground_truth_failure_id": "17",
+        "forecast_failure_id": 29,
+        "forecast_reason": "In step 29 the agent modified __call_conda_env_update to catch SystemExit and return e.code, but did not handle the other behavior of conda_env.cli.main.main(): returning None on success. When _call_conda returns None (as in the failing test with return_none=True), __call_conda_env_update propagates None back to devenv.main(), so devenv.main() returns None instead of 0, causing the assertion `assert devenv.main(...) == 0` to fail. The correct fix must normalize a None return to 0 (e.g., `ret = _call_conda(); return 0 if ret is None else ret`) while still catching SystemExit."
+    },
+    {
+        "instance_id": "Delgan__loguru-1236",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 34,
+        "forecast_reason": "Step 34 is the earliest deviation: the agent commits to the flawed strategy that if an opening tag is escaped then its corresponding closing tag should automatically be treated as escaped/literal too. Loguru\u2019s markup escaping is based on the number/parity of backslashes immediately before each tag, not on pairing escaped openings with later closings. This incorrect mental model led to the later implementation (steps 36-38) adding _recently_escaped_tags and special-casing closing tags, which changes how sequences like r\"\\\\<red>foobar\\\\</red>\" and r\"\\\\\\<red>...\" are interpreted, causing the parametrized escaping tests to fail (tags that should be parsed as real tags with literal backslashes become treated as escaped/literal markup, and vice versa)."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2145",
+        "ground_truth_failure_id": "41",
+        "forecast_failure_id": 28,
+        "forecast_reason": "Step 28 is the earliest deviation: the agent added \"{{infl of\" to en.variant_templates, which makes add_potential_variant start processing infl-of templates. But add_potential_variant calls process_templates(), and for form-of templates like \"infl of\" process_templates returns the rendered HTML definition string (e.g., '<i>inflection of:</i> <b>memoize</b> (\u201ced-form\u201d)') rather than the plain lemma. This immediately sets the system on a path where details.variants becomes a formatted definition instead of ['memoize'], producing the observed assertion failure. The correct plan should have included, at the same time as enabling the template for variants, a lemma-only extraction path for infl-of (e.g., parse template args and take the base word) so variants remain plain words."
+    },
+    {
+        "instance_id": "Dorthu__openapi3-57",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 29,
+        "forecast_reason": "Step 29 is the earliest deviation: the agent unilaterally changed SecurityRequirement's field declaration from the project\u2019s custom '___slots__' convention to Python '__slots__'. In this codebase, ObjectBase-derived models use '___slots__' (triple underscore) as a metadata list for serialization/introspection, not Python slots. Switching to '__slots__' changes how attributes are stored and how ObjectBase discovers fields, which later impacts security scheme handling during request construction. As a result, cookie-based auth is applied incorrectly (requests ends up looking for a header key 'cookie' and raises KeyError), causing the failing test. The fix should have only added support for empty {} security requirements while preserving the existing '___slots__' mechanism."
+    },
+    {
+        "instance_id": "Delgan__loguru-1299",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "Duke-GCB__lando-169",
+        "ground_truth_failure_id": "15",
+        "forecast_failure_id": 33,
+        "forecast_reason": "Step 33 hard-coded the usage report path as Paths.OUTPUT_RESULTS_DIR + \"/usage-report.json\" (i.e., /bespin/output-data/results/usage-report.json). The predefined test expects a job-specific filename in the output-data root: /bespin/output-data/job-51-jpb-resource-usage.json (derived from job id/username) and also expects the command to include --stdout/--stderr flags rather than shell redirections. Because the implementation committed to the wrong naming/location convention for the report (and command shape), the generated command list differed from the expected list, producing the assertion failure."
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-138",
+        "ground_truth_failure_id": "29",
+        "forecast_failure_id": 26,
+        "forecast_reason": "Step 26 is the earliest deviation: the agent commits to the incorrect requirement interpretation that the fix is to keep the entire -D definition unquoted (\"Keep the -D outside of quotes\") and remove the template\u2019s outer-quote wrapping. The repository\u2019s expected behavior (as enforced by tests) is the opposite for values containing quotes/braces: emit a single CMake list element wrapped in quotes and escape embedded quotes (e.g. \"-DMBED_CONF_IOTC_MQTT_HOST={\\\\\\\"mqtt...\\\\\\\", IOTC_MQTT_PORT}\"). This wrong mental model directly caused the later template edit (step 30) to remove quoting/escaping, producing unquoted/unescaped output and the failing assertion in test_cmake_file.py."
+    },
+    {
+        "instance_id": "instance_django__django-15128",
+        "ground_truth_failure_id": "8",
+        "forecast_failure_id": 30,
+        "forecast_reason": "The agent changed Query.table_alias() to only skip aliases already present in self.alias_map (while loop). This is insufficient for Query.combine(): during OR-combine, rhs aliases are being relabeled via change_map, and self.join()/table_alias() may generate a new alias that collides with an alias that still exists in rhs (a future change_map key) or with an alias already chosen as a change_map value. That can still produce a change_map like {'T4':'T5','T5':'T6'} where keys and values intersect, triggering the assertion in Query.change_aliases. The correct fix must ensure newly generated aliases during combine avoid *all* rhs aliases being remapped (and/or pre-bump the alias prefix / reserve a non-overlapping alias range), not just avoid current self.alias_map entries."
+    },
+    {
+        "instance_id": "GjjvdBurg__paper2remarkable-43",
+        "ground_truth_failure_id": "0",
+        "forecast_failure_id": 35,
+        "forecast_reason": "The deviation occurs when the agent rewrites check_pdftool to prefer qpdf on Linux (lines 179-189). The repository\u2019s required behavior (and the failing unit test) is that when both tools are available, check_pdftool(\"pdftk\",\"qpdf\") must return \"pdftk\". By introducing platform-based preference (prefer_qpdf = platform.system()==\"Linux\") and checking qpdf first, the function returns \"qpdf\" on Linux even when pdftk exists, directly causing the assertion failure ('qpdf' != 'pdftk'). The correct fix for the Ubuntu report should have been to handle FileNotFoundError (missing pdftk) and then fall back to qpdf, without changing the default priority order."
+    },
+    {
+        "instance_id": "AzureAD__microsoft-authentication-library-for-python-530",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 47,
+        "forecast_reason": "Step 47 introduced the causal bug: _decorate_scope still raises ValueError when self.client_id is present with any other scope (len(scope_set)>1), and only preserves client_id for B2C when it is the sole scope. The new test expects client_id to be a valid scope even alongside other scopes (e.g., ['client_id','foo']) and to return input scopes plus reserved scopes. Because the code keeps the single-scope restriction, it either errors or drops client_id behavior, leading to the assertion failure (expected set contains 'client_id' and 'foo' but actual does not). Fix should remove/relax the len(scope_set)>1 restriction (at least for this scenario) and always union scope_set with reserved_scope when client_id is included."
+    },
+    {
+        "instance_id": "12rambau__sepal_ui-646",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 19,
+        "forecast_reason": "Step 19 is the earliest deviation: the agent removed the original contract that `progress` is a normalized fraction in [0,1] (and that values >1 raise unless a `total` is explicitly provided) and rewrote the docstring to a new rule (\u201c<=1 fraction scaled to total, >1 absolute\u201d). This wrong requirement interpretation led directly to the later implementation (step 21) that scales `progress=0.5` by the default `total=100`, producing `progress_bar.n=50` instead of the expected raw `0.5`, causing the failing assertion. If step 19 had preserved the original semantics/validation (raise for >1 unless `total` passed, and keep `n` in the same units as `progress`), the test would not fail."
+    },
+    {
+        "instance_id": "instance_django__django-14999",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 3,
+        "forecast_reason": "The first decisive mistake is at step 3: the agent commits to a conceptual patch that changes RenameModel reduction logic (and even the reduce() signature by adding a nonexistent in_memory_state parameter) instead of implementing the required noop in RenameModel.database_forwards/database_backwards when the model has an explicit db_table that doesn\u2019t change. Django\u2019s migrations framework calls RenameModel.database_forwards(), which uses schema_editor.alter_db_table/rename_model and triggers SQLite table rebuilds and FK/index recreation; since the agent didn\u2019t add any db_table check there, the operation still executed 5 SQL queries, failing assertNumQueries(0). The earlier steps were exploratory; step 3 is the earliest point where the plan diverged into an unworkable direction that could not prevent the database schema changes."
+    },
+    {
+        "instance_id": "instance_django__django-10914",
+        "ground_truth_failure_id": "2",
+        "forecast_failure_id": 3,
+        "forecast_reason": "The earliest causal deviation is in step 3 where the agent hard-coded FileSystemStorage.__init__(..., file_permissions_mode=0o644) and stored it in self._file_permissions_mode. default_storage is a long-lived instance; when tests override settings(FILE_UPLOAD_PERMISSIONS=0o777), Django expects FileSystemStorage.file_permissions_mode to be derived from settings (and refreshed via setting_changed/_clear_cached_properties). By baking 0o644 into the constructor default, self._file_permissions_mode is no longer None, so the property never consults settings and remains 0o644 inside the override context, causing the assertion 0o777 to fail."
+    },
+    {
+        "instance_id": "CS-SI__eodag-634",
+        "ground_truth_failure_id": "26",
+        "forecast_failure_id": 19,
+        "forecast_reason": "At step 19 the agent commits to an incorrect requirement interpretation: it concludes that when os.path.commonpath returns a file path (single-file case) the correct behavior is to \u2018do nothing\u2019/skip flattening. However the expected behavior (see failing test) is to still flatten the directory structure so that the single file ends up directly under nested_dir_root (intermediate dirs removed). This wrong mental model leads directly to the later code change (step 26) that returns early when common_subdirs_path is not a directory, preventing flattening and leaving extra directories (4 paths instead of 1)."
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-91",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "CODAIT__exchange-metadata-converter-25",
+        "ground_truth_failure_id": "22",
+        "forecast_failure_id": 32,
+        "forecast_reason": "Step 32 rewrote replace()/process_list() to include list indices in the annotation lookup path (e.g., item_path = f\"{current_path}[{i}]\" and then placeholder_annotations.get(current_path,...)). But _extract_placeholder_annotations() builds keys only from YAML mapping keys (dot-separated, no list indices), so annotations on placeholders inside lists (like property12[0].property12b) are stored as \"property12.property12b\" while lookups use \"property12[0].property12b\". As a result, @optional isn\u2019t detected for list items and missing placeholders (noprop12bvalue) still raise PlaceholderNotFoundError, causing the failing test_optional_annotation."
+    },
+    {
+        "instance_id": "Azure__azure-cli-1876",
+        "ground_truth_failure_id": "25",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "Bachmann1234__diff_cover-413",
+        "ground_truth_failure_id": "28",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_astropy__astropy-14182",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The earliest lethal deviation is in step 2 where the agent implements `header_rows` by storing it on `RST` and manually prepending a fabricated header line in `RST.write()`. This bypasses Astropy\u2019s existing `FixedWidth`/`Header` infrastructure (e.g., `SimpleRSTHeader` / fixedwidth header_rows handling) that actually maps header rows like 'unit' and 'dtype' into column metadata during read/write. As a result, `QTable.read(..., format='ascii.rst', header_rows=['name','unit','dtype'])` still uses the unchanged RST header parser, so units/dtypes are not interpreted and `tbl['wave'].unit` remains None, causing the test failure. Correct fix would pass `header_rows` through to the underlying header class / FixedWidth machinery (and ensure both reader and writer honor it), not add ad-hoc lines in `write()`."
+    },
+    {
+        "instance_id": "CODAIT__exchange-metadata-converter-38",
+        "ground_truth_failure_id": "23",
+        "forecast_failure_id": 38,
+        "forecast_reason": "Step 38 is the earliest deviation: the agent edited templates/dlf_out.yaml to set metadata.name to '{{name_dns_compliant}}' instead of the required '{{id}}'. The updated tests expect metadata.name to equal the dataset descriptor's id (already DNS-1123 compliant, e.g. 'lorem-ipsum-data-set'). Introducing a new placeholder not present in the input dict used by replace() misaligns with the intended contract and led the agent to later revert to '{{name}}', producing the observed failure ('Lorem ipsum data set' != 'lorem-ipsum-data-set'). The correct fix should have been to use the existing id field (or ensure replace() receives id-derived value), not invent a new placeholder."
+    },
+    {
+        "instance_id": "instance_django__django-15252",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 0,
+        "forecast_reason": "The earliest deviation is at step 0: the agent commits to solving only the router/allow_migrate issue by modifying MigrationRecorder (ensure_schema/record_applied) and never considers the separate requirement exercised by the failing test: when TEST['MIGRATE']=False during test DB creation, Django must skip running migrations entirely, so MigrationRecorder.ensure_schema must not be invoked at all. Because the plan targets recorder/router logic rather than the test database creation path that guards migration execution under MIGRATE=False, ensure_schema is still called once during create_test_db, causing mocked_ensure_schema.assert_not_called() to fail."
+    },
+    {
+        "instance_id": "instance_django__django-14534",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The patch changed BoundWidget.id_for_label to return self.data['attrs'].get('id', 'id_%s_%s' % (...)). This introduces a fallback that auto-generates an id whenever attrs lacks 'id'. In Django, when a form is created with auto_id=False, subwidgets for ChoiceField/Select should have no id and thus id_for_label must be None. The fallback forces 'id_name_0', breaking test_iterable_boundfield_select which asserts fields[0].id_for_label is None. Correct behavior is to return self.data['attrs'].get('id') (or self.data['attrs'].get('id') and not synthesize one) so absence of id stays None."
+    },
+    {
+        "instance_id": "instance_django__django-14787",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "The agent\u2019s first committed mistake is in step 2: it patches method_decorator to special-case functools.partial only when calling update_wrapper(_dec, decorator). This targets the metadata of the returned decorator factory (_dec), not the object passed into the user-supplied decorator. The failing test shows the user decorator receives a callable lacking __name__/__module__ (func_name becomes None), meaning _multi_decorate is still passing a functools.partial (or similar) into decorator(func). Fixing update_wrapper on _dec cannot affect that; the correct fix must ensure the callable given to the user decorator has proper function attributes (e.g., wrap the partial in a real function and update_wrapper it, or adjust _multi_decorate to avoid exposing partial). Because the patch addresses the wrong layer, the test still sees func without __name__, causing the assertion failure."
+    },
+    {
+        "instance_id": "instance_django__django-15695",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 2,
+        "forecast_reason": "Step 2 is the earliest deviation: it patches RenameIndex.database_forwards to call schema_editor._constraint_names() and then schema_editor.remove_index(model, new_index) when the target name already exists. This changes RenameIndex semantics from a rename (or no-op when already in desired state) into a drop/create path, which on SQLite triggers many introspection queries plus DROP INDEX/CREATE INDEX (13 queries captured) instead of the expected 1-2 rename queries. It also misaddresses the original PostgreSQL issue (should restore/track the autogenerated old name for unnamed indexes and make reapplication idempotent) by deleting the existing index, causing unnecessary schema changes and breaking the test\u2019s expected query count and behavior."
+    },
+    {
+        "instance_id": "Duke-GCB__lando-173",
+        "ground_truth_failure_id": "10",
+        "forecast_failure_id": 28,
+        "forecast_reason": "Step 28 is the earliest deviation: the agent commits to a bash-specific fix (process substitution `2> >(tee \u2026 >&2)`) to tee stderr. This plan assumes/locks in a shell-wrapped command with redirections, but the unit test expects `job_container.command` to be a direct argv list starting with `cwltool` and using `--stdout/--stderr` options (no `bash -c`, no `2>` redirection). Because the agent\u2019s chosen strategy requires shell redirection semantics, it inevitably produces `['bash','-c', ...]` and a single string command, causing the assertion mismatch shown in the failure (`['bash','-c', ...] != ['cwltool', '--tmp-outdir-prefix', ...]`). A correct plan would preserve argv form and implement log duplication without shell redirection (e.g., rely on runner flags or adjust how logs are captured), so the test would still pass."
+    },
+    {
+        "instance_id": "FirefighterBlu3__python-pam-32",
+        "ground_truth_failure_id": "29",
+        "forecast_failure_id": 31,
+        "forecast_reason": "The agent implemented the fix only in src/pam/__init__.py by wrapping the module-level authenticate() to return a PamAuthenticator when called with no args and to convert the PAM return code to a boolean only for the module-level call (return result == PAM_SUCCESS). This left PamAuthenticator.authenticate() (used by tests via pam_obj.authenticate) still returning raw PAM_* integers (e.g., 7/PAM_AUTH_ERR). The predefined failing test expects pam_obj.authenticate('bad_user_name','') to return False while exposing the PAM code via pam_obj.code, but because the internal method still returns 7, the assertion `False is rv` fails. The earliest point this wrong plan was executed is step 31, where the agent chose not to change PamAuthenticator.authenticate\u2019s return contract."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2133",
+        "ground_truth_failure_id": "12",
+        "forecast_failure_id": 30,
+        "forecast_reason": "Step 30 is the first causal deviation: the agent added support for template \"\u03b5\u03c4\u03b9\u03ba\" by reusing the existing \u03b5\u03c4/\u03b5\u03c4\u03b9\u03ba\u03ad\u03c4\u03b1 handler, but that handler only consumes the first positional argument (parts[0]) via data[\"label\"] = parts[0]. For \"{{\u03b5\u03c4\u03b9\u03ba|\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1|\u03c4\u03c1\u03cc\u03c6\u03b9\u03bc\u03b1|\u03b3\u03bb\u03c5\u03ba\u03ac}}\" this drops the 2nd+ parameters, producing only '(<i>\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1</i>)' instead of the required '(<i>\u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03af\u03b1</i>, <i>\u03c4\u03c1\u03cc\u03c6\u03b9\u03bc\u03b1</i>, <i>\u03b3\u03bb\u03c5\u03ba\u03ac</i>)'. The fix should have collected all positional params (parts list) and passed them to labels_output (or joined/iterated) rather than only parts[0]."
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2149",
+        "ground_truth_failure_id": "13",
+        "forecast_failure_id": 45,
+        "forecast_reason": "Step 45 is the first causal deviation: it changes render_foreign_derivation() to always expand the template parameter g (e.g., 'm','f','n','pl') into full words via parse_gender(), producing <i>masculine</i> etc. This function is used when rendering etymology text containing {{l|...|g=m}}; the existing tests expect the abbreviated markers (<i>m</i>, <i>f</i>, <i>n</i>, <i>pl</i>) to remain unchanged in running prose. By globally expanding them, the etymology strings differ and the assertion fails. The requirement was to parse gender strings for specific template outputs needing meaningful labels, not to alter established etymology rendering expectations."
+    },
+    {
+        "instance_id": "instance_sympy__sympy-12419",
+        "ground_truth_failure_id": "1",
+        "forecast_failure_id": 3,
+        "forecast_reason": "The earliest deviation is step 3 where the agent committed to a speculative patch without verifying SymPy\u2019s existing semantics. The patch (written via write_patch) altered core behavior such that Identity(n)[i,j] now simplifies/evaluates to 0 (or otherwise becomes provably zero), which breaks the existing test expectation that In[i,j] should remain a symbolic KroneckerDelta-like object (i.e., not automatically reduced to 0 for symbolic i,j). This incorrect change cascades to the failing assertion `assert In[i, j] != 0` in test_Identity. The agent should have fixed summation over Identity without changing Identity element access semantics."
+    },
+    {
+        "instance_id": "ESSS__oop-ext-21",
+        "ground_truth_failure_id": "45",
+        "forecast_failure_id": 67,
+        "forecast_reason": "Step 67 introduced the faulty fix: `_IsMethod` was changed to treat `unittest.mock` objects as methods only if `side_effect` is not None. In `test_interface_subclass_mocked`, `mocker.patch.object(Foo, 'foo', autospec=False)` replaces `Foo.foo` with a `MagicMock` whose `side_effect` is `None`, so `_IsMethod` returns False and the interface checker concludes `Bar` is missing `foo`, making `IsImplementation(..., requires_declaration=True/False)` return False. The predefined test expects the patched method to still count as an implementation regardless of autospec, so this conditional mock handling is the earliest deviation that causes the final failure."
+    },
+    {
+        "instance_id": "CORE-GATECH-GROUP__serpent-tools-377",
+        "ground_truth_failure_id": "27",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_sympy__sympy-22714",
+        "ground_truth_failure_id": "3",
+        "forecast_failure_id": 11,
+        "forecast_reason": "Step 11 is the first committed deviation: the agent wrote a speculative patch that manipulates global_parameters.evaluate (even setting it inside sympify) and adds unrelated guards, instead of fixing Point/Point2D construction logic that raises ValueError under evaluate(False). The failing test calls Point(1,2) inside evaluate(False) and still hits Point.__new__ raising 'Imaginary coordinates are not permitted.' because the patch did not correct the real/imaginary validation path for unevaluated coordinates (or was ineffective). A correct fix would change Point.__new__ to avoid treating unevaluated coordinates as potentially imaginary when evaluate=False (e.g., only reject when coordinate is definitively non-real), not to globally override evaluation state."
+    },
+    {
+        "instance_id": "ansible__ansible-builder-336",
+        "ground_truth_failure_id": "22",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-007235446f85b1cbaef92664c3b3867517250f21",
+        "ground_truth_failure_id": "30",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "instance_id": "instance_pytest-dev__pytest-5787",
+        "ground_truth_failure_id": "9",
+        "forecast_failure_id": -1,
+        "forecast_reason": "llm output is not a valid JSON"
+    },
+    {
+        "success_rate": "0.4215686274509804",
+        "total_cases": "102"
+    }
+]

@@ -1,0 +1,321 @@
+[
+    {
+        "instance_id": "instance_future-architect__vuls-be7b9114cc9545e68fb0ee7bc63d7ec53d1a00ad",
+        "ground_truth": "10",
+        "predicted": -1
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-0b621cb0ce2b54d3f93d8d41d8ff4257888a87e5-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+        "ground_truth": "13",
+        "predicted": 23
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-89b12b34bea5687c70e4de2109fd1e7330bb2ba2",
+        "ground_truth": "22",
+        "predicted": 20
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth": "1",
+        "predicted": 14
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-f6509a537660ea2bce0e57958db762edd3a36702",
+        "ground_truth": "14",
+        "predicted": 18
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-23bebe4e06124becf1000e88472ae71a6ca7de4c",
+        "ground_truth": "17",
+        "predicted": 42
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-798055d1a19b8fa0983153b709f460be97e33064-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+        "ground_truth": "16",
+        "predicted": 18
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-007235446f85b1cbaef92664c3b3867517250f21",
+        "ground_truth": "30",
+        "predicted": 36
+    },
+    {
+        "instance_id": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+        "ground_truth": "12",
+        "predicted": 30
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-89f0432ad5dc70f1f6a30ec3a8363d548371a718",
+        "ground_truth": "13",
+        "predicted": 19
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-e1e502986a3b003899a8347ac8a7ff7b08cbfc39-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+        "ground_truth": "9",
+        "predicted": 7
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-09ae41a2da66264c60ef307882362d2e2d8d8b89",
+        "ground_truth": "2",
+        "predicted": 15
+    },
+    {
+        "instance_id": "instance_future-architect__vuls-e4728e388120b311c4ed469e4f942e0347a2689b-v264a82e2f4818e30f5a25e4da53b27ba119f62b5",
+        "ground_truth": "32",
+        "predicted": 28
+    },
+    {
+        "instance_id": "instance_ansible__ansible-77658704217d5f166404fc67997203c25381cb6e-v390e508d27db7a51eece36bb6d9698b63a5b638a",
+        "ground_truth": "23",
+        "predicted": 22
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth": "4",
+        "predicted": 7
+    },
+    {
+        "instance_id": "instance_NodeBB__NodeBB-82562bec444940608052f3e4149e0c61ec80bf3f-vd59a5728dfc977f44533186ace531248c2917516",
+        "ground_truth": "9",
+        "predicted": 8
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-4b7ea2977be2747496ba792a678940baa985f7ea-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+        "ground_truth": "37",
+        "predicted": 36
+    },
+    {
+        "instance_id": "instance_ansible__ansible-6cc97447aac5816745278f3735af128afb255c81-v0f01c69f1e2528b935359cfe578530722bca2c59",
+        "ground_truth": "72",
+        "predicted": 71
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-0488fb92cb02a82924fb1181bf1642f2e87096db",
+        "ground_truth": "35",
+        "predicted": 27
+    },
+    {
+        "instance_id": "instance_gravitational__teleport-59d39dee5a8a66e5b8a18a9085a199d369b1fba8-v626ec2a48416b10a88641359a169d99e935ff037",
+        "ground_truth": "38",
+        "predicted": 36
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-9c3b4561652a15846993d477003e111f0df0c585",
+        "ground_truth": "16",
+        "predicted": 25
+    },
+    {
+        "instance_id": "instance_sphinx-doc__sphinx-10435",
+        "ground_truth": "17",
+        "predicted": 19
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-0a90f9f0256e4f933523e9842799e39f95ae29ce-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth": "32",
+        "predicted": 34
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-20826",
+        "ground_truth": "33",
+        "predicted": 9
+    },
+    {
+        "instance_id": "instance_pytest-dev__pytest-5787",
+        "ground_truth": "9",
+        "predicted": 15
+    },
+    {
+        "instance_id": "ARMmbed__mbed-tools-138",
+        "ground_truth": "29",
+        "predicted": 30
+    },
+    {
+        "instance_id": "Delgan__loguru-1299",
+        "ground_truth": "0",
+        "predicted": 50
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2101",
+        "ground_truth": "23",
+        "predicted": 35
+    },
+    {
+        "instance_id": "Dorthu__openapi3-57",
+        "ground_truth": "1",
+        "predicted": 29
+    },
+    {
+        "instance_id": "ESSS__conda-devenv-51",
+        "ground_truth": "17",
+        "predicted": 29
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-97434c1789a6444b30aae5ff5aa124a96a88f504",
+        "ground_truth": "10",
+        "predicted": 9
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-e12a14a87d392ac70ee4cc8079e3c3e0103dbcb2",
+        "ground_truth": "23",
+        "predicted": 22
+    },
+    {
+        "instance_id": "AzureAD__microsoft-authentication-library-for-python-530",
+        "ground_truth": "1",
+        "predicted": 45
+    },
+    {
+        "instance_id": "instance_matplotlib__matplotlib-25775",
+        "ground_truth": "40",
+        "predicted": 152
+    },
+    {
+        "instance_id": "Duke-GCB__lando-169",
+        "ground_truth": "15",
+        "predicted": 33
+    },
+    {
+        "instance_id": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+        "ground_truth": "5",
+        "predicted": 11
+    },
+    {
+        "instance_id": "instance_django__django-15022",
+        "ground_truth": "38",
+        "predicted": 54
+    },
+    {
+        "instance_id": "instance_ansible__ansible-83fb24b923064d3576d473747ebbe62e4535c9e3-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+        "ground_truth": "19",
+        "predicted": 27
+    },
+    {
+        "instance_id": "12rambau__sepal_ui-646",
+        "ground_truth": "13",
+        "predicted": 17
+    },
+    {
+        "instance_id": "FirefighterBlu3__python-pam-32",
+        "ground_truth": "29",
+        "predicted": 31
+    },
+    {
+        "instance_id": "instance_sympy__sympy-13878",
+        "ground_truth": "2",
+        "predicted": 14
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2149",
+        "ground_truth": "13",
+        "predicted": 35
+    },
+    {
+        "instance_id": "Fatal1ty__mashumaro-116",
+        "ground_truth": "18",
+        "predicted": 32
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2145",
+        "ground_truth": "41",
+        "predicted": 29
+    },
+    {
+        "instance_id": "instance_ansible__ansible-b5e0293645570f3f404ad1dbbe5f006956ada0df-v0f01c69f1e2528b935359cfe578530722bca2c59",
+        "ground_truth": "34",
+        "predicted": 19
+    },
+    {
+        "instance_id": "BoboTiG__ebook-reader-dict-2133",
+        "ground_truth": "12",
+        "predicted": 23
+    },
+    {
+        "instance_id": "CODAIT__exchange-metadata-converter-25",
+        "ground_truth": "22",
+        "predicted": 32
+    },
+    {
+        "instance_id": "GjjvdBurg__paper2remarkable-43",
+        "ground_truth": "0",
+        "predicted": 34
+    },
+    {
+        "instance_id": "ansible__ansible-builder-336",
+        "ground_truth": "22",
+        "predicted": 29
+    },
+    {
+        "instance_id": "Erotemic__ubelt-64",
+        "ground_truth": "24",
+        "predicted": 23
+    },
+    {
+        "instance_id": "instance_astropy__astropy-14182",
+        "ground_truth": "1",
+        "predicted": 2
+    },
+    {
+        "instance_id": "instance_django__django-14534",
+        "ground_truth": "1",
+        "predicted": 2
+    },
+    {
+        "instance_id": "instance_django__django-10914",
+        "ground_truth": "2",
+        "predicted": 1
+    },
+    {
+        "instance_id": "instance_django__django-15695",
+        "ground_truth": "1",
+        "predicted": 2
+    },
+    {
+        "instance_id": "instance_navidrome__navidrome-56303cde23a4122d2447cbb266f942601a78d7e4",
+        "ground_truth": "7",
+        "predicted": 9
+    },
+    {
+        "instance_id": "instance_sympy__sympy-22714",
+        "ground_truth": "3",
+        "predicted": 11
+    },
+    {
+        "instance_id": "instance_django__django-15128",
+        "ground_truth": "8",
+        "predicted": 29
+    },
+    {
+        "instance_id": "BAMWelDX__weldx-384",
+        "ground_truth": "20",
+        "predicted": 44
+    },
+    {
+        "instance_id": "Delgan__loguru-1236",
+        "ground_truth": "0",
+        "predicted": 36
+    },
+    {
+        "instance_id": "Azure__azure-cli-1876",
+        "ground_truth": "25",
+        "predicted": 34
+    },
+    {
+        "instance_id": "instance_sympy__sympy-13031",
+        "ground_truth": "6",
+        "predicted": 3
+    },
+    {
+        "instance_id": "ESSS__oop-ext-21",
+        "ground_truth": "45",
+        "predicted": 67
+    },
+    {
+        "instance_id": "instance_django__django-15280",
+        "ground_truth": "35",
+        "predicted": 36
+    },
+    {
+        "success_rate": "0.38235294117647056",
+        "total_cases": "102"
+    }
+]

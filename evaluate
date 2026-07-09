@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+from eval import evaluate_all_cases
+
+import argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="TrajAudit Evaluator")
+
+    parser.add_argument(
+        "method",
+        choices=["all_at_once", "step_by_step", "binary_search", "agent_locate", "trail", "FAMAS"],
+        help="Please specify one method."
+    )
+
+    args = parser.parse_args()
+
+    evaluate_all_cases(args.method)

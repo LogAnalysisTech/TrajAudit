@@ -1,0 +1,106 @@
+{
+  "repo": "astropy/astropy",
+  "instance_id": "instance_astropy__astropy-14182",
+  "base_commit": "a5917978be39d13cd90b517e1de4e7a539ffaa48",
+  "gold_patch": "diff --git a/astropy/io/ascii/rst.py b/astropy/io/ascii/rst.py\n--- a/astropy/io/ascii/rst.py\n+++ b/astropy/io/ascii/rst.py\n@@ -27,7 +27,6 @@ def get_fixedwidth_params(self, line):\n \n \n class SimpleRSTData(FixedWidthData):\n-    start_line = 3\n     end_line = -1\n     splitter_class = FixedWidthTwoLineDataSplitter\n \n@@ -39,12 +38,29 @@ class RST(FixedWidth):\n \n     Example::\n \n-        ==== ===== ======\n-        Col1  Col2  Col3\n-        ==== ===== ======\n-          1    2.3  Hello\n-          2    4.5  Worlds\n-        ==== ===== ======\n+      >>> from astropy.table import QTable\n+      >>> import astropy.units as u\n+      >>> import sys\n+      >>> tbl = QTable({\"wave\": [350, 950] * u.nm, \"response\": [0.7, 1.2] * u.count})\n+      >>> tbl.write(sys.stdout,  format=\"ascii.rst\")\n+      ===== ========\n+       wave response\n+      ===== ========\n+      350.0      0.7\n+      950.0      1.2\n+      ===== ========\n+\n+    Like other fixed-width formats, when writing a table you can provide ``header_rows``\n+    to specify a list of table rows to output as the header.  For example::\n+\n+      >>> tbl.write(sys.stdout,  format=\"ascii.rst\", header_rows=['name', 'unit'])\n+      ===== ========\n+       wave response\n+         nm       ct\n+      ===== ========\n+      350.0      0.7\n+      950.0      1.2\n+      ===== ========\n \n     Currently there is no support for reading tables which utilize continuation lines,\n     or for ones which define column spans through the use of an additional\n@@ -57,10 +73,15 @@ class RST(FixedWidth):\n     data_class = SimpleRSTData\n     header_class = SimpleRSTHeader\n \n-    def __init__(self):\n-        super().__init__(delimiter_pad=None, bookend=False)\n+    def __init__(self, header_rows=None):\n+        super().__init__(delimiter_pad=None, bookend=False, header_rows=header_rows)\n \n     def write(self, lines):\n         lines = super().write(lines)\n-        lines = [lines[1]] + lines + [lines[1]]\n+        idx = len(self.header.header_rows)\n+        lines = [lines[idx]] + lines + [lines[idx]]\n         return lines\n+\n+    def read(self, table):\n+        self.data.start_line = 2 + len(self.header.header_rows)\n+        return super().read(table)\n",
+  "test_patch": "diff --git a/astropy/io/ascii/tests/test_rst.py b/astropy/io/ascii/tests/test_rst.py\n--- a/astropy/io/ascii/tests/test_rst.py\n+++ b/astropy/io/ascii/tests/test_rst.py\n@@ -2,7 +2,11 @@\n \n from io import StringIO\n \n+import numpy as np\n+\n+import astropy.units as u\n from astropy.io import ascii\n+from astropy.table import QTable\n \n from .common import assert_almost_equal, assert_equal\n \n@@ -185,3 +189,27 @@ def test_write_normal():\n ==== ========= ==== ====\n \"\"\",\n     )\n+\n+\n+def test_rst_with_header_rows():\n+    \"\"\"Round-trip a table with header_rows specified\"\"\"\n+    lines = [\n+        \"======= ======== ====\",\n+        \"   wave response ints\",\n+        \"     nm       ct     \",\n+        \"float64  float32 int8\",\n+        \"======= ======== ====\",\n+        \"  350.0      1.0    1\",\n+        \"  950.0      2.0    2\",\n+        \"======= ======== ====\",\n+    ]\n+    tbl = QTable.read(lines, format=\"ascii.rst\", header_rows=[\"name\", \"unit\", \"dtype\"])\n+    assert tbl[\"wave\"].unit == u.nm\n+    assert tbl[\"response\"].unit == u.ct\n+    assert tbl[\"wave\"].dtype == np.float64\n+    assert tbl[\"response\"].dtype == np.float32\n+    assert tbl[\"ints\"].dtype == np.int8\n+\n+    out = StringIO()\n+    tbl.write(out, format=\"ascii.rst\", header_rows=[\"name\", \"unit\", \"dtype\"])\n+    assert out.getvalue().splitlines() == lines\n",
+  "repo_language": "python",
+  "original_traj": [
+    {
+      "index": "0",
+      "thought": "",
+      "response": "To address the issue effectively, we need to gather more context about the classes and methods involved in the traceback and the feature request. Specifically, we should look into how the `RST` writer class is implemented, how the `write` method is handled across different formats, and how the `header_rows` argument is processed in other formats where it's supported. Here are the API calls that would help gather this information:\n\n1. Search for the `RST` class to understand its current implementation and why it doesn't accept `header_rows` as a keyword argument.\n2. Search for the `write` method in the `astropy.io.ascii.ui` module to see how it's implemented and how it delegates to different writer classes.\n3. Search for the `write` method in the `astropy.table` class or module to understand how it's designed to handle different formats and arguments.\n4. Search for the implementation of the `write` method in another format that supports `header_rows`, such as `ascii.fixed_width`, to compare how it handles the `header_rows` argument.\n\nLet's start with the following API calls:\n\n- `search_class(\"RST\")`\n- `search_method_in_file(\"write\", \"/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py\")`\n- `search_method(\"write\")`  # This is to catch any broader implementations or overrides that might not be file-specific.\n- `search_code(\"header_rows\")`  # To find how and where `header_rows` is being processed in the codebase.",
+      "action": [
+        {
+          "func_name": "search_class",
+          "arguments": {
+            "class_name": "RST"
+          },
+          "call_ok": true
+        },
+        {
+          "func_name": "search_method_in_file",
+          "arguments": {
+            "method_name": "write",
+            "file_name": "/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py"
+          },
+          "call_ok": false
+        },
+        {
+          "func_name": "search_method",
+          "arguments": {
+            "method_name": "write"
+          },
+          "call_ok": true
+        },
+        {
+          "func_name": "search_code",
+          "arguments": {
+            "code_str": "header_rows"
+          },
+          "call_ok": true
+        }
+      ],
+      "observation": "Result of search_class(\"RST\"):\nFound 1 classes with name RST in the codebase.\nSearch result 1: <file>astropy/io/ascii/rst.py</file> <class>RST</class> <code>class RST(FixedWidth):\n    _format_name = \"rst\"\n    _description = \"reStructuredText simple table\"\n    data_class = SimpleRSTData\n    header_class = SimpleRSTHeader\n    def __init__(self):\n    def write(self, lines):\n</code>\n\n\n\nResult of search_method_in_file(\"write\", \"/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py\"):\nCould not find file /usr/lib/python3/dist-packages/astropy/io/ascii/ui.py in the codebase.\n\nResult of search_method(\"write\"):\nFound 41 methods with name write in the codebase.\nThey appeared in the following files:\n<file>astropy/io/ascii/ui.py</file> (1 matches)\n<file>astropy/io/ascii/latex.py</file> (5 matches)\n<file>astropy/extern/configobj/configobj.py</file> (1 matches)\n<file>astropy/utils/misc.py</file> (1 matches)\n<file>astropy/utils/tests/test_console.py</file> (1 matches)\n<file>astropy/cosmology/io/tests/base.py</file> (2 matches)\n<file>astropy/io/ascii/sextractor.py</file> (1 matches)\n<file>astropy/io/ascii/rst.py</file> (1 matches)\n<file>astropy/io/ascii/basic.py</file> (2 matches)\n<file>astropy/io/ascii/mrt.py</file> (3 matches)\n<file>astropy/io/ascii/html.py</file> (2 matches)\n<file>astropy/io/ascii/ecsv.py</file> (1 matches)\n<file>astropy/io/ascii/qdp.py</file> (1 matches)\n<file>astropy/io/ascii/cds.py</file> (1 matches)\n<file>astropy/io/ascii/core.py</file> (3 matches)\n<file>astropy/io/ascii/fastbasic.py</file> (5 matches)\n<file>astropy/io/ascii/fixedwidth.py</file> (2 matches)\n<file>astropy/io/ascii/ipac.py</file> (3 matches)\n<file>astropy/io/ascii/daophot.py</file> (1 matches)\n<file>astropy/io/registry/core.py</file> (1 matches)\n<file>astropy/io/tests/safeio.py</file> (1 matches)\n<file>astropy/io/fits/file.py</file> (1 matches)\n<file>astropy/io/fits/hdu/streaming.py</file> (1 matches)\n\n\nResult of search_code(\"header_rows\"):\nFound 41 snippets containing `header_rows` in the codebase.\nThey appeared in the following files:\n<file>astropy/io/ascii/fixedwidth.py</file> (22 matches)\n<file>astropy/io/ascii/tests/test_rst.py</file> (4 matches)\n<file>astropy/io/ascii/tests/test_fixedwidth.py</file> (15 matches)\n\n\n",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    },
+    {
+      "index": "1",
+      "thought": "- do we need more context: \n\n- where are bug locations: \n  - **Buggy File**: `astropy/io/ascii/rst.py`\n    - **Buggy Method**: `RST.__init__()` for not accepting `header_rows` as a keyword argument.\n    - **Buggy Method**: Potentially, the `RST.write()` method for not handling `header_rows` in generating the table output.",
+      "response": "Based on the search results, we have gathered significant context about the issue and the relevant parts of the codebase. Here's a summary of the findings and how they relate to the issue at hand:\n\n1. **RST Class Implementation**: The `RST` class is found in `astropy/io/ascii/rst.py` and extends `FixedWidth`. It is designed specifically for generating reStructuredText (rst) simple tables. The class definition shows that it does not currently accept any arguments in its `__init__` method, which explains the `TypeError` encountered when trying to pass `header_rows` as an argument.\n\n2. **Write Method in UI Module**: Although the search for the `write` method in `/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py` did not return a direct result due to a path issue, the global search for the `write` method revealed its presence in various formats, including `rst.py`. This indicates that the `write` method is implemented across different formats, potentially in a way that could be extended or modified to support additional features like `header_rows`.\n\n3. **Usage of Header Rows**: The `header_rows` argument is extensively used in the `fixedwidth.py` module, as well as in tests related to both `rst` and `fixed_width` formats. This suggests that the handling of `header_rows` is already implemented for some formats, providing a potential reference for implementing similar functionality in the `RST` format.\n\nGiven this context, the path forward involves modifying the `RST` class to accept and process the `header_rows` argument similarly to how it's done in other formats like `fixed_width`. This would likely involve:\n- Extending the `__init__` method of the `RST` class to accept `header_rows` as an optional argument.\n- Modifying the `write` method to utilize `header_rows` when generating the table output.\n- Looking into how `header_rows` is implemented in `fixedwidth.py` could provide a blueprint for these modifications.\n\nThe next steps would be to draft a patch that introduces these changes in a way that is consistent with the existing architecture and coding practices of the Astropy project.",
+      "action": [
+        {
+          "func_name": "search_method_in_class",
+          "arguments": {
+            "method_name": "__init__",
+            "class_name": "RST"
+          },
+          "call_ok": true
+        },
+        {
+          "func_name": "search_method_in_class",
+          "arguments": {
+            "method_name": "write",
+            "class_name": "RST"
+          },
+          "call_ok": true
+        }
+      ],
+      "observation": "Here are the code in buggy locations:\nFound 1 methods with name __init__ in class RST.\nSearch result 1: <file>astropy/io/ascii/rst.py</file> <class>RST</class> <func>__init__</func> <code>    def __init__(self):\n        super().__init__(delimiter_pad=None, bookend=False)\n</code>\n\nOther results are in these files:\n\nFound 1 methods with name write in class RST.\nSearch result 1: <file>astropy/io/ascii/rst.py</file> <class>RST</class> <func>write</func> <code>    def write(self, lines):\n        lines = super().write(lines)\n        lines = [lines[1]] + lines + [lines[1]]\n        return lines\n</code>\n\nOther results are in these files:\n\n",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    },
+    {
+      "index": "2",
+      "thought": "",
+      "response": "# modification 1\n```python\n<file>astropy/io/ascii/rst.py</file>\n<original>    def __init__(self):\n        super().__init__(delimiter_pad=None, bookend=False)</original>\n<patched>    def __init__(self, header_rows=None):\n        super().__init__(delimiter_pad=None, bookend=False)\n        self.header_rows = header_rows</patched>\n```\n\n# modification 2\n```python\n<file>astropy/io/ascii/rst.py</file>\n<original>    def write(self, lines):\n        lines = super().write(lines)\n        lines = [lines[1]] + lines + [lines[1]]\n        return lines</original>\n<patched>    def write(self, lines):\n        if self.header_rows:\n            header_line = ' '.join(self.header_rows)\n            lines = [header_line] + ['=' * len(header_line)] + lines\n        lines = super().write(lines)\n        lines = [lines[1]] + lines + [lines[1]]\n        return lines</patched>\n```\n\nThese modifications introduce support for `header_rows` in the `RST` class of the Astropy project. The first modification extends the `__init__` method to accept `header_rows` as an optional argument and stores it as an instance variable. The second modification adjusts the `write` method to prepend the `header_rows` to the output if they are provided, enhancing the `RST` format's functionality to include header rows in the output, similar to other formats.",
+      "action": [
+        {
+          "func_name": "write_patch",
+          "arguments": {},
+          "call_ok": true
+        }
+      ],
+      "observation": "",
+      "execution_time": "",
+      "state": "",
+      "extra_info": ""
+    }
+  ],
+  "original_mission_prompt": "Please support header rows in RestructuredText output\n### Description\r\n\r\nIt would be great if the following would work:\r\n\r\n```Python\r\n>>> from astropy.table import QTable\r\n>>> import astropy.units as u\r\n>>> import sys\r\n>>> tbl = QTable({'wave': [350,950]*u.nm, 'response': [0.7, 1.2]*u.count})\r\n>>> tbl.write(sys.stdout,  format=\"ascii.rst\")\r\n===== ========\r\n wave response\r\n===== ========\r\n350.0      0.7\r\n950.0      1.2\r\n===== ========\r\n>>> tbl.write(sys.stdout,  format=\"ascii.fixed_width\", header_rows=[\"name\", \"unit\"])\r\n|  wave | response |\r\n|    nm |       ct |\r\n| 350.0 |      0.7 |\r\n| 950.0 |      1.2 |\r\n>>> tbl.write(sys.stdout,  format=\"ascii.rst\", header_rows=[\"name\", \"unit\"])\r\nTraceback (most recent call last):\r\n  File \"<stdin>\", line 1, in <module>\r\n  File \"/usr/lib/python3/dist-packages/astropy/table/connect.py\", line 129, in __call__\r\n    self.registry.write(instance, *args, **kwargs)\r\n  File \"/usr/lib/python3/dist-packages/astropy/io/registry/core.py\", line 369, in write\r\n    return writer(data, *args, **kwargs)\r\n  File \"/usr/lib/python3/dist-packages/astropy/io/ascii/connect.py\", line 26, in io_write\r\n    return write(table, filename, **kwargs)\r\n  File \"/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py\", line 856, in write\r\n    writer = get_writer(Writer=Writer, fast_writer=fast_writer, **kwargs)\r\n  File \"/usr/lib/python3/dist-packages/astropy/io/ascii/ui.py\", line 800, in get_writer\r\n    writer = core._get_writer(Writer, fast_writer, **kwargs)\r\n  File \"/usr/lib/python3/dist-packages/astropy/io/ascii/core.py\", line 1719, in _get_writer\r\n    writer = Writer(**writer_kwargs)\r\nTypeError: RST.__init__() got an unexpected keyword argument 'header_rows'\r\n```\r\n\r\n\r\n### Additional context\r\n\r\nRestructuredText output is a great way to fill autogenerated documentation with content, so having this flexible makes the life easier `:-)`\r\n\r\n\n",
+  "failed_tests": {
+    "astropy/io/ascii/tests/test_rst.py::test_rst_with_header_rows": {
+      "error_description": "FAILED astropy/io/ascii/tests/test_rst.py::test_rst_with_header_rows - assert None == Unit(\"nm\")",
+      "code": "def test_rst_with_header_rows():\n    \"\"\"Round-trip a table with header_rows specified\"\"\"\n    lines = [\n        \"======= ======== ====\",\n        \"   wave response ints\",\n        \"     nm       ct     \",\n        \"float64  float32 int8\",\n        \"======= ======== ====\",\n        \"  350.0      1.0    1\",\n        \"  950.0      2.0    2\",\n        \"======= ======== ====\",\n    ]\n    tbl = QTable.read(lines, format=\"ascii.rst\", header_rows=[\"name\", \"unit\", \"dtype\"])\n    assert tbl[\"wave\"].unit == u.nm\n    assert tbl[\"response\"].unit == u.ct\n    assert tbl[\"wave\"].dtype == np.float64\n    assert tbl[\"response\"].dtype == np.float32\n    assert tbl[\"ints\"].dtype == np.int8\n\n    out = StringIO()\n    tbl.write(out, format=\"ascii.rst\", header_rows=[\"name\", \"unit\", \"dtype\"])\n    assert out.getvalue().splitlines() == lines",
+      "status": "FAILED",
+      "expected": "fail_to_pass"
+    }
+  },
+  "failure_reason": "The agent failed to recognize the functional inheritance between the RST and FixedWidth classes. Despite detecting the class hierarchy and the use of header_rows in the parent module, it overlooked the possibility that the required feature was already implemented. Instead of delegating the argument to the superclass initializer, the agent incorrectly attempted a redundant and flawed re-implementation.\nTo rectify this, the agent must be more sensitive to inherited capabilities from parent classes that can be directly utilized. It should prioritize evaluating whether a feature exists within the class hierarchy before initiating new development, ensuring that it leverages pre-existing logic through proper parameter passing rather than reinventing functionality.",
+  "failure_id": "1",
+  "agent": "auto-code-rover",
+  "model": "gpt-4-0125"
+}

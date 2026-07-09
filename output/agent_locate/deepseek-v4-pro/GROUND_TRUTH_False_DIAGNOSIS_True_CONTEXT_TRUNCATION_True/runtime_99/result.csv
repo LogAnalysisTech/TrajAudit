@@ -1,0 +1,2 @@
+agent,model,instance_id,failure_id,failure_reason,tokens
+swe-agent,gemini2,swe-agent_gemini2_instance_internetarchive__openlibrary-1894cb48d6e7fb498295a5d3ed0596f6f603b784-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4,8,"The agent removed `find_exact_match` from the `find_match` function, causing records without identifiers (like the test case) to fail to match, leading to creation rather than modification of the existing edition.",32797
