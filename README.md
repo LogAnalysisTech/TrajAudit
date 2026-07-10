@@ -1,5 +1,7 @@
 # TrajAudit: Automated Failure Diagnosis for Agentic Systems in Software Maintenance 
 
+RootSE is also available on HuggingFace: [dengdan1999/RootSE](https://huggingface.co/datasets/dengdan1999/RootSE)
+
 # Workflow of TrajAudit
 ![Workflow of TrajAudit](./resources/workflow.png)
 TrajAudit consists of one investigator agent supported by two modules. The project structure follows this modular design.
