@@ -1,0 +1,524 @@
+[
+  {
+    "instance_id": "1",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator failed to specify the critical requirement of proximity in the initial search instructions, leading to irrelevant results that did not meet the user's needs.",
+    "tokens": 13728
+  },
+  {
+    "instance_id": "2",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 40,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator failed to ensure a comprehensive and consolidated list of TV series Ted Danson starred in from reliable sources, leading to incomplete data collection and the inability to identify the worst-rated series.",
+    "tokens": 31231
+  },
+  {
+    "instance_id": "3",
+    "ground_truth_failure_id": 32,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 12,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent scrolled through the APOD archive but was viewing content from 2024 instead of 2015. This misalignment in navigation prevented the identification of the correct city from the APOD images, which was crucial for solving the problem.",
+    "tokens": 40605
+  },
+  {
+    "instance_id": "4",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 10,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator made a decisive error by directing WebSurfer to investigate incorrect trails (Valley Loop Trail, Four Mile Trailhead, Mist Trail, and Panorama Trail) instead of focusing on the correct trails (Yosemite Falls and Bridalveil Fall), leading to the failure to identify the correct solution.",
+    "tokens": 11311
+  },
+  {
+    "instance_id": "5",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 16,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent misinterpreted the lyrics of 'Human Nature,' incorrectly identifying 'bite' as the last word before the second chorus instead of 'stare,' leading to the wrong final answer.",
+    "tokens": 10006
+  },
+  {
+    "instance_id": "6",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer misinterpreted or retrieved incorrect data, reporting an implausible figure of $1.08 billion as the highest price for a high-rise apartment sale, leading to the incorrect final answer.",
+    "tokens": 8290
+  },
+  {
+    "instance_id": "7",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent failed to correctly access and analyze the video content, instead interacting with irrelevant webpage elements, leading to the failure to identify timestamps with multiple bird species.",
+    "tokens": 14922
+  },
+  {
+    "instance_id": "8",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 50,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent used a search query that was too narrow and did not effectively target sources that would provide the required information about the C-suite members during monday.com's IPO, leading to the failure to gather the correct data.",
+    "tokens": 44388
+  },
+  {
+    "instance_id": "9",
+    "ground_truth_failure_id": 25,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 34,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to extract the necessary birthdate information from the GoldDerby page, leading to the incorrect conclusion that Ethan Zohn was the winner born in May. This failure to retrieve or verify the correct information was the decisive error.",
+    "tokens": 51589
+  },
+  {
+    "instance_id": "10",
+    "ground_truth_failure_id": 9,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 8,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent conducted a search that did not yield the correct supermarkets within 2 blocks of Lincoln Park, leading to a focus on incorrect locations and ultimately causing the failure to identify the correct answer.",
+    "tokens": 16326
+  },
+  {
+    "instance_id": "11",
+    "ground_truth_failure_id": 24,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 120,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "WebSurfer failed to identify the correct headstone and the last line of the rhyme under the flavor name on the headstone visible in the background of the 'Dastardly Mash' headstone. The OCR results did not match the correct answer, indicating a misinterpretation or misidentification of the necessary information.",
+    "tokens": 48715
+  },
+  {
+    "instance_id": "12",
+    "ground_truth_failure_id": 16,
+    "ground_truth_agent": "Assistant",
+    "forecast_failure_id": 16,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant incorrectly compared the lists of movies and failed to identify 'Wonder Woman 1984' as a common movie, leading to the incorrect conclusion that there are only 5 common movies instead of the correct 6.",
+    "tokens": 20067
+  },
+  {
+    "instance_id": "13",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 16,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to correctly set the date range or extract the necessary historical temperature data after reaching the relevant page on Weather Underground. This failure in data extraction led to the incorrect final answer.",
+    "tokens": 36747
+  },
+  {
+    "instance_id": "14",
+    "ground_truth_failure_id": 14,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 29,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator failed to ensure the correct calculation method was applied, leading to an incorrect final answer. The calculation should have been (291 / 59,000,000) * 100, resulting in approximately 0.00033, but the final answer was 0.00049.",
+    "tokens": 67561
+  },
+  {
+    "instance_id": "15",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 96,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to correctly apply the necessary filters on the Fidelity mutual fund screener to identify the list of Fidelity international emerging markets equity mutual funds with $0 transaction fees. This failure led to the inability to identify the correct fund, FPADX, which had the lowest percentage increase.",
+    "tokens": 49856
+  },
+  {
+    "instance_id": "16",
+    "ground_truth_failure_id": 15,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 20,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent used a broad search query that did not effectively narrow down the films based on the specific criteria of runtime and availability, leading to the failure in retrieving the correct film information.",
+    "tokens": 14557
+  },
+  {
+    "instance_id": "17",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 10,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator made a decisive error by instructing WebSurfer to check the operating hours of specific eateries, excluding McDonald's, which was the correct answer. This limited the search scope and led to the failure to identify the correct eatery open at 11 PM.",
+    "tokens": 15061
+  },
+  {
+    "instance_id": "18",
+    "ground_truth_failure_id": 16,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 28,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator instructed the Assistant to calculate and compare costs for potential savings without specifying the correct logic to subtract the cost of the annual pass from the cost of daily tickets, leading to the incorrect calculation of savings.",
+    "tokens": 25928
+  },
+  {
+    "instance_id": "19",
+    "ground_truth_failure_id": 50,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 10,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator directed WebSurfer to find the joining dates of Fubo's management team members who joined in 2020, but the WebSurfer failed to gather this information, leading to the inability to determine the correct answer.",
+    "tokens": 24913
+  },
+  {
+    "instance_id": "20",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 59,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to successfully download the PDF of the July 2020 paper, which was crucial for extracting the necessary time span data. This failure prevented the system from obtaining the information needed to solve the problem.",
+    "tokens": 42202
+  },
+  {
+    "instance_id": "21",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 17,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator instructed WebSurfer to continue scrolling down the article, which led to a loop of ineffective scrolling without locating the paper link. A more targeted approach was needed to efficiently find the link, causing the failure to find the necessary information.",
+    "tokens": 20769
+  },
+  {
+    "instance_id": "22",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "FileSurfer",
+    "forecast_failure_id": 14,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator failed to ensure the PDF file of Emily Midkiff's article was correctly downloaded or located, leading to repeated 'Error 404' messages and the inability to extract the required information.",
+    "tokens": 32909
+  },
+  {
+    "instance_id": "23",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 42,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent failed to access the USPS Retail Postage Price Calculator directly, instead landing on a Bing search results page, which prevented the retrieval of necessary shipping rate information.",
+    "tokens": 29316
+  },
+  {
+    "instance_id": "24",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator incorrectly identified 'Zapple' as the accusative form for 'apple' instead of using 'apple' in the nominative form as the direct object, leading to the wrong translation.",
+    "tokens": 8342
+  },
+  {
+    "instance_id": "25",
+    "ground_truth_failure_id": 18,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer incorrectly identified 'God of War' as the winner of the 2019 British Academy Games Awards based on search results, leading to the wrong Wikipedia page being accessed and the wrong revision history being analyzed.",
+    "tokens": 11626
+  },
+  {
+    "instance_id": "26",
+    "ground_truth_failure_id": 32,
+    "ground_truth_agent": "FileSurfer",
+    "forecast_failure_id": 16,
+    "forecast_agent": "FileSurfer",
+    "forecast_reason": "FileSurfer failed to open the local file and navigate to page 11 to extract the required information from the endnote, leading to the system's inability to provide the correct solution.",
+    "tokens": 28083
+  },
+  {
+    "instance_id": "27",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 12,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to confirm the successful download and correct file path of the PDF document, leading to subsequent errors in accessing the file and extracting the necessary information.",
+    "tokens": 34958
+  },
+  {
+    "instance_id": "28",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 19,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent failed to correctly calculate or verify the distance between the Mummers Museum and the bars using Bing search, leading to an incorrect determination of proximity.",
+    "tokens": 15907
+  },
+  {
+    "instance_id": "29",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 8,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "WebSurfer accessed the USGS Nonindigenous Aquatic Species Database but failed to extract or report the specific year the American Alligator was first found west of Texas, which was likely available in the 'Collection Info' or related sections.",
+    "tokens": 10596
+  },
+  {
+    "instance_id": "30",
+    "ground_truth_failure_id": 82,
+    "ground_truth_agent": "Assistant",
+    "forecast_failure_id": 82,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant suggested contacting the Queen Anne's County Treasury Division directly for property sales data, which led to a loop when this approach failed to yield results. This reliance on a single method without a backup plan was the decisive error.",
+    "tokens": 44364
+  },
+  {
+    "instance_id": "31",
+    "ground_truth_failure_id": 9,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 16,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent incorrectly included Ohio WV YMCA as a gym within 5 miles of the Mothman Museum without verifying its nature as a distinct fitness center, leading to the wrong solution.",
+    "tokens": 15312
+  },
+  {
+    "instance_id": "32",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator made a decisive error by directing WebSurfer to investigate the Ensembl genome browser 113, which was not the correct source for the dog genome files relevant to May 2020. This misdirection led to the wrong final answer.",
+    "tokens": 9735
+  },
+  {
+    "instance_id": "33",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to navigate directly to the Bielefeld University Library's BASE section for DDC 633, leading to an inability to gather the necessary information about the articles' languages and flags.",
+    "tokens": 9568
+  },
+  {
+    "instance_id": "34",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to retrieve or interpret the necessary information about the OpenCV version that added support for the Mask-RCNN model, which was crucial for identifying the correct contributors and solving the problem.",
+    "tokens": 8603
+  },
+  {
+    "instance_id": "35",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 8,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "WebSurfer failed to extract the specific 2024 season pass price from the California's Great America season passes page, leading to repeated and ineffective attempts to gather the necessary information.",
+    "tokens": 22432
+  },
+  {
+    "instance_id": "36",
+    "ground_truth_failure_id": 9,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 88,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator incorrectly concluded that 'Casino Royale' was the highest-rated Daniel Craig movie meeting the criteria, despite 'Glass Onion: A Knives Out Mystery' being the correct answer. This indicates a failure in verifying the gathered information and synthesizing the final answer correctly.",
+    "tokens": 27194
+  },
+  {
+    "instance_id": "37",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator instructed the WebSurfer to perform a broad search for the first National Geographic short on YouTube without specifying the need to identify '#9' within the context of the video. This lack of specificity led to repeated failures in finding relevant information about '#9', ultimately causing the system to fail in solving the problem.",
+    "tokens": 27735
+  },
+  {
+    "instance_id": "38",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 33,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator made a decisive error by instructing WebSurfer to search for hikes that were not part of the correct answer list, including 'Grand Prismatic Overlook Trail.' This misalignment in the information gathering process led to the failure to produce the correct solution.",
+    "tokens": 21547
+  },
+  {
+    "instance_id": "39",
+    "ground_truth_failure_id": 30,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator's instruction in step 3 did not specify the need to check FTP directories or specific sections where GFF3 files are typically hosted, leading WebSurfer to search in a way that did not locate the correct link.",
+    "tokens": 24536
+  },
+  {
+    "instance_id": "40",
+    "ground_truth_failure_id": 16,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 16,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The agent failed to apply the correct filter for bathrooms, resulting in incorrect data being processed and the wrong house size being identified.",
+    "tokens": 11982
+  },
+  {
+    "instance_id": "41",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The orchestrator's initial plan incorrectly focused on 'caminata' as the Latin root of 'gimlie', leading the entire process to seek information related to 'caminata' instead of the correct word, causing the failure.",
+    "tokens": 32307
+  },
+  {
+    "instance_id": "42",
+    "ground_truth_failure_id": 29,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 29,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator incorrectly concluded that the task was complete without verifying the specific word deleted in the last amendment to Rule 601, leading to the wrong final answer.",
+    "tokens": 14885
+  },
+  {
+    "instance_id": "43",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "Assistant",
+    "forecast_failure_id": 12,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant incorrectly counted the stops between South Station and Windsor Gardens, leading to the wrong final answer of 6 instead of the correct 10 stops.",
+    "tokens": 10304
+  },
+  {
+    "instance_id": "44",
+    "ground_truth_failure_id": 39,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 58,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to retrieve the shipping cost from the DHL website using the 'Get a Quote' tool. This failure to obtain the necessary information led to incorrect or incomplete data being used in the final answer.",
+    "tokens": 42224
+  },
+  {
+    "instance_id": "45",
+    "ground_truth_failure_id": 20,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 13,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The orchestrator failed to manage the verification process effectively by repeatedly instructing WebSurfer to verify classifications despite encountering content filtering issues, leading to a loop and failure to resolve the task.",
+    "tokens": 24307
+  },
+  {
+    "instance_id": "46",
+    "ground_truth_failure_id": 32,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 13,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator instructed WebSurfer to search for passenger count data, which was not readily available online, instead of focusing on finding the train schedule data first. This misalignment in priorities led to the wrong path and ultimately the wrong solution.",
+    "tokens": 50295
+  },
+  {
+    "instance_id": "47",
+    "ground_truth_failure_id": 51,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 59,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant provided a Python script to analyze the CSV data, but the script's logic failed to correctly filter countries with gross savings over 35% of GDP for each year from 2001 to 2010. This led to an incorrect final list of countries, as the script did not accurately implement the filtering criteria.",
+    "tokens": 26023
+  },
+  {
+    "instance_id": "48",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent failed to extract relevant historical weather data from the search results, which was necessary to calculate the probability of rainy days in Seattle for the specified period. This failure in data gathering led to the inability to produce the correct solution.",
+    "tokens": 8563
+  },
+  {
+    "instance_id": "49",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 12,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant incorrectly identified the character 'k' as the solution instead of the correct 'backtick'. This misunderstanding of the Unlambda syntax and operators led to the wrong solution being proposed.",
+    "tokens": 12587
+  },
+  {
+    "instance_id": "50",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 52,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer executed a search for casual or ethnic cuisine restaurants but failed to correctly interpret or follow up on the search results to identify 'Shanghai villa', leading to the wrong solution.",
+    "tokens": 98900
+  },
+  {
+    "instance_id": "51",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "FileSurfer",
+    "forecast_failure_id": 52,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator committed to using TurboScribe for transcription without verifying its feasibility, leading to repeated unsuccessful attempts and ultimately contributing to the failure to transcribe the audio file correctly.",
+    "tokens": 50883
+  },
+  {
+    "instance_id": "52",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 4,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent performed a search that included gyms not within 200 meters of Tompkins Square Park, leading to incorrect identification of relevant gyms.",
+    "tokens": 12715
+  },
+  {
+    "instance_id": "53",
+    "ground_truth_failure_id": 24,
+    "ground_truth_agent": "Assistant",
+    "forecast_failure_id": 24,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant incorrectly estimated the density of Freon-12 at high pressure as 1.5 g/cm³, leading to a miscalculation of the volume. This incorrect density value was the root cause of the wrong solution.",
+    "tokens": 14046
+  },
+  {
+    "instance_id": "54",
+    "ground_truth_failure_id": 15,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 16,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The orchestrator misinterpreted the roster data retrieved by WebSurfer, incorrectly concluding that the pitchers before and after Taishō Tamai were Yamasaki and Uehara, instead of the correct Yamasaki and Sugiyura.",
+    "tokens": 12044
+  },
+  {
+    "instance_id": "55",
+    "ground_truth_failure_id": 18,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 36,
+    "forecast_agent": "Assistant",
+    "forecast_reason": "The Assistant incorrectly concluded that Al Gore did not hold a C-suite position before joining Apple's Board, while the correct answer should have included Wanda Austin, Ronald D. Sugar, and Sue Wagner. This misinterpretation of the professional histories led to the wrong conclusion.",
+    "tokens": 16359
+  },
+  {
+    "instance_id": "56",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 97,
+    "forecast_agent": "Orchestrator",
+    "forecast_reason": "The Orchestrator made a decisive error by instructing the WebSurfer to focus on the period between 2005-2010, which excluded the correct timeframe needed to find when Apple's stock first exceeded $50, leading to the incorrect final answer.",
+    "tokens": 42854
+  },
+  {
+    "instance_id": "57",
+    "ground_truth_failure_id": 12,
+    "ground_truth_agent": "WebSurfer",
+    "forecast_failure_id": 12,
+    "forecast_agent": "WebSurfer",
+    "forecast_reason": "The WebSurfer agent initiated a search that did not directly target a reliable price-tracking website, leading to inefficiencies and delays in gathering the necessary price data. This misstep contributed to the failure to complete the task in time, as the process was terminated before the data could be gathered.",
+    "tokens": 11452
+  },
+  {
+    "instance_id": "58",
+    "ground_truth_failure_id": 22,
+    "ground_truth_agent": "Orchestrator",
+    "forecast_failure_id": 86,
+    "forecast_agent": "ComputerTerminal",
+    "forecast_reason": "The ComputerTerminal agent incorrectly identified the issue 'BUG: deep copying polybase broken' as the oldest closed issue with the Regression label related to numpy.polynomial. This error led to the wrong final answer, as subsequent steps relied on this incorrect identification.",
+    "tokens": 42780
+  }
+]

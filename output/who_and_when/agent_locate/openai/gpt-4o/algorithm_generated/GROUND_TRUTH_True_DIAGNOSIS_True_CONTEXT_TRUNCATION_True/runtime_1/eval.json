@@ -1,0 +1,1136 @@
+[
+  {
+    "instance_id": "1",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "Excel_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "DataVerification_Expert",
+    "forecast_reason": "The agent confirmed the incorrect result of 4 as correct, despite the correct answer being 8. This step finalized the wrong solution without further verification or cross-checking, leading to the failure.",
+    "tokens": 7213
+  },
+  {
+    "instance_id": "2",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert created an incomplete and inaccurate sample dataset that did not include Cuba (CUB), leading to the incorrect identification of China (CHN) as the country with the least number of athletes. This was the decisive error that caused the system to fail in providing the correct solution.",
+    "tokens": 11568
+  },
+  {
+    "instance_id": "3",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "Python_Expert",
+    "forecast_reason": "The agent misunderstood the task requirement by planning to calculate the average of the standard deviations of the red and green numbers, rather than the average of the deviations themselves, leading to the incorrect solution.",
+    "tokens": 11023
+  },
+  {
+    "instance_id": "4",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "HawaiiRealEstate_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "Validation_Expert",
+    "forecast_reason": "The Validation_Expert incorrectly confirmed the sale price of 2017 Komo Mai Drive as 950000 instead of the correct 900000, leading to the wrong solution being accepted.",
+    "tokens": 7167
+  },
+  {
+    "instance_id": "5",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "DataVerification_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "DataVerification_Expert",
+    "forecast_reason": "The agent revised the script logic to correct an initial error but still produced an incorrect revision count, leading to the wrong final answer.",
+    "tokens": 8496
+  },
+  {
+    "instance_id": "6",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Literary_Analysis_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Literary_Analysis_Expert",
+    "forecast_reason": "The agent made a decisive error by choosing to use the arxiv_search function to locate an article in the journal 'Fafnir', which is not covered by arXiv. This led to the failure to find the correct article and verify the word 'fluffy', resulting in reliance on incorrect information.",
+    "tokens": 8707
+  },
+  {
+    "instance_id": "7",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "ScientificPaperAnalysis_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "ScientificPaperAnalysis_Expert",
+    "forecast_reason": "The agent assumed the paper was obtained without verifying its availability, leading to subsequent steps based on hypothetical scenarios rather than actual data retrieval, causing the failure.",
+    "tokens": 8684
+  },
+  {
+    "instance_id": "8",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "AlgorithmDesign_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "AlgorithmDesign_Expert",
+    "forecast_reason": "The AlgorithmDesign_Expert developed and executed a pathfinding algorithm that failed to correctly identify the final position or retrieve the color information from the Excel file, leading to the failure to solve the task.",
+    "tokens": 26345
+  },
+  {
+    "instance_id": "9",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "GameTheory_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "VerificationExpert",
+    "forecast_reason": "The VerificationExpert incorrectly confirmed the GameTheory_Expert's strategy, which led to the wrong conclusion that Bob could guarantee winning $30,000. This step validated a strategy that did not align with the problem's constraints, leading to the failure.",
+    "tokens": 9872
+  },
+  {
+    "instance_id": "10",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Validation_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "Validation_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements by focusing on Seattle and Colville based on the manager's incorrect suggestions, rather than identifying the largest and smallest county seats by land area in Washington state. This led to using the wrong entities for the calculation, resulting in the wrong answer.",
+    "tokens": 8067
+  },
+  {
+    "instance_id": "11",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "InformationVerification_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "InformationVerification_Expert",
+    "forecast_reason": "The agent attempted to locate the discography section using a specific element ID that did not exist, leading to an AttributeError. This misunderstanding of the HTML structure caused the failure to extract the necessary information.",
+    "tokens": 8492
+  },
+  {
+    "instance_id": "12",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The agent incorrectly listed and counted the stops between South Station and Windsor Gardens, including two extra stops beyond Windsor Gardens, leading to the wrong final answer.",
+    "tokens": 6598
+  },
+  {
+    "instance_id": "13",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "ArtHistory_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert committed to using the `image_qa` function without ensuring the necessary image processing libraries were imported, leading to the execution failure in step 8.",
+    "tokens": 11148
+  },
+  {
+    "instance_id": "14",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Culinary_Awards_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Culinary_Awards_Expert",
+    "forecast_reason": "The agent made a decisive error by focusing the search on books mentioning the Frontier Restaurant, which was not relevant to the correct answer. This misalignment led the system away from identifying the correct book title.",
+    "tokens": 8955
+  },
+  {
+    "instance_id": "15",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "Boggle_Board_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "Boggle_Board_Expert",
+    "forecast_reason": "The agent introduced a prefix set logic in the DFS function that incorrectly filtered out valid paths, leading to no words being found. This was a decisive error because it prevented the DFS from exploring valid word paths, resulting in an empty output.",
+    "tokens": 11843
+  },
+  {
+    "instance_id": "16",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Narration_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly verified the number mentioned after dinosaurs were shown as '65 million', instead of the correct '100000000'. This incorrect verification directly led to the wrong solution being accepted.",
+    "tokens": 9907
+  },
+  {
+    "instance_id": "17",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "Statistics_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "Statistics_Expert",
+    "forecast_reason": "The Statistics_Expert extracted the population data but failed to round it to the nearest thousand, which was a requirement of the task. This oversight led to the incorrect final answer.",
+    "tokens": 9524
+  },
+  {
+    "instance_id": "18",
+    "ground_truth_failure_id": 7,
+    "ground_truth_agent": "Poetry_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "Poetry_Expert",
+    "forecast_reason": "The Poetry_Expert incorrectly identified the stanza with indented lines as Stanza 3 instead of Stanza 2, leading to the wrong solution.",
+    "tokens": 9486
+  },
+  {
+    "instance_id": "19",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "Debugging_Problem_Solving_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "Debugging_Problem_Solving_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements regarding botanical classifications, leading to the inclusion of 'fresh basil' and 'sweet potatoes' as vegetables, which are botanically a herb and a tuber, respectively. This misunderstanding occurred during the Task Understanding phase.",
+    "tokens": 6963
+  },
+  {
+    "instance_id": "20",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "WebServing_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "WebServing_Expert",
+    "forecast_reason": "The WebServing_Expert provided incomplete or incorrect instructions for obtaining a valid Wikimedia API token, leading to an invalid or unauthorized token being used in the API call, which caused the failure in step 6.",
+    "tokens": 42800
+  },
+  {
+    "instance_id": "21",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "Lyrics_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "Lyrics_Expert",
+    "forecast_reason": "The Lyrics_Expert misinterpreted the task by focusing on 'Thriller' instead of 'Dirty Diana,' which is the correct fifth single from Michael Jackson's sixth studio album. This error led to the wrong plan and incorrect solution.",
+    "tokens": 7307
+  },
+  {
+    "instance_id": "22",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements from the start, focusing on debugging a Python script instead of extracting page numbers from an audio file, which led to the wrong solution.",
+    "tokens": 8287
+  },
+  {
+    "instance_id": "23",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Church_Historian_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "Church_Historian_Expert",
+    "forecast_reason": "The agent attempted to retrieve information from the Metropolitan Museum of Art's collection using a specific URL and HTML parsing logic that may not match the actual webpage structure, leading to failure in retrieving the necessary information about the portrait's subject.",
+    "tokens": 9517
+  },
+  {
+    "instance_id": "24",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements from the outset, focusing on debugging a language detection issue instead of identifying universities based on geographical criteria. This misalignment led to irrelevant actions and the failure to address the actual problem.",
+    "tokens": 10925
+  },
+  {
+    "instance_id": "25",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "ModelEvaluation_Interpretation_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Computer_terminal",
+    "forecast_reason": "The Computer_terminal failed to execute a correct search for the June 2022 AI regulation paper, resulting in irrelevant results and preventing the retrieval of necessary information for the task.",
+    "tokens": 14292
+  },
+  {
+    "instance_id": "26",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "WomenInComputerScienceHistory_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "WomenInComputerScienceHistory_Expert",
+    "forecast_reason": "The agent incorrectly assumed the final year was 2022, leading to a miscalculation of 27 years instead of the correct 22 years for the percentage change. This assumption was the decisive error that caused the failure.",
+    "tokens": 8224
+  },
+  {
+    "instance_id": "27",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "DataVerification_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "MarioKart8Deluxe_Expert",
+    "forecast_reason": "The agent incorrectly concluded that the world record time for the \"Sweet Sweet Canyon\" track as of June 7, 2023, was 1:48.585 by Pii, based on an incorrect assumption about the closest reliable record. This led to the wrong final answer.",
+    "tokens": 8160
+  },
+  {
+    "instance_id": "28",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "DataVerification_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "Historian_Expert",
+    "forecast_reason": "The Historian_Expert incorrectly assumed the first image tag on the webpage was the required image, leading to the extraction of an incorrect image URL. This mistake caused the UnidentifiedImageError during OCR processing, resulting in the failure to solve the problem.",
+    "tokens": 25500
+  },
+  {
+    "instance_id": "29",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "WebServing_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "WebServing_Expert",
+    "forecast_reason": "The WebServing_Expert incorrectly identified the date as October 2, 2019, when the picture of St. Thomas Aquinas was added to the Wikipedia page. This error led to the failure to produce the correct solution, as it set the wrong path for the subsequent validation process.",
+    "tokens": 16230
+  },
+  {
+    "instance_id": "30",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Culinary_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "TranscriptionVerification_Expert",
+    "forecast_reason": "The agent incorrectly transcribed the audio file by including 'a pinch of salt' as an ingredient, which was not part of the correct list. This error led to the wrong final solution.",
+    "tokens": 6753
+  },
+  {
+    "instance_id": "31",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert failed to include 'Li Peng' in the list of contributors to OpenCV 4.1.2, which was crucial for identifying the correct match with a former Chinese head of government. This omission led to the incorrect conclusion that there were no matching names.",
+    "tokens": 8605
+  },
+  {
+    "instance_id": "32",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "SpeciesSightingsData_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "SpeciesSightingsData_Expert",
+    "forecast_reason": "The agent failed to formulate an effective search query to retrieve the specific historical data needed for the first sighting of the American Alligator west of Texas, leading to irrelevant search results.",
+    "tokens": 8801
+  },
+  {
+    "instance_id": "33",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "InformationExtraction_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "DOI_Expert",
+    "forecast_reason": "The agent failed to access the necessary content from the book due to potential access restrictions and suggested manual downloading without exploring alternative methods or verifying access permissions earlier, leading to the failure in solving the task.",
+    "tokens": 9621
+  },
+  {
+    "instance_id": "34",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "Locomotive_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "Locomotive_Expert",
+    "forecast_reason": "The Locomotive_Expert made a decisive error by using an incorrect calculation method for the total number of wheels. The function 'calculate_wheels' incorrectly multiplies the sum of the parts by 2, leading to an inflated total. This error directly caused the system to produce the wrong solution.",
+    "tokens": 8122
+  },
+  {
+    "instance_id": "35",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "WebServing_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "WebServing_Expert",
+    "forecast_reason": "The agent accessed the Wikipedia page for 'Dragon' but failed to use the 'View history' feature to examine the edit history for changes made on leap days before 2008. This oversight prevented the identification of the specific edit that removed the joke, leading to the failure to solve the task.",
+    "tokens": 55837
+  },
+  {
+    "instance_id": "36",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "ProblemSolving_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "ProblemSolving_Expert",
+    "forecast_reason": "The ProblemSolving_Expert extracted and simplified a set of fractions that were incomplete and incorrect compared to the expected solution. This led to the wrong final output.",
+    "tokens": 8395
+  },
+  {
+    "instance_id": "37",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Cubing_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly confirmed the missing cube's colors as 'Red, White', failing to account for the constraints that indicated the missing cube was 'green, white'. This error led directly to the wrong final solution.",
+    "tokens": 8603
+  },
+  {
+    "instance_id": "38",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Polish_TV_Series_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Polish_TV_Series_Expert",
+    "forecast_reason": "The agent incorrectly identified Bartosz Opania as the actor who played Ray in the Polish-language version of 'Everybody Loves Raymond', leading to the wrong character name being extracted.",
+    "tokens": 5995
+  },
+  {
+    "instance_id": "39",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "GIS_DataAnalysis_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "GIS_DataAnalysis_Expert",
+    "forecast_reason": "The GIS_DataAnalysis_Expert incorrectly verified and accepted zip codes 33040 and 33037 as correct based on their search of the USGS database. This was the decisive error because it led to the acceptance of incorrect information, resulting in the wrong solution.",
+    "tokens": 20360
+  },
+  {
+    "instance_id": "40",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "NumericalMethods_Expert",
+    "forecast_reason": "The agent incorrectly concluded that the smallest n where x_n converges to four decimal places is 3, based on the intermediate results. The convergence actually occurs at iteration 2, as the value rounds to -4.9361 at that point. This misinterpretation led to the wrong solution.",
+    "tokens": 10067
+  },
+  {
+    "instance_id": "41",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Tizin_Translation_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Tizin_Translation_Expert",
+    "forecast_reason": "The agent incorrectly identified the accusative form of 'apples' as 'Zapple' instead of 'mato', leading to the wrong translation being accepted and verified.",
+    "tokens": 7487
+  },
+  {
+    "instance_id": "42",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert made a calculation error by determining the difference as 70,000 instead of the correct value, leading to the incorrect result of 70.0 thousands of women.",
+    "tokens": 6576
+  },
+  {
+    "instance_id": "43",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "DataAnalysis_Expert",
+    "forecast_reason": "The DataAnalysis_Expert incorrectly identified Train ID 5 as the train with the highest number of passengers, which led to the wrong arrival time being retrieved. This error in data analysis caused the system to follow an incorrect path, resulting in the wrong solution.",
+    "tokens": 11512
+  },
+  {
+    "instance_id": "44",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "WebDevelopment_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "GraphicDesign_Expert",
+    "forecast_reason": "The GraphicDesign_Expert incorrectly concluded that the symbol represents 'transformation and wisdom', which led to the wrong solution. The correct meaning was 'War is not here this is a land of peace', but this was not identified due to the misinterpretation of the symbol's visual characteristics and context.",
+    "tokens": 8349
+  },
+  {
+    "instance_id": "45",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "PublicationData_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "PublicationData_Expert",
+    "forecast_reason": "The agent incorrectly determined the false positive rate as 0.05 instead of using the average p-value of 0.04 given in the problem statement. This led to an incorrect calculation of the number of incorrect papers.",
+    "tokens": 7294
+  },
+  {
+    "instance_id": "46",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Behavioral_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Behavioral_Expert",
+    "forecast_reason": "The Behavioral_Expert incorrectly concluded that all residents are humans based on the statement 'At least one of us is a human.' The agent failed to consider that if all residents were vampires, they would lie, and the statement would be false, which is consistent with vampires lying. This misunderstanding led to the incorrect conclusion that there are no vampires.",
+    "tokens": 9246
+  },
+  {
+    "instance_id": "47",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Mesopotamian_Number_Systems_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Mesopotamian_Number_Systems_Expert",
+    "forecast_reason": "The expert incorrectly calculated the positional values of the symbols, leading to the wrong total of 661 instead of the correct value, 536. This error in step 1 set the process on the wrong path, resulting in the incorrect final answer.",
+    "tokens": 7154
+  },
+  {
+    "instance_id": "48",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "Geometry_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Geometry_Expert",
+    "forecast_reason": "The Geometry_Expert made a decisive error by assuming the polygon was a regular hexagon with each side measuring 10 units, leading to an incorrect area calculation. This assumption was not based on verified information from the image, causing the system to follow an incorrect path.",
+    "tokens": 8290
+  },
+  {
+    "instance_id": "49",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Validation_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Validation_Expert",
+    "forecast_reason": "The agent failed to correctly parse the 'Gift Assignments' section, leaving it empty. This oversight led to the inability to identify the non-giver, as the subsequent analysis relied on this incomplete data.",
+    "tokens": 12336
+  },
+  {
+    "instance_id": "50",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "Financial_Expert",
+    "forecast_reason": "The Financial_Expert failed to correctly interpret or communicate the results of the revenue-to-rent ratio calculation, leading to the incorrect final answer 'Finance', which does not match any of the types listed in the extracted data.",
+    "tokens": 13634
+  },
+  {
+    "instance_id": "51",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements from the beginning, focusing on debugging a Python script unrelated to the original problem of identifying EC numbers for chemicals used in virus testing. This misinterpretation led the entire process astray.",
+    "tokens": 8236
+  },
+  {
+    "instance_id": "52",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "ISBNCheckDigit_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "ISBNCheckDigit_Expert",
+    "forecast_reason": "The agent provided incorrect logic for determining the check digit, which led to the wrong output. The code incorrectly handles the case when the modulo result is 0, leading to the consistent output of 'X' instead of '0'.",
+    "tokens": 10001
+  },
+  {
+    "instance_id": "53",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert made a mistake by using incorrect logic to identify ps versions in the articles. The code checked for 'ps' in the 'entry_id', which was not the correct method, leading to the incorrect output of 0 articles with ps versions.",
+    "tokens": 6587
+  },
+  {
+    "instance_id": "54",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Clinical_Trial_Data_Analysis_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Validation_Expert",
+    "forecast_reason": "The Validation_Expert confirmed the enrollment count as 100 participants, which was incorrect. This step finalized the wrong data, leading to the incorrect solution.",
+    "tokens": 8314
+  },
+  {
+    "instance_id": "55",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "WebServing_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "WebServing_Expert",
+    "forecast_reason": "The WebServing_Expert encountered a CAPTCHA and did not attempt alternative methods to access the paper, leading to the failure to retrieve the necessary information.",
+    "tokens": 14426
+  },
+  {
+    "instance_id": "56",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Validation_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "RecyclingRate_Expert",
+    "forecast_reason": "The agent committed to using a $0.10 per bottle rate without verifying it against the specific Wikipedia link, leading to the incorrect calculation of $16.00 instead of the correct $8.00.",
+    "tokens": 7971
+  },
+  {
+    "instance_id": "57",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "TextExtraction_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly concluded that only one applicant was missing a single qualification without properly verifying the analysis against the expected outcome of 17 applicants. This assumption led to the acceptance of the incorrect result.",
+    "tokens": 7594
+  },
+  {
+    "instance_id": "58",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly identified 'BaseBagging' as the predictor base command that received a bug fix in the Scikit-Learn July 2017 changelog. This mistake led to the wrong conclusion being accepted and propagated through the rest of the conversation.",
+    "tokens": 6702
+  },
+  {
+    "instance_id": "59",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "DataExtraction_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "DataVerification_Expert",
+    "forecast_reason": "The agent provided a BeautifulSoup script that assumed specific HTML structure for data extraction. If the webpage did not match these assumptions, it would result in no data being extracted, leading to an empty CSV file and the subsequent EmptyDataError.",
+    "tokens": 16680
+  },
+  {
+    "instance_id": "60",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "DataAnalysis_Expert",
+    "forecast_reason": "The agent miscalculated the difference between the number of unique winners of Survivor and American Idol, leading to an incorrect final answer.",
+    "tokens": 5222
+  },
+  {
+    "instance_id": "61",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "PythonProgramming_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "PythonProgramming_Expert",
+    "forecast_reason": "The agent incorrectly assumed the C++ code was within a specific class 'cpp' in 'pre' tags, leading to failure in fetching the code. This was the earliest decisive error that caused the failure.",
+    "tokens": 9479
+  },
+  {
+    "instance_id": "62",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Research_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Literature_Expert",
+    "forecast_reason": "The Literature_Expert incorrectly identified 'mis-transmission' as the discrepancy instead of 'cloak'. This error led to the wrong conclusion about the mismatched word, causing the system to fail in providing the correct solution.",
+    "tokens": 7726
+  },
+  {
+    "instance_id": "63",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "MusicTheory_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "MusicTheory_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements, focusing on subtracting the number of notes on lines from the total number of notes, rather than understanding the context or meaning behind the notes to derive the correct age.",
+    "tokens": 9703
+  },
+  {
+    "instance_id": "64",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "MilitaryHistory_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "MilitaryHistory_Expert",
+    "forecast_reason": "The agent initiated a web search strategy without verifying the availability of specific information about the photograph, leading to reliance on irrelevant search results and failure to solve the problem correctly.",
+    "tokens": 12368
+  },
+  {
+    "instance_id": "65",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "VideoContentAnalysis_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Computer_terminal",
+    "forecast_reason": "The Computer_terminal agent encountered an execution failure in step 2, which prevented the system from effectively accessing and analyzing the video content needed to identify the command 'Format Document'. This error was the earliest decisive error that led to the failure.",
+    "tokens": 13933
+  },
+  {
+    "instance_id": "66",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "BiblicalScholar_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "MiddleEasternHistory_Expert",
+    "forecast_reason": "The agent incorrectly assumed that the task required identifying the Prime Minister of Iran, where Susa is located, instead of recognizing that the task was about identifying the Prime Minister of India, as Morarji Desai was the correct answer. This misinterpretation led to the wrong solution.",
+    "tokens": 6801
+  },
+  {
+    "instance_id": "67",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "VideoContentAnalysis_Expert",
+    "forecast_reason": "The agent misidentified #9 as 'Pacific Bluefin Tuna' based on the video captions, leading to the wrong maximum length being reported. This misidentification set the entire process on the wrong path, resulting in the incorrect solution.",
+    "tokens": 9062
+  },
+  {
+    "instance_id": "68",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert confirmed the incorrect answer 'Honolulu, Quincy' as correct, despite the task requiring the cities to be listed in alphabetical order, which should have been 'Braintree, Honolulu'. This verification error led to the final incorrect output.",
+    "tokens": 4398
+  },
+  {
+    "instance_id": "69",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "VideoContentAnalysis_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "VideoContentAnalysis_Expert",
+    "forecast_reason": "The agent attempted to extract audio using ffmpeg without ensuring it was correctly installed, leading to a failure in subsequent steps. This oversight was the earliest decisive error that prevented the successful completion of the task.",
+    "tokens": 8082
+  },
+  {
+    "instance_id": "70",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task, focusing on processing data for Python instead of correcting Unlambda code, leading to an irrelevant solution.",
+    "tokens": 3694
+  },
+  {
+    "instance_id": "71",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "DataExtraction_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "DataExtraction_Expert",
+    "forecast_reason": "The agent incorrectly counted all <img> tags in the HTML content without filtering out non-content images, leading to an incorrect total of 28 images instead of the correct 13.",
+    "tokens": 7613
+  },
+  {
+    "instance_id": "72",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "API_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "API_Expert",
+    "forecast_reason": "The API_Expert agent made a mistake in step 8 by committing to a code logic that failed to correctly identify the first instance of the '06 - Regression' label being added to the oldest closed issue. This led to the incorrect date being outputted, as the logic did not account for multiple label events or correctly identify the first addition event.",
+    "tokens": 13579
+  },
+  {
+    "instance_id": "73",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "VideoAnalysis_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "DoctorWhoScript_Expert",
+    "forecast_reason": "The agent incorrectly identified the setting as 'INT. CASTLE BEDROOM' instead of 'THE CASTLE', leading to the wrong solution.",
+    "tokens": 6054
+  },
+  {
+    "instance_id": "74",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "MerriamWebsterWordOfTheDay_Historian_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly concluded that there was no specific writer quoted for the Word of the Day 'jingoism' on June 27, 2022. This misinterpretation or oversight of the information on the page led to the wrong solution, as the correct answer is Annie Levin.",
+    "tokens": 7308
+  },
+  {
+    "instance_id": "75",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Data_Collection_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert confirmed the incorrect difference in standard deviations as 2.311 instead of the correct answer 0.269. This confirmation led to the acceptance of the wrong solution.",
+    "tokens": 9176
+  },
+  {
+    "instance_id": "76",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Validation_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Validation_Expert",
+    "forecast_reason": "The agent made a decisive error by providing a Python script that incorrectly assumed the HTML structure of the NPB player profile page, leading to a failure in extracting Taishō Tamai's jersey number.",
+    "tokens": 9310
+  },
+  {
+    "instance_id": "77",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "YouTubeDownload_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "ResultVerification_Expert",
+    "forecast_reason": "The ResultVerification_Expert committed to using TensorFlow for bird species identification without ensuring that TensorFlow was installed, leading to the failure when the script was executed.",
+    "tokens": 9375
+  },
+  {
+    "instance_id": "78",
+    "ground_truth_failure_id": 9,
+    "ground_truth_agent": "Neurology_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "Neurology_Expert",
+    "forecast_reason": "The agent failed to utilize available tools or methods for automated text analysis, defaulting to manual inspection, which led to the failure to identify the author 'Kleinpaul' in Chapter 2.",
+    "tokens": 7848
+  },
+  {
+    "instance_id": "79",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "WaybackMachine_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert confirmed the answer as 'shrimp and grits' instead of the required singular form 'shrimp', leading to the incorrect solution.",
+    "tokens": 10327
+  },
+  {
+    "instance_id": "80",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements, focusing on debugging code to produce 'Nowak 2160' instead of solving the real-world problem of identifying the astronaut with the least time spent in space.",
+    "tokens": 10095
+  },
+  {
+    "instance_id": "81",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "DataVerification_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "DataVerification_Expert",
+    "forecast_reason": "The DataVerification_Expert incorrectly identified the landmark on the Vogue cover as the Eiffel Tower, leading to the wrong height being calculated and verified, resulting in the incorrect solution.",
+    "tokens": 6684
+  },
+  {
+    "instance_id": "82",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "Marathon_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly rounded the calculated time of 16,788.35 hours to 17,000 hours instead of 17 hours, misunderstanding the task requirement to round to the nearest 1000 hours without comma separators.",
+    "tokens": 8621
+  },
+  {
+    "instance_id": "83",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "DataAnalysis_Expert",
+    "forecast_reason": "The DataAnalysis_Expert failed to confirm the correct URL for the dataset before attempting to download it, leading to the download of an incorrect file and ultimately causing the failure to solve the problem.",
+    "tokens": 8676
+  },
+  {
+    "instance_id": "84",
+    "ground_truth_failure_id": 7,
+    "ground_truth_agent": "Chess_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Computer_terminal",
+    "forecast_reason": "The agent failed to execute the function to analyze the chess position due to a missing import or dependency issue, specifically a NameError because 'Image' is not defined. This prevented the system from using automated methods to determine the correct move, leading to the wrong solution.",
+    "tokens": 8055
+  },
+  {
+    "instance_id": "85",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "BenAndJerrysFlavors_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "WebServing_Expert",
+    "forecast_reason": "The agent incorrectly identified the last line of the rhyme on the headstone visible in the background of the photo of Dastardly Mash, leading to the acceptance of the wrong information as the correct solution.",
+    "tokens": 15606
+  },
+  {
+    "instance_id": "86",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "Library_Database_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "NaturalLanguageProcessing_Expert",
+    "forecast_reason": "The agent decided to perform a general web search instead of directly querying the BASE search engine for specific articles under DDC 633 for the year 2020. This misalignment in the search strategy led to the failure to identify the correct article with a unique flag from Guatemala.",
+    "tokens": 9048
+  },
+  {
+    "instance_id": "87",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Music_Critic_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Music_Critic_Expert",
+    "forecast_reason": "The agent incorrectly filtered out 'Tidal' despite verifying it received a grade of B, leading to its omission from the final answer.",
+    "tokens": 9670
+  },
+  {
+    "instance_id": "88",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "FinancialData_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "FinancialData_Expert",
+    "forecast_reason": "The agent attempted to find a direct download link for historical stock data using a web search, but the search result did not provide the necessary link to download the data in CSV format. This failure to obtain the correct information source led to the inability to determine the first year Apple stock went above $50.",
+    "tokens": 8854
+  },
+  {
+    "instance_id": "89",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Validation_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Baseball_Historian_Expert",
+    "forecast_reason": "The Baseball_Historian_Expert incorrectly reported that Reggie Jackson had 512 at bats, which led to the wrong solution. This incorrect data was used in subsequent steps and was never corrected.",
+    "tokens": 15059
+  },
+  {
+    "instance_id": "90",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Federico_Lauria_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Federico_Lauria_Expert",
+    "forecast_reason": "The agent failed to actively verify the dissertation's contents or locate footnote 397 after generating search URLs, leading to a failure in identifying the necessary information for solving the problem.",
+    "tokens": 16437
+  },
+  {
+    "instance_id": "91",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Blu-Ray_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Data_Analysis_Expert",
+    "forecast_reason": "The agent attempted to filter the DataFrame based on the 'Platform' column without properly handling NaN values, leading to an incorrect filtering approach and ultimately causing the failure to identify the oldest Blu-Ray entry.",
+    "tokens": 10292
+  },
+  {
+    "instance_id": "92",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent was given a task unrelated to the logical equivalence problem, leading to a focus on debugging a code execution issue instead of solving the actual problem described.",
+    "tokens": 8319
+  },
+  {
+    "instance_id": "93",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "FilmCritic_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "FilmCritic_Expert",
+    "forecast_reason": "The FilmCritic_Expert confirmed only one color, 'white', without considering the possibility of multiple colors as required by the task. This led to an incomplete and incorrect final answer.",
+    "tokens": 5968
+  },
+  {
+    "instance_id": "94",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "AnimalBehavior_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "BirdSpeciesIdentification_Expert",
+    "forecast_reason": "The agent failed to recognize the significance of the search result mentioning 'rock hoppers,' which directly pointed to the Rockhopper penguin. This oversight led to the failure to correctly identify the bird species.",
+    "tokens": 12549
+  },
+  {
+    "instance_id": "95",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "AcademicPublication_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "PublicationAnalysis_Expert",
+    "forecast_reason": "The agent committed to a plan that focused on finding the earliest papers of the identified authors without ensuring that the paper is authored by the one with prior publications among the authors of the 2015 paper, leading to the wrong solution.",
+    "tokens": 16940
+  },
+  {
+    "instance_id": "96",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Data_Retrieval_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Data_Retrieval_Expert",
+    "forecast_reason": "The agent attempted to scrape the Wikipedia page without verifying the presence or structure of the table, leading to empty results and subsequent failures in data retrieval.",
+    "tokens": 8063
+  },
+  {
+    "instance_id": "97",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "WikipediaHistory_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "WikipediaHistory_Expert",
+    "forecast_reason": "The WikipediaHistory_Expert incorrectly identified 'Brachiosaurus' as the only dinosaur-related article promoted to Featured Article status in November 2016, leading to the wrong nominator being identified later.",
+    "tokens": 7743
+  },
+  {
+    "instance_id": "98",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Probability_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Probability_Expert",
+    "forecast_reason": "The Probability_Expert made a mistake in the simulation logic by incorrectly updating the positions of the balls on the platform after ejection, leading to the wrong conclusion that ball 2 has the highest probability of being ejected.",
+    "tokens": 11362
+  },
+  {
+    "instance_id": "99",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "AnalyticalReasoning_Expert",
+    "forecast_reason": "The agent assumed incorrect ticket prices without verification, leading to wrong calculations of total costs and savings, resulting in the incorrect savings amount of $120 instead of $395.",
+    "tokens": 9265
+  },
+  {
+    "instance_id": "100",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Movie_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Movie_Expert",
+    "forecast_reason": "The Movie_Expert failed to include 'Glass Onion: A Knives Out Mystery' in the list of Daniel Craig movies under 150 minutes, leading to the wrong solution.",
+    "tokens": 8811
+  },
+  {
+    "instance_id": "101",
+    "ground_truth_failure_id": 2,
+    "ground_truth_agent": "Tickets_Pricing_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Tickets_Pricing_Expert",
+    "forecast_reason": "The Tickets_Pricing_Expert made a decisive error in Step 3 by calculating and comparing the costs incorrectly, leading to the conclusion that annual passes cost more than daily tickets, which contradicts the correct answer of saving $45.",
+    "tokens": 21015
+  },
+  {
+    "instance_id": "102",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Filmography_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Filmography_Expert",
+    "forecast_reason": "The Filmography_Expert failed to include 'Nosferatu the Vampyre' in the initial list of Isabelle Adjani's films, leading to the incorrect conclusion that 'Subway' was the highest rated film. This omission caused the system to overlook the correct answer.",
+    "tokens": 7630
+  },
+  {
+    "instance_id": "103",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "DataVerification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Location-Based_Services_Expert",
+    "forecast_reason": "The agent's search query or method failed to include McDonald's in the results, which led to the oversight of McDonald's as a potential solution. This error set the stage for the subsequent verification process to miss identifying McDonald's as the closest eatery open until 11 PM on Wednesdays.",
+    "tokens": 20651
+  },
+  {
+    "instance_id": "104",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "PythonDebugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "PythonDebugging_Expert",
+    "forecast_reason": "The agent misunderstood the task requirements, focusing on debugging a Python script instead of retrieving the most recent GFF3 file for beluga whales, leading the system down the wrong path.",
+    "tokens": 16997
+  },
+  {
+    "instance_id": "105",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Local_Knowledge_Expert",
+    "forecast_reason": "The Local_Knowledge_Expert committed to using a Python script with the Google Maps API without ensuring the availability of a valid API key. This led to a failure in retrieving the necessary data to identify the correct gyms, which was critical for solving the task accurately.",
+    "tokens": 9182
+  },
+  {
+    "instance_id": "106",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly confirmed the highest sale price as $5,200,000 based on Realtor.com data without proper validation against the actual highest sale price of $3,080,000, leading to the wrong solution.",
+    "tokens": 3626
+  },
+  {
+    "instance_id": "107",
+    "ground_truth_failure_id": 6,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert failed to prioritize the correct link, ftp://ftp.broadinstitute.org/distribution/assemblies/mammals/dog/canFam3.1/, which was the correct answer. Instead, the expert included other genome assemblies and links that were not the most relevant or correct for the task, leading to the wrong solution.",
+    "tokens": 10035
+  },
+  {
+    "instance_id": "108",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Corporate_Governance_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "Corporate_Governance_Expert",
+    "forecast_reason": "The agent incorrectly concluded that all listed board members held C-suite positions before joining Apple's Board, despite the correct answer indicating otherwise. This misinterpretation of the professional histories led to the wrong solution.",
+    "tokens": 34750
+  },
+  {
+    "instance_id": "109",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Geography_Expert",
+    "forecast_reason": "The Geography_Expert identified a list of grocery stores that were not actually within 2 blocks of Lincoln Park, leading to incorrect conclusions about their proximity. This reliance on an incorrect list without proper verification caused the failure.",
+    "tokens": 26996
+  },
+  {
+    "instance_id": "110",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The agent failed to ensure that the hikes were recommended by at least three different people with kids, focusing only on ratings and reviews, which led to the incorrect final list.",
+    "tokens": 5794
+  },
+  {
+    "instance_id": "111",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "DataAnalysis_Expert",
+    "forecast_reason": "The agent used a mock dataset with incorrect results, leading to a misunderstanding of the task requirements and setting the process on the wrong path from the start.",
+    "tokens": 10486
+  },
+  {
+    "instance_id": "112",
+    "ground_truth_failure_id": 4,
+    "ground_truth_agent": "HistoricalWeatherData_Expert",
+    "forecast_failure_id": 6,
+    "forecast_agent": "Statistics_Expert",
+    "forecast_reason": "The Statistics_Expert committed to using mock data due to the unavailability of actual data, leading to an incorrect probability calculation for snowfall on New Year's Eve.",
+    "tokens": 10061
+  },
+  {
+    "instance_id": "113",
+    "ground_truth_failure_id": 7,
+    "ground_truth_agent": "Reviews_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The agent planned to scrape TripAdvisor pages for necessary details, but this approach failed due to the complexity of the HTML structure or JavaScript rendering, leading to incorrect data being used for validation and causing the system to fail in providing the correct solution.",
+    "tokens": 12254
+  },
+  {
+    "instance_id": "114",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert created a synthetic dataset that incorrectly included a house with 900 sqft as the smallest, leading to the wrong conclusion during verification.",
+    "tokens": 11092
+  },
+  {
+    "instance_id": "115",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Verification_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert incorrectly calculated the savings as $120 instead of the correct $55, leading to the wrong solution. This error originated from a miscalculation or misunderstanding of the problem requirements.",
+    "tokens": 7230
+  },
+  {
+    "instance_id": "116",
+    "ground_truth_failure_id": 7,
+    "ground_truth_agent": "DataAnalysis_Expert",
+    "forecast_failure_id": 2,
+    "forecast_agent": "DataManipulation_Expert",
+    "forecast_reason": "The agent attempted to explore a CSV file that did not exist, leading to a FileNotFoundError. This failure to access the correct dataset was the earliest decisive error, as it resulted in the use of a simulated dataset and ultimately the wrong solution.",
+    "tokens": 9557
+  },
+  {
+    "instance_id": "117",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "JSON_Expert",
+    "forecast_failure_id": 1,
+    "forecast_agent": "Debugging_Expert",
+    "forecast_reason": "The agent focused on resolving a language setting error unrelated to the task of retrieving shipping costs, leading the process away from solving the actual problem.",
+    "tokens": 8144
+  },
+  {
+    "instance_id": "118",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Statistics_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert generated mock data using a uniform distribution for temperatures between 70 and 110 degrees Fahrenheit, which may not accurately reflect historical weather patterns. This led to an incorrect percentage calculation of days exceeding 95°F, resulting in the wrong final answer.",
+    "tokens": 10122
+  },
+  {
+    "instance_id": "119",
+    "ground_truth_failure_id": 0,
+    "ground_truth_agent": "Geometry_Expert",
+    "forecast_failure_id": 4,
+    "forecast_agent": "VerificationExpert",
+    "forecast_reason": "The VerificationExpert made a decisive error by choosing to use simulated predefined driving distances instead of obtaining actual driving distances, leading to incorrect verification of gyms.",
+    "tokens": 9828
+  },
+  {
+    "instance_id": "120",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Vegan_Food_Expert",
+    "forecast_failure_id": 7,
+    "forecast_agent": "Verification_Expert",
+    "forecast_reason": "The Verification_Expert committed to verifying a list of restaurants that did not include 'Shanghai villa', which was the correct answer. This decision led to the final incorrect solution as the correct restaurant was never considered or verified.",
+    "tokens": 16216
+  },
+  {
+    "instance_id": "121",
+    "ground_truth_failure_id": 1,
+    "ground_truth_agent": "Debugging_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "JSON_Expert",
+    "forecast_reason": "The JSON_Expert misinterpreted the task, focusing on a language setting error instead of finding the cheapest mailing option, leading the entire process astray.",
+    "tokens": 8505
+  },
+  {
+    "instance_id": "122",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "BingAPI_Expert",
+    "forecast_failure_id": 0,
+    "forecast_agent": "BingAPI_Expert",
+    "forecast_reason": "The agent provided a plan that included a specific list of bars to verify for accessibility, which did not include 'For Pete's Sake'. This exclusion led to the failure to identify the correct solution.",
+    "tokens": 9644
+  },
+  {
+    "instance_id": "123",
+    "ground_truth_failure_id": 3,
+    "ground_truth_agent": "Paintball_Expert",
+    "forecast_failure_id": 9,
+    "forecast_agent": "Paintball_Expert",
+    "forecast_reason": "The agent failed to geocode the paintball places' addresses, which are crucial for determining proximity to karting tracks. This led to an incomplete analysis and incorrect final answer.",
+    "tokens": 10539
+  },
+  {
+    "instance_id": "124",
+    "ground_truth_failure_id": 8,
+    "ground_truth_agent": "Research_Expert",
+    "forecast_failure_id": 8,
+    "forecast_agent": "Research_Expert",
+    "forecast_reason": "The Research_Expert failed to utilize the available information from step 6, which mentioned Gina DiGioia as a member of the management team. Instead, the agent attempted a new web search in step 8, leading to a NameError in step 9 and ultimately failing to retrieve the necessary joining years.",
+    "tokens": 15515
+  },
+  {
+    "instance_id": "125",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "MartialArts_Expert",
+    "forecast_failure_id": 3,
+    "forecast_agent": "NYC_Local_Expert",
+    "forecast_reason": "The agent identified Anderson's Martial Arts Academy as a potential option and decided to verify its schedule, leading the process away from the correct answer, Renzo Gracie Jiu-Jitsu Wall Street.",
+    "tokens": 8772
+  },
+  {
+    "instance_id": "126",
+    "ground_truth_failure_id": 5,
+    "ground_truth_agent": "CorporateHistory_IPOs_MondayCom_Expert",
+    "forecast_failure_id": 5,
+    "forecast_agent": "CorporateHistory_IPOs_MondayCom_Expert",
+    "forecast_reason": "The agent incorrectly identified the C-suite members at the time of the IPO, leading to the wrong conclusion about who was not in the C-suite during the IPO.",
+    "tokens": 9725
+  }
+]
