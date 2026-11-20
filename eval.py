@@ -58,20 +58,36 @@ def run_all_cases(baseline_type: str):
             except Exception as e:
                 print(e)
 
-def evaluate_all_cases(baseline_type: str):
+def get_result_dir(baseline_type: str, runtime: int) -> str:
+    # TRAIL writes to output/TRAIL (see baseline/trail/trail_adapted.py); keep the
+    # directory name case-exact so it also works on case-sensitive filesystems.
+    dir_name = "TRAIL" if baseline_type == "trail" else baseline_type
+    if baseline_type == "agent_locate":
+        setting = f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}_DIAGNOSIS_{config.WITH_DIAGNOSIS}_CONTEXT_TRUNCATION_{config.WITH_CONTEXT_AWARE_TRUNCATION}"
+    else:
+        setting = f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}"
+    return os.path.join(output_dir, dir_name, config.MODEL, setting, f"runtime_{runtime}")
 
-    run_all_cases(baseline_type)
+def evaluate_all_cases(baseline_type: str, eval_only: bool = False):
+
+    if not eval_only:
+        run_all_cases(baseline_type)
+
+    # Avg_Tokens: mean over every row that has a result, counted once per setting
+    # (independent of tolerance). Denominator is the number of rows with results,
+    # which can be smaller than Total when some cases are missing.
+    dfs = {runtime: pd.read_csv(os.path.join(get_result_dir(baseline_type, runtime), "result.csv"))
+           for runtime in range(1, config.RUN_TIME + 1)}
+    token_series = pd.concat([df['tokens'] for df in dfs.values()]).dropna()
+    avg_tokens = token_series.sum() / len(token_series) if len(token_series) else 0
 
     for tolerance in config.TOLERANCE:
         all_success = 0
         all_total = 0
-        all_tokens = 0
 
         for runtime in range(1, config.RUN_TIME + 1):
-            if baseline_type == "agent_locate":
-                df = pd.read_csv(os.path.join(output_dir, baseline_type, config.MODEL, f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}_DIAGNOSIS_{config.WITH_DIAGNOSIS}_CONTEXT_TRUNCATION_{config.WITH_CONTEXT_AWARE_TRUNCATION}", f"runtime_{runtime}", "result.csv"))
-            else:
-                df = pd.read_csv(os.path.join(output_dir, baseline_type, config.MODEL, f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}", f"runtime_{runtime}", "result.csv"))
+            df = dfs[runtime]
+            result_dir = get_result_dir(baseline_type, runtime)
             total, success = count_json_files("./RootSE/"), 0
             all_total += total
             failure_cases = []
@@ -83,9 +99,8 @@ def evaluate_all_cases(baseline_type: str):
                 failure_id = row["failure_id"]
                 failure = load_failure(os.path.abspath(f"./RootSE/{agent}/{model}/{instance_id}.json"))
                 if failure and int(failure_id) != -1 and (abs(int(failure.failure_id) - int(failure_id)) <= tolerance):
-                    all_tokens += row['tokens']
-                    all_success += 1
                     success += 1
+                    all_success += 1
                 else:
                     curr_case = {"instance_id": instance_id, "ground_truth_failure_id": failure.failure_id,
                              "forecast_failure_id": failure_id, "forecast_reason": row["failure_reason"]}
@@ -94,17 +109,13 @@ def evaluate_all_cases(baseline_type: str):
             summary = {"success_rate": str(success/total), "total_cases": str(total)}
             failure_cases.append(summary)
 
-            if baseline_type == "agent_locate":
-                with open(os.path.join(output_dir, baseline_type, config.MODEL, f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}_DIAGNOSIS_{config.WITH_DIAGNOSIS}_CONTEXT_TRUNCATION_{config.WITH_CONTEXT_AWARE_TRUNCATION}", f"runtime_{runtime}", f"eval_tolerance_{tolerance}.json"), "w") as f:
-                    json.dump(failure_cases, f, indent=4)
-            else:
-                with open(os.path.join(output_dir, baseline_type, config.MODEL, f"GROUND_TRUTH_{config.WITH_GROUND_TRUTH}", f"runtime_{runtime}", f"eval_tolerance_{tolerance}.json"), "w") as f:
-                    json.dump(failure_cases, f, indent=4)
+            with open(os.path.join(result_dir, f"eval_tolerance_{tolerance}.json"), "w") as f:
+                json.dump(failure_cases, f, indent=4)
 
         if baseline_type == "agent_locate":
-            log_line = f"Baseline: {baseline_type}, Model: {config.MODEL}, WithGroundTruth: {config.WITH_GROUND_TRUTH}, WithDiagnosisL {config.WITH_DIAGNOSIS}, WithContextAwareTruncation: {config.WITH_CONTEXT_AWARE_TRUNCATION}, Tolerance: {tolerance}, Total: {all_total}, Success: {all_success}, Avg_Accuracy: {all_success/all_total:.4f}, Avg_Tokens: {all_tokens/all_success}\n"
+            log_line = f"Baseline: {baseline_type}, Model: {config.MODEL}, WithGroundTruth: {config.WITH_GROUND_TRUTH}, WithDiagnosisL {config.WITH_DIAGNOSIS}, WithContextAwareTruncation: {config.WITH_CONTEXT_AWARE_TRUNCATION}, Tolerance: {tolerance}, Total: {all_total}, Success: {all_success}, Avg_Accuracy: {all_success/all_total:.4f}, Avg_Tokens: {avg_tokens}\n"
         else:
-            log_line = f"Baseline: {baseline_type}, Model: {config.MODEL}, WithGroundTruth: {config.WITH_GROUND_TRUTH}, Tolerance: {tolerance}, Total: {all_total}, Success: {all_success}, Avg_Accuracy: {all_success/all_total:.4f}, Avg_Tokens: {all_tokens/all_success}\n"
+            log_line = f"Baseline: {baseline_type}, Model: {config.MODEL}, WithGroundTruth: {config.WITH_GROUND_TRUTH}, Tolerance: {tolerance}, Total: {all_total}, Success: {all_success}, Avg_Accuracy: {all_success/all_total:.4f}, Avg_Tokens: {avg_tokens}\n"
 
         summary_file = os.path.join(output_dir, "overall_accuracy_log.txt")
         existing = open(summary_file, encoding="utf-8").read() if os.path.exists(summary_file) else ""
@@ -122,5 +133,10 @@ if __name__ == "__main__":
         choices=["all_at_once", "step_by_step", "binary_search", "agent_locate", "trail", "FAMAS"],
         help="Baseline method to evaluate"
     )
+    parser.add_argument(
+        "--eval_only",
+        action="store_true",
+        help="Only score existing results in output/ without calling any API"
+    )
     args = parser.parse_args()
-    evaluate_all_cases(args.baseline)
+    evaluate_all_cases(args.baseline, eval_only=args.eval_only)
